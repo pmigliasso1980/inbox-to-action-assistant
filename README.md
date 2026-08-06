@@ -76,6 +76,8 @@ python3 -m unittest tests.test_evaluation_cases -v
 
 The daily evaluation fixtures live in `evals/daily_cases.json`. Offline evaluation validates
 deterministic policies against known structured outputs without API calls or SQLite writes.
+The open-ended taxonomy, risk tiers, sampling strategy, release gates, and expansion roadmap are
+documented in [`docs/EVALUATION_STRATEGY.md`](docs/EVALUATION_STRATEGY.md).
 
 ## Live evaluation
 
