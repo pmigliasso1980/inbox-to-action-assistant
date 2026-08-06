@@ -13,30 +13,30 @@ from .storage import InboxRepository
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Convierte mensajes en acciones revisadas.")
-    parser.add_argument("--db", default="inbox.db", help="Ruta de la base SQLite.")
+    parser = argparse.ArgumentParser(description="Turn messages into reviewed actions.")
+    parser.add_argument("--db", default="inbox.db", help="Path to the SQLite database.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    ingest = subparsers.add_parser("ingest", help="Procesa un mensaje nuevo.")
-    ingest.add_argument("body", help="Texto completo del mensaje.")
-    ingest.add_argument("--sender", default="desconocido")
-    ingest.add_argument("--subject", default="Sin asunto")
+    ingest = subparsers.add_parser("ingest", help="Process a new message.")
+    ingest.add_argument("body", help="Full message text.")
+    ingest.add_argument("--sender", default="unknown")
+    ingest.add_argument("--subject", default="No subject")
     ingest.add_argument("--model", default=os.getenv("OPENAI_MODEL", "gpt-5.6-luna"))
 
-    subparsers.add_parser("list", help="Lista los mensajes procesados.")
+    subparsers.add_parser("list", help="List processed messages.")
     evaluate = subparsers.add_parser(
-        "eval-live", help="Evalúa casos reales con la API sin persistir resultados."
+        "eval-live", help="Evaluate live API cases without persisting results."
     )
     evaluate.add_argument("--cases", type=Path, default=Path("evals/daily_cases.json"))
     evaluate.add_argument("--case", action="append", dest="selected_cases")
     evaluate.add_argument("--model", default=os.getenv("OPENAI_MODEL", "gpt-5.6-luna"))
-    show = subparsers.add_parser("show", help="Muestra el resultado completo de un mensaje.")
+    show = subparsers.add_parser("show", help="Show a message's complete result.")
     show.add_argument("id", type=int)
 
-    history = subparsers.add_parser("history", help="Muestra la auditoría de un mensaje.")
+    history = subparsers.add_parser("history", help="Show a message's audit history.")
     history.add_argument("id", type=int)
 
-    revise = subparsers.add_parser("revise", help="Corrige el análisis o borrador con JSON validado.")
+    revise = subparsers.add_parser("revise", help="Revise an analysis or draft with validated JSON.")
     revise.add_argument("id", type=int)
     revise.add_argument("--analysis-file", type=Path)
     revise.add_argument("--draft-file", type=Path)
@@ -44,8 +44,8 @@ def build_parser() -> argparse.ArgumentParser:
     revise.add_argument("--note")
 
     for command, help_text in (
-        ("approve", "Aprueba un resultado revisado."),
-        ("reject", "Rechaza un resultado revisado."),
+        ("approve", "Approve a reviewed result."),
+        ("reject", "Reject a reviewed result."),
     ):
         decision = subparsers.add_parser(command, help=help_text)
         decision.add_argument("id", type=int)
@@ -57,14 +57,14 @@ def _load_json(path: Path) -> dict:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise SystemExit(f"No se pudo leer JSON válido desde {path}: {exc}") from exc
+        raise SystemExit(f"Could not read valid JSON from {path}: {exc}") from exc
 
 
 def main() -> None:
     args = build_parser().parse_args()
     if args.command == "eval-live":
         if not os.getenv("OPENAI_API_KEY"):
-            raise SystemExit("Falta OPENAI_API_KEY en esta terminal.")
+            raise SystemExit("OPENAI_API_KEY is not set in this terminal.")
         from openai import OpenAI
 
         try:
@@ -89,7 +89,7 @@ def main() -> None:
             result = [event.model_dump(mode="json") for event in service.history(args.id)]
         elif args.command == "revise":
             if args.draft_file and args.clear_draft:
-                raise SystemExit("Usa --draft-file o --clear-draft, no ambos.")
+                raise SystemExit("Use either --draft-file or --clear-draft, not both.")
             analysis = (
                 MessageAnalysis.model_validate(_load_json(args.analysis_file))
                 if args.analysis_file
@@ -115,7 +115,7 @@ def main() -> None:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return
     if not os.getenv("OPENAI_API_KEY"):
-        raise SystemExit("Falta OPENAI_API_KEY en esta terminal.")
+        raise SystemExit("OPENAI_API_KEY is not set in this terminal.")
 
     from openai import OpenAI
 

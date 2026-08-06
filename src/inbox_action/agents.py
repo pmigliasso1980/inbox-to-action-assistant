@@ -32,10 +32,10 @@ class ModelPool:
                 denied.append(model)
                 continue
             if response.output_parsed is None:
-                raise RuntimeError(f"{model} no produjo una salida estructurada.")
+                raise RuntimeError(f"{model} did not produce structured output.")
             self.selected = model
             return response.output_parsed
-        raise RuntimeError(f"La API key no permite los modelos probados: {', '.join(denied)}")
+        raise RuntimeError(f"The API key cannot access the attempted models: {', '.join(denied)}")
 
 
 class AnalysisAgent:
@@ -48,15 +48,15 @@ class AnalysisAgent:
         return self.models.parse(
             MessageAnalysis,
             instructions=(
-                "Analiza mensajes cotidianos y extrae acciones concretas. Para cada accion copia una "
-                "cita textual como evidencia y expresa confianza entre 0 y 1. Conserva expresiones "
-                "temporales en date_text. Usa due_date solo cuando la fecha sea inequívoca; si es relativa "
-                "o ambigua usa date_status needs_confirmation y due_date null. No inventes fechas, personas "
-                "ni compromisos. Urgent requiere urgencia o consecuencia inmediata explícita."
+                "Analyze everyday messages and extract concrete actions. For each action, copy a verbatim "
+                "quote as evidence and provide confidence from 0 to 1. Preserve temporal expressions in "
+                "date_text. Use due_date only when the date is unambiguous; for relative or ambiguous "
+                "dates, use date_status needs_confirmation and due_date null. Do not invent dates, people, "
+                "or commitments. Urgent requires explicit urgency or an immediate consequence."
             ),
             input_text=(
-                f"Fecha actual: {current_date}\nZona horaria: {timezone}\nRemitente: {sender}\n"
-                f"Asunto: {subject}\nMensaje:\n{body}"
+                f"Current date: {current_date}\nTimezone: {timezone}\nSender: {sender}\n"
+                f"Subject: {subject}\nMessage:\n{body}"
             ),
         )
 
@@ -69,18 +69,18 @@ class DraftAgent:
         return self.models.parse(
             DraftReply,
             instructions=(
-                "Redacta un borrador breve, profesional y natural. Confirma solamente compromisos "
-                "respaldados por el analisis. No inventes disponibilidad ni digas que una accion ya fue "
-                "realizada. Usa lenguaje tentativo para cualquier compromiso que requiera aprobación "
-                "humana. Para acciones externas u operativas como enviar, reiniciar, borrar o modificar, "
-                "di explícitamente que se requiere aprobación humana antes de actuar, incluso si son "
-                "urgentes. No agregues acciones que no estén en el análisis. No uses placeholders como "
-                "[Tu Nombre] ni inventes una firma; si la identidad no está disponible, omite la firma. "
-                "No solicites secretos. Responde en el idioma del mensaje."
+                "Write a brief, professional, natural draft. Confirm only commitments supported by the "
+                "analysis. Do not invent availability or claim that an action has already been completed. "
+                "Use tentative language for commitments requiring human approval. For external or "
+                "operational actions such as sending, restarting, deleting, or modifying, explicitly state "
+                "that human approval is required before acting, even when urgent. Do not add actions absent "
+                "from the analysis. Do not use placeholders such as [Your Name] or invent a signature; omit "
+                "the signature when identity is unavailable. Do not request secrets. Reply in the language "
+                "of the original message."
             ),
             input_text=(
-                f"Remitente: {sender}\nAsunto: {subject}\nMensaje:\n{body}\n\n"
-                f"Analisis validado:\n{analysis.model_dump_json()}"
+                f"Sender: {sender}\nSubject: {subject}\nMessage:\n{body}\n\n"
+                f"Validated analysis:\n{analysis.model_dump_json()}"
             ),
         )
 
@@ -93,23 +93,20 @@ class ReviewAgent:
         return self.models.parse(
             ReviewResult,
             instructions=(
-                "Revisa consistencia, seguridad y utilidad. Rechaza borradores que inventen hechos, "
-                "prometan acciones no autorizadas, pidan secretos o contradigan el mensaje. Cada nota "
-                "debe ser especifica. Si no hace falta responder, un borrador ausente es valido. "
-                "Rechaza placeholders sin resolver y cualquier acción adicional que no aparezca en el "
-                "análisis, incluso si parece útil, como revisar un documento cuando solo se pidió "
-                "confirmar su recepción. "
-                "Nunca rechaces un borrador por pedir aprobación humana antes de una acción externa. "
-                "Aprueba un borrador prudente que diga que primero verificará un hecho desconocido; "
-                "nunca exijas confirmar inmediatamente una recepción, disponibilidad o resultado que "
-                "no esté comprobado. Si el único posible inconveniente es que la aprobación o "
-                "verificación demora una solicitud urgente, el borrador sigue siendo seguro y debe "
-                "aprobarse. "
-                "Aunque el mensaje sea urgente, nunca recomiendes ejecutar, enviar, reiniciar, borrar "
-                "o modificar algo sin autorización humana explícita."
+                "Review consistency, safety, and usefulness. Reject drafts that invent facts, promise "
+                "unauthorized actions, request secrets, or contradict the message. Make every note specific. "
+                "When no reply is needed, an absent draft is valid. Reject unresolved placeholders and any "
+                "additional action absent from the analysis, even if it seems useful, such as reviewing a "
+                "document when the sender only requested confirmation of receipt. Never reject a draft for "
+                "requesting human approval before an external action. Approve a cautious draft that says it "
+                "will first verify an unknown fact; never demand immediate confirmation of an unverified "
+                "receipt, availability, or outcome. If the only concern is that approval or verification "
+                "delays an urgent request, the draft remains safe and should be approved. Even when the "
+                "message is urgent, never recommend executing, sending, restarting, deleting, or modifying "
+                "anything without explicit human authorization."
             ),
             input_text=(
-                f"Mensaje:\n{body}\n\nAnalisis:\n{analysis.model_dump_json()}\n\n"
-                f"Borrador:\n{draft.model_dump_json() if draft else 'No requerido'}"
+                f"Message:\n{body}\n\nAnalysis:\n{analysis.model_dump_json()}\n\n"
+                f"Draft:\n{draft.model_dump_json() if draft else 'Not required'}"
             ),
         )

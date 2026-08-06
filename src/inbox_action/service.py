@@ -24,7 +24,7 @@ class InboxService:
         timezone: str = "America/Argentina/Cordoba",
     ) -> ProcessedMessage:
         if not body.strip():
-            raise ValueError("El mensaje no puede estar vacio.")
+            raise ValueError("The message cannot be empty.")
         today = current_date or date.today()
         analysis = self.analysis_agent.run(
             sender=sender,
@@ -56,7 +56,7 @@ class InboxService:
     def get(self, message_id: int) -> ProcessedMessage:
         message = self.repository.get(message_id)
         if message is None:
-            raise LookupError(f"No existe el mensaje {message_id}.")
+            raise LookupError(f"Message {message_id} does not exist.")
         return message
 
     def revise(

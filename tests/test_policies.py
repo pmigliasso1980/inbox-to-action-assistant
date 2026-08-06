@@ -199,7 +199,7 @@ class PolicyTests(unittest.TestCase):
         )
 
         self.assertEqual(result.priority, Priority.HIGH)
-        self.assertIn("24 horas", result.priority_reason)
+        self.assertIn("24 hours", result.priority_reason)
 
     def test_explicit_urgency_sets_urgent_priority(self) -> None:
         analysis = MessageAnalysis(
@@ -218,7 +218,7 @@ class PolicyTests(unittest.TestCase):
         )
 
         self.assertEqual(result.priority, Priority.URGENT)
-        self.assertIn("urgencia explícita", result.priority_reason)
+        self.assertIn("explicit urgency", result.priority_reason)
 
     def test_unsubstantiated_urgent_with_near_deadline_becomes_high(self) -> None:
         analysis = MessageAnalysis(

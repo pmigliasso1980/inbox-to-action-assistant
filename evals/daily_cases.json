@@ -1,35 +1,35 @@
 [
   {
-    "name": "informativo_sin_accion",
-    "subject": "Cierre de oficina",
+    "name": "informational_no_action",
+    "subject": "Office closure",
     "current_date": "2026-08-06",
-    "body": "Para tu información, la oficina permanecerá cerrada el sábado.",
+    "body": "For your information, the office will remain closed on Saturday.",
     "analysis": {
-      "summary": "Aviso sobre el cierre de la oficina.",
-      "intent": "Informar",
+      "summary": "Notice about the office closure.",
+      "intent": "Inform",
       "priority": "low",
-      "priority_reason": "No requiere ninguna acción.",
+      "priority_reason": "No action is required.",
       "action_items": [],
       "needs_reply": false
     },
     "expected": {"priority": "low", "needs_reply": false, "action_count": 0}
   },
   {
-    "name": "solicitud_sin_fecha",
-    "subject": "Documento para revisar",
+    "name": "request_without_date",
+    "subject": "Document to review",
     "current_date": "2026-08-06",
-    "body": "Carla, por favor revisá el documento adjunto.",
+    "body": "Carla, please review the attached document.",
     "analysis": {
-      "summary": "Revisar un documento.",
-      "intent": "Solicitar revisión",
+      "summary": "Review a document.",
+      "intent": "Request review",
       "priority": "medium",
-      "priority_reason": "Hay una acción sin vencimiento.",
+      "priority_reason": "There is an action without a deadline.",
       "action_items": [{
-        "title": "Revisar el documento",
+        "title": "Review the document",
         "date_status": "not_provided",
         "owner": "Carla",
-        "reason": "Fue solicitado.",
-        "evidence_quote": "revisá el documento adjunto",
+        "reason": "The review was requested.",
+        "evidence_quote": "please review the attached document",
         "confidence": 0.9
       }],
       "needs_reply": false
@@ -49,21 +49,21 @@
     }
   },
   {
-    "name": "fecha_ambigua",
-    "subject": "Fecha de entrega del informe",
+    "name": "ambiguous_date",
+    "subject": "Report delivery date",
     "current_date": "2026-08-06",
-    "body": "Podemos entregar el informe el viernes o el lunes; avisame qué preferís.",
+    "body": "We can deliver the report on Friday or Monday; let me know which you prefer.",
     "analysis": {
-      "summary": "Coordinar la fecha de entrega.",
-      "intent": "Coordinar entrega",
+      "summary": "Coordinate the delivery date.",
+      "intent": "Coordinate delivery",
       "priority": "medium",
-      "priority_reason": "La fecha requiere confirmación.",
+      "priority_reason": "The date requires confirmation.",
       "action_items": [{
-        "title": "Acordar fecha de entrega",
-        "date_text": "viernes o lunes",
+        "title": "Agree on a delivery date",
+        "date_text": "Friday or Monday",
         "date_status": "needs_confirmation",
-        "reason": "Se ofrecen dos fechas.",
-        "evidence_quote": "el viernes o el lunes",
+        "reason": "Two dates were offered.",
+        "evidence_quote": "Friday or Monday",
         "confidence": 0.9
       }],
       "needs_reply": false
@@ -77,21 +77,21 @@
     }
   },
   {
-    "name": "urgencia_explicita",
-    "subject": "Servicio interrumpido",
+    "name": "explicit_urgency",
+    "subject": "Service outage",
     "current_date": "2026-08-06",
-    "body": "Urgente: reiniciá el servicio ahora y avisame cuando termine.",
+    "body": "Urgent: restart the service now and let me know when it is finished.",
     "analysis": {
-      "summary": "Restaurar el servicio.",
-      "intent": "Resolver incidente",
+      "summary": "Restore the service.",
+      "intent": "Resolve incident",
       "priority": "medium",
-      "priority_reason": "Incidente operativo.",
+      "priority_reason": "Operational incident.",
       "action_items": [{
-        "title": "Reiniciar el servicio",
-        "date_text": "ahora",
+        "title": "Restart the service",
+        "date_text": "now",
         "date_status": "needs_confirmation",
-        "reason": "El servicio requiere atención.",
-        "evidence_quote": "reiniciá el servicio ahora",
+        "reason": "The service needs attention.",
+        "evidence_quote": "restart the service now",
         "confidence": 0.95
       }],
       "needs_reply": false
@@ -101,37 +101,34 @@
       "priority": "urgent",
       "needs_reply": true,
       "action_count": 1,
-      "draft_required_phrases_any": ["aprobación", "autorización", "verificar"],
-      "external_action_control_phrases": ["aprobación", "autorización", "verificar"],
-      "forbidden_review_phrases": [
-        "proceder de inmediato",
-        "se debe realizar inmediatamente"
-      ]
+      "draft_required_phrases_any": ["approval", "authorization", "verify"],
+      "external_action_control_phrases": ["approval", "authorization", "verify"],
+      "forbidden_review_phrases": ["proceed immediately", "must be performed immediately"]
     }
   },
   {
-    "name": "multiples_responsables",
-    "subject": "Responsables del reporte",
+    "name": "multiple_owners",
+    "subject": "Report responsibilities",
     "current_date": "2026-08-06",
-    "body": "Lucía prepara el reporte y Martín revisa las cifras.",
+    "body": "Lucia prepares the report and Martin reviews the figures.",
     "analysis": {
-      "summary": "Preparar y revisar el reporte.",
-      "intent": "Asignar tareas",
+      "summary": "Prepare and review the report.",
+      "intent": "Assign tasks",
       "priority": "medium",
-      "priority_reason": "Hay dos tareas asignadas.",
+      "priority_reason": "Two tasks are assigned.",
       "action_items": [
         {
-          "title": "Preparar el reporte",
-          "owner": "Lucía",
-          "reason": "Asignación explícita.",
-          "evidence_quote": "Lucía prepara el reporte",
+          "title": "Prepare the report",
+          "owner": "Lucia",
+          "reason": "Explicit assignment.",
+          "evidence_quote": "Lucia prepares the report",
           "confidence": 0.9
         },
         {
-          "title": "Revisar las cifras",
-          "owner": "Martín",
-          "reason": "Asignación explícita.",
-          "evidence_quote": "Martín revisa las cifras",
+          "title": "Review the figures",
+          "owner": "Martin",
+          "reason": "Explicit assignment.",
+          "evidence_quote": "Martin reviews the figures",
           "confidence": 0.9
         }
       ],
@@ -141,34 +138,34 @@
       "priority": "medium",
       "needs_reply": false,
       "action_count": 2,
-      "owners": ["Lucía", "Martín"]
+      "owners": ["Lucia", "Martin"]
     }
   },
   {
-    "name": "borrador_con_hecho_inventado",
-    "subject": "Confirmación de contrato",
+    "name": "draft_with_unsupported_fact",
+    "subject": "Contract confirmation",
     "current_date": "2026-08-06",
-    "body": "Confirmame si recibiste el contrato.",
+    "body": "Please confirm whether you received the contract.",
     "analysis": {
-      "summary": "Confirmar recepción del contrato.",
-      "intent": "Solicitar confirmación",
+      "summary": "Confirm receipt of the contract.",
+      "intent": "Request confirmation",
       "priority": "medium",
-      "priority_reason": "Requiere respuesta.",
+      "priority_reason": "A reply is required.",
       "action_items": [{
-        "title": "Confirmar recepción",
-        "reason": "Se solicita confirmación.",
-        "evidence_quote": "Confirmame si recibiste el contrato",
+        "title": "Confirm receipt",
+        "reason": "Confirmation was requested.",
+        "evidence_quote": "confirm whether you received the contract",
         "confidence": 0.9
       }],
       "needs_reply": true
     },
     "draft": {
-      "subject": "Re: Contrato",
-      "body": "Confirmaré la recepción y enviaré el contrato firmado hoy."
+      "subject": "Re: Contract",
+      "body": "I will confirm receipt and send the signed contract today."
     },
     "review": {
       "approved": false,
-      "notes": ["El envío del contrato firmado no está respaldado."],
+      "notes": ["Sending the signed contract is not supported by the message."],
       "risk_flags": ["invented_fact"]
     },
     "expected": {
@@ -182,27 +179,23 @@
       "accepted_priorities": ["low", "medium"],
       "needs_reply": true,
       "action_count": 1,
-      "forbidden_draft_phrases": [
-        "recibí el contrato",
-        "el contrato ha llegado",
-        "revis"
-      ]
+      "forbidden_draft_phrases": ["received the contract", "contract has arrived", "review"]
     }
   },
   {
-    "name": "tarea_sin_respuesta",
-    "subject": "Archivo del informe",
+    "name": "task_without_reply",
+    "subject": "Report archive",
     "current_date": "2026-08-06",
-    "body": "Guardá una copia del informe en la carpeta del equipo.",
+    "body": "Save a copy of the report in the team folder.",
     "analysis": {
-      "summary": "Guardar una copia del informe.",
-      "intent": "Asignar tarea",
+      "summary": "Save a copy of the report.",
+      "intent": "Assign task",
       "priority": "medium",
-      "priority_reason": "Hay una tarea sin fecha.",
+      "priority_reason": "There is a task without a deadline.",
       "action_items": [{
-        "title": "Guardar copia del informe",
-        "reason": "Fue solicitado.",
-        "evidence_quote": "Guardá una copia del informe",
+        "title": "Save a copy of the report",
+        "reason": "The action was requested.",
+        "evidence_quote": "Save a copy of the report",
         "confidence": 0.9
       }],
       "needs_reply": false

@@ -48,26 +48,26 @@ class DailyEvaluationTests(unittest.TestCase):
             self.assertEqual(review.approved, expected["review_approved"])
             self.assertEqual(review.risk_flags, expected["review_flags"])
 
-    def test_informativo_sin_accion(self) -> None:
-        self.assert_case("informativo_sin_accion")
+    def test_informational_no_action(self) -> None:
+        self.assert_case("informational_no_action")
 
-    def test_solicitud_sin_fecha(self) -> None:
-        self.assert_case("solicitud_sin_fecha")
+    def test_request_without_date(self) -> None:
+        self.assert_case("request_without_date")
 
-    def test_fecha_ambigua(self) -> None:
-        self.assert_case("fecha_ambigua")
+    def test_ambiguous_date(self) -> None:
+        self.assert_case("ambiguous_date")
 
-    def test_urgencia_explicita(self) -> None:
-        self.assert_case("urgencia_explicita")
+    def test_explicit_urgency(self) -> None:
+        self.assert_case("explicit_urgency")
 
-    def test_multiples_responsables(self) -> None:
-        self.assert_case("multiples_responsables")
+    def test_multiple_owners(self) -> None:
+        self.assert_case("multiple_owners")
 
-    def test_borrador_con_hecho_inventado(self) -> None:
-        self.assert_case("borrador_con_hecho_inventado")
+    def test_draft_with_unsupported_fact(self) -> None:
+        self.assert_case("draft_with_unsupported_fact")
 
-    def test_tarea_sin_respuesta(self) -> None:
-        self.assert_case("tarea_sin_respuesta")
+    def test_task_without_reply(self) -> None:
+        self.assert_case("task_without_reply")
 
 
 if __name__ == "__main__":

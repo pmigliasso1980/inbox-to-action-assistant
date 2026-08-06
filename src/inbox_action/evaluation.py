@@ -20,7 +20,7 @@ def load_cases(path: Path, selected_names: list[str] | None = None) -> list[dict
     available = {case["name"]: case for case in cases}
     missing = [name for name in selected_names if name not in available]
     if missing:
-        raise ValueError(f"Casos inexistentes: {', '.join(missing)}")
+        raise ValueError(f"Unknown cases: {', '.join(missing)}")
     return [available[name] for name in selected_names]
 
 

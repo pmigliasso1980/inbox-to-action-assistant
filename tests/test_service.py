@@ -109,7 +109,7 @@ class InboxServiceTests(unittest.TestCase):
                     body="Gracias, revisaré la propuesta antes de confirmar.",
                 ),
                 replace_draft=True,
-                note="Se aclaró el alcance.",
+                note="The scope was clarified.",
             )
             approved = service.decide(created.id, approved=True, note="Verificado por Pablo.")
 
@@ -127,7 +127,7 @@ class InboxServiceTests(unittest.TestCase):
             service = InboxService(ModelPool(None), repo)
 
             with self.assertRaises(LookupError):
-                service.decide(999, approved=False, note="No existe.")
+                service.decide(999, approved=False, note="It does not exist.")
 
     def test_reads_legacy_message_without_rewriting_it(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -135,16 +135,16 @@ class InboxServiceTests(unittest.TestCase):
             repo = InboxRepository(path)
             payload = {
                 "sender": "legacy@example.com",
-                "subject": "Registro anterior",
-                "body": "Revisar documento.",
+                "subject": "Legacy record",
+                "body": "Review the document.",
                 "analysis": {
-                    "summary": "Revisar.",
-                    "intent": "Solicitud",
+                    "summary": "Review it.",
+                    "intent": "Request",
                     "priority": "medium",
                     "action_items": [
                         {
-                            "title": "Revisar documento",
-                            "reason": "Fue solicitado.",
+                            "title": "Review document",
+                            "reason": "It was requested.",
                             "date_status": "not_provided",
                         }
                     ],
@@ -161,7 +161,7 @@ class InboxServiceTests(unittest.TestCase):
                     INSERT INTO messages(sender, subject, body, result_json, status)
                     VALUES (?, ?, ?, ?, ?)
                     """,
-                    ("legacy@example.com", "Registro anterior", "Revisar documento.", json.dumps(payload), "pending_review"),
+                    ("legacy@example.com", "Legacy record", "Review the document.", json.dumps(payload), "pending_review"),
                 )
                 message_id = int(cursor.lastrowid)
 
@@ -169,7 +169,7 @@ class InboxServiceTests(unittest.TestCase):
 
             self.assertIsNotNone(restored)
             self.assertEqual(restored.analysis.action_items[0].confidence, 0.0)
-            self.assertIn("versión original", restored.analysis.priority_reason)
+            self.assertIn("original version", restored.analysis.priority_reason)
 
 
 if __name__ == "__main__":

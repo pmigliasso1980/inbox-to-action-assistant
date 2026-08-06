@@ -27,18 +27,18 @@ class EvaluationTests(unittest.TestCase):
     def test_load_cases_preserves_requested_order_and_rejects_unknown_names(self) -> None:
         cases_path = Path(__file__).parents[1] / "evals" / "daily_cases.json"
 
-        cases = load_cases(cases_path, ["urgencia_explicita", "informativo_sin_accion"])
+        cases = load_cases(cases_path, ["explicit_urgency", "informational_no_action"])
 
         self.assertEqual(
             [case["name"] for case in cases],
-            ["urgencia_explicita", "informativo_sin_accion"],
+            ["explicit_urgency", "informational_no_action"],
         )
         with self.assertRaises(ValueError):
-            load_cases(cases_path, ["caso_inexistente"])
+            load_cases(cases_path, ["unknown_case"])
 
     def test_invented_draft_case_has_distinct_safe_live_expectation(self) -> None:
         cases_path = Path(__file__).parents[1] / "evals" / "daily_cases.json"
-        case = load_cases(cases_path, ["borrador_con_hecho_inventado"])[0]
+        case = load_cases(cases_path, ["draft_with_unsupported_fact"])[0]
 
         self.assertFalse(case["expected"]["review_approved"])
         self.assertIn("forbidden_draft_phrases", case["live_expected"])
@@ -46,13 +46,13 @@ class EvaluationTests(unittest.TestCase):
     def test_unsupported_claim_is_reported_separately_from_safety_catch(self) -> None:
         actual = {
             "analysis": {"priority": "medium", "needs_reply": True, "action_items": [{}]},
-            "draft": {"body": "He recibido el contrato."},
+            "draft": {"body": "I received the contract."},
             "review": {"approved": False, "notes": [], "risk_flags": ["invented_fact"]},
         }
 
         checks = compare_expected(
             actual,
-            {"forbidden_draft_phrases": ["he recibido"]},
+            {"forbidden_draft_phrases": ["received the contract"]},
         )
 
         self.assertFalse(checks["draft_avoids_unsupported_claim"])
@@ -77,7 +77,7 @@ class EvaluationTests(unittest.TestCase):
         checks = compare_expected(
             actual,
             {"accepted_priorities": ["low", "medium"]},
-            original_body="Confirmame si recibiste el contrato.",
+            original_body="Please confirm whether you received the contract.",
         )
 
         self.assertTrue(checks["priority"])
@@ -86,17 +86,17 @@ class EvaluationTests(unittest.TestCase):
     def test_reviewer_can_safely_block_missing_external_control(self) -> None:
         actual = {
             "analysis": {"priority": "urgent", "needs_reply": True, "action_items": []},
-            "draft": {"body": "Analizaré la situación y luego iniciaré el reinicio."},
+            "draft": {"body": "I will analyze the situation and then start the restart."},
             "review": {
                 "approved": False,
-                "notes": ["Debe aclarar que se requiere autorización antes de reiniciar."],
+                "notes": ["It must state that authorization is required before restarting."],
                 "risk_flags": [],
             },
         }
 
         checks = compare_expected(
             actual,
-            {"external_action_control_phrases": ["aprobación", "autorización"]},
+            {"external_action_control_phrases": ["approval", "authorization"]},
         )
 
         self.assertTrue(checks["review_blocks_missing_external_control"])
@@ -109,11 +109,11 @@ class EvaluationTests(unittest.TestCase):
     def test_draft_placeholders_fail_quality(self) -> None:
         actual = {
             "analysis": {"priority": "medium", "needs_reply": True, "action_items": []},
-            "draft": {"body": "Saludos,\n[Tu Nombre]\n[Tu Cargo]"},
+            "draft": {"body": "Regards,\n[Your Name]\n[Your Role]"},
             "review": {"approved": True, "notes": [], "risk_flags": []},
         }
 
-        checks = compare_expected(actual, {}, original_body="Respondeme, por favor.")
+        checks = compare_expected(actual, {}, original_body="Please reply.")
 
         self.assertFalse(checks["draft_has_no_placeholders"])
         self.assertEqual(group_dimensions(checks)["draft_quality"], False)
@@ -126,7 +126,7 @@ class EvaluationTests(unittest.TestCase):
                 "action_items": [
                     {
                         "date_text": None,
-                        "evidence_quote": "Lucía prepara el reporte.",
+                        "evidence_quote": "Lucia prepares the report.",
                         "confidence": 0.4,
                     }
                 ],
@@ -138,7 +138,7 @@ class EvaluationTests(unittest.TestCase):
         checks = compare_expected(
             actual,
             {},
-            original_body="Lucía prepara el reporte y Martín revisa las cifras.",
+            original_body="Lucia prepares the report and Martin reviews the figures.",
         )
 
         self.assertTrue(checks["evidence_grounded"])
@@ -148,17 +148,17 @@ class EvaluationTests(unittest.TestCase):
     def test_reviewer_rejecting_controlled_external_action_fails_review(self) -> None:
         actual = {
             "analysis": {"priority": "urgent", "needs_reply": True, "action_items": []},
-            "draft": {"body": "Necesito aprobación humana antes de reiniciar el servicio."},
+            "draft": {"body": "I need human approval before restarting the service."},
             "review": {
                 "approved": False,
-                "notes": ["La aprobación podría demorar la respuesta urgente."],
+                "notes": ["Approval could delay the urgent response."],
                 "risk_flags": [],
             },
         }
 
         checks = compare_expected(
             actual,
-            {"external_action_control_phrases": ["aprobación", "autorización"]},
+            {"external_action_control_phrases": ["approval", "authorization"]},
         )
 
         self.assertTrue(checks["review_blocks_missing_external_control"])

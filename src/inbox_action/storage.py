@@ -95,11 +95,11 @@ class InboxRepository:
 
     @staticmethod
     def _upgrade_legacy_payload(payload: dict) -> dict:
-        """Completa campos ausentes sin alterar el JSON histórico almacenado."""
+        """Fill missing legacy fields without rewriting stored historical JSON."""
         analysis = payload.get("analysis", {})
-        analysis.setdefault("priority_reason", "No registrado en la versión original.")
+        analysis.setdefault("priority_reason", "Not recorded in the original version.")
         for item in analysis.get("action_items", []):
-            item.setdefault("evidence_quote", "No disponible en el registro original.")
+            item.setdefault("evidence_quote", "Unavailable in the original record.")
             item.setdefault("confidence", 0.0)
         return payload
 
@@ -114,14 +114,14 @@ class InboxRepository:
     ) -> ProcessedMessage:
         current = self.get(message_id)
         if current is None:
-            raise LookupError(f"No existe el mensaje {message_id}.")
+            raise LookupError(f"Message {message_id} does not exist.")
         changes = {}
         if analysis is not None:
             changes["analysis"] = analysis
         if replace_draft:
             changes["draft"] = draft
         if not changes:
-            raise ValueError("La revisión no contiene cambios.")
+            raise ValueError("The revision contains no changes.")
         revised = current.model_copy(update={**changes, "status": "pending_human_review"})
         before_json = current.model_dump_json()
         after_json = revised.model_dump_json()
@@ -160,7 +160,7 @@ class InboxRepository:
     def decide(self, message_id: int, *, approved: bool, note: str | None = None) -> ProcessedMessage:
         current = self.get(message_id)
         if current is None:
-            raise LookupError(f"No existe el mensaje {message_id}.")
+            raise LookupError(f"Message {message_id} does not exist.")
         status = "approved" if approved else "rejected"
         updated = current.model_copy(update={"status": status})
         payload = updated.model_dump(mode="json", exclude={"id"})

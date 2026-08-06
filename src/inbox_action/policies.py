@@ -195,17 +195,17 @@ def enforce_analysis_policy(
     )
     if is_informational and not has_explicit_action_request and not has_explicit_urgency:
         safe_priority = Priority.LOW
-        priority_reason = "Baja: el mensaje es puramente informativo y no requiere ninguna acción."
+        priority_reason = "Low: the message is purely informational and requires no action."
     elif has_explicit_urgency:
         safe_priority = Priority.URGENT
-        priority_reason = "Urgente: el mensaje contiene lenguaje de urgencia explícita."
+        priority_reason = "Urgent: the message contains explicit urgency language."
     elif has_near_resolved_deadline:
         safe_priority = Priority.HIGH
-        priority_reason = "Alta: al menos un vencimiento verificado ocurre dentro de 24 horas."
+        priority_reason = "High: at least one verified deadline occurs within 24 hours."
     elif analysis.priority in {Priority.HIGH, Priority.URGENT}:
         safe_priority = Priority.MEDIUM if safe_items else Priority.LOW
         priority_reason = (
-            "Prioridad reducida: no hay urgencia explícita ni un vencimiento cercano verificado."
+            "Priority reduced: there is no explicit urgency or verified near-term deadline."
         )
     else:
         safe_priority = analysis.priority
@@ -230,7 +230,7 @@ def enforce_review_policy(
     draft: DraftReply | None, review: ReviewResult, *, needs_reply: bool
 ) -> ReviewResult:
     if draft is None and needs_reply:
-        note = "El mensaje solicita una respuesta, pero no se generó ningún borrador."
+        note = "The message requires a reply, but no draft was generated."
         return review.model_copy(
             update={
                 "approved": False,
@@ -244,7 +244,7 @@ def enforce_review_policy(
     violations = [pattern for pattern in UNAUTHORIZED_COMMITMENTS if re.search(pattern, normalized)]
     if not violations:
         return review
-    note = "El borrador contiene compromisos futuros y requiere aprobación humana antes de usarse."
+    note = "The draft contains future commitments and requires human approval before use."
     return review.model_copy(
         update={
             "notes": list(dict.fromkeys([*review.notes, note])),
