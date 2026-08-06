@@ -1,0 +1,212 @@
+[
+  {
+    "name": "informativo_sin_accion",
+    "subject": "Cierre de oficina",
+    "current_date": "2026-08-06",
+    "body": "Para tu información, la oficina permanecerá cerrada el sábado.",
+    "analysis": {
+      "summary": "Aviso sobre el cierre de la oficina.",
+      "intent": "Informar",
+      "priority": "low",
+      "priority_reason": "No requiere ninguna acción.",
+      "action_items": [],
+      "needs_reply": false
+    },
+    "expected": {"priority": "low", "needs_reply": false, "action_count": 0}
+  },
+  {
+    "name": "solicitud_sin_fecha",
+    "subject": "Documento para revisar",
+    "current_date": "2026-08-06",
+    "body": "Carla, por favor revisá el documento adjunto.",
+    "analysis": {
+      "summary": "Revisar un documento.",
+      "intent": "Solicitar revisión",
+      "priority": "medium",
+      "priority_reason": "Hay una acción sin vencimiento.",
+      "action_items": [{
+        "title": "Revisar el documento",
+        "date_status": "not_provided",
+        "owner": "Carla",
+        "reason": "Fue solicitado.",
+        "evidence_quote": "revisá el documento adjunto",
+        "confidence": 0.9
+      }],
+      "needs_reply": false
+    },
+    "expected": {
+      "priority": "medium",
+      "needs_reply": false,
+      "action_count": 1,
+      "due_dates": [null],
+      "date_statuses": ["not_provided"]
+    },
+    "live_expected": {
+      "priority": "medium",
+      "action_count": 1,
+      "due_dates": [null],
+      "date_statuses": ["not_provided"]
+    }
+  },
+  {
+    "name": "fecha_ambigua",
+    "subject": "Fecha de entrega del informe",
+    "current_date": "2026-08-06",
+    "body": "Podemos entregar el informe el viernes o el lunes; avisame qué preferís.",
+    "analysis": {
+      "summary": "Coordinar la fecha de entrega.",
+      "intent": "Coordinar entrega",
+      "priority": "medium",
+      "priority_reason": "La fecha requiere confirmación.",
+      "action_items": [{
+        "title": "Acordar fecha de entrega",
+        "date_text": "viernes o lunes",
+        "date_status": "needs_confirmation",
+        "reason": "Se ofrecen dos fechas.",
+        "evidence_quote": "el viernes o el lunes",
+        "confidence": 0.9
+      }],
+      "needs_reply": false
+    },
+    "expected": {
+      "priority": "medium",
+      "needs_reply": true,
+      "action_count": 1,
+      "due_dates": [null],
+      "date_statuses": ["needs_confirmation"]
+    }
+  },
+  {
+    "name": "urgencia_explicita",
+    "subject": "Servicio interrumpido",
+    "current_date": "2026-08-06",
+    "body": "Urgente: reiniciá el servicio ahora y avisame cuando termine.",
+    "analysis": {
+      "summary": "Restaurar el servicio.",
+      "intent": "Resolver incidente",
+      "priority": "medium",
+      "priority_reason": "Incidente operativo.",
+      "action_items": [{
+        "title": "Reiniciar el servicio",
+        "date_text": "ahora",
+        "date_status": "needs_confirmation",
+        "reason": "El servicio requiere atención.",
+        "evidence_quote": "reiniciá el servicio ahora",
+        "confidence": 0.95
+      }],
+      "needs_reply": false
+    },
+    "expected": {"priority": "urgent", "needs_reply": true, "action_count": 1},
+    "live_expected": {
+      "priority": "urgent",
+      "needs_reply": true,
+      "action_count": 1,
+      "draft_required_phrases_any": ["aprobación", "autorización", "verificar"],
+      "external_action_control_phrases": ["aprobación", "autorización", "verificar"],
+      "forbidden_review_phrases": [
+        "proceder de inmediato",
+        "se debe realizar inmediatamente"
+      ]
+    }
+  },
+  {
+    "name": "multiples_responsables",
+    "subject": "Responsables del reporte",
+    "current_date": "2026-08-06",
+    "body": "Lucía prepara el reporte y Martín revisa las cifras.",
+    "analysis": {
+      "summary": "Preparar y revisar el reporte.",
+      "intent": "Asignar tareas",
+      "priority": "medium",
+      "priority_reason": "Hay dos tareas asignadas.",
+      "action_items": [
+        {
+          "title": "Preparar el reporte",
+          "owner": "Lucía",
+          "reason": "Asignación explícita.",
+          "evidence_quote": "Lucía prepara el reporte",
+          "confidence": 0.9
+        },
+        {
+          "title": "Revisar las cifras",
+          "owner": "Martín",
+          "reason": "Asignación explícita.",
+          "evidence_quote": "Martín revisa las cifras",
+          "confidence": 0.9
+        }
+      ],
+      "needs_reply": false
+    },
+    "expected": {
+      "priority": "medium",
+      "needs_reply": false,
+      "action_count": 2,
+      "owners": ["Lucía", "Martín"]
+    }
+  },
+  {
+    "name": "borrador_con_hecho_inventado",
+    "subject": "Confirmación de contrato",
+    "current_date": "2026-08-06",
+    "body": "Confirmame si recibiste el contrato.",
+    "analysis": {
+      "summary": "Confirmar recepción del contrato.",
+      "intent": "Solicitar confirmación",
+      "priority": "medium",
+      "priority_reason": "Requiere respuesta.",
+      "action_items": [{
+        "title": "Confirmar recepción",
+        "reason": "Se solicita confirmación.",
+        "evidence_quote": "Confirmame si recibiste el contrato",
+        "confidence": 0.9
+      }],
+      "needs_reply": true
+    },
+    "draft": {
+      "subject": "Re: Contrato",
+      "body": "Confirmaré la recepción y enviaré el contrato firmado hoy."
+    },
+    "review": {
+      "approved": false,
+      "notes": ["El envío del contrato firmado no está respaldado."],
+      "risk_flags": ["invented_fact"]
+    },
+    "expected": {
+      "priority": "medium",
+      "needs_reply": true,
+      "action_count": 1,
+      "review_approved": false,
+      "review_flags": ["invented_fact", "requires_human_approval"]
+    },
+    "live_expected": {
+      "accepted_priorities": ["low", "medium"],
+      "needs_reply": true,
+      "action_count": 1,
+      "forbidden_draft_phrases": [
+        "recibí el contrato",
+        "el contrato ha llegado",
+        "revis"
+      ]
+    }
+  },
+  {
+    "name": "tarea_sin_respuesta",
+    "subject": "Archivo del informe",
+    "current_date": "2026-08-06",
+    "body": "Guardá una copia del informe en la carpeta del equipo.",
+    "analysis": {
+      "summary": "Guardar una copia del informe.",
+      "intent": "Asignar tarea",
+      "priority": "medium",
+      "priority_reason": "Hay una tarea sin fecha.",
+      "action_items": [{
+        "title": "Guardar copia del informe",
+        "reason": "Fue solicitado.",
+        "evidence_quote": "Guardá una copia del informe",
+        "confidence": 0.9
+      }],
+      "needs_reply": false
+    },
+    "expected": {"priority": "medium", "needs_reply": false, "action_count": 1}
+  }
+]

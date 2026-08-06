@@ -1,0 +1,9 @@
+[project]
+name = "inbox-to-action-assistant"
+version = "0.1.0"
+description = "Turn everyday messages into reviewed actions with OpenAI"
+requires-python = ">=3.11"
+dependencies = ["openai>=2.53.0", "pydantic>=2.0"]
+
+[tool.ruff]
+line-length = 100
