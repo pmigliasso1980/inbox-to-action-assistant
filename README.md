@@ -4,6 +4,36 @@ Turn emails, messages, or notes into summaries, tasks, dates, priorities, and re
 The current version accepts manually pasted text and stores results in SQLite. It never sends messages
 or performs external actions.
 
+This project is also an FDE workflow-design case study: it shows where deterministic code, LLM
+judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
+design on top of existing systems rather than replace them.
+
+## Why AI belongs here
+
+Inbox messages are unstructured: intent, implied actions, tone, and ambiguous dates cannot be handled
+reliably with fixed rules alone. LLMs are useful for that narrow judgment layer. Validation, date
+policy, persistence, authorization, and state transitions remain deterministic because they must be
+repeatable and auditable. A human remains accountable for corrections and every final approval.
+
+## Workflow map
+
+| Step | Owner | Why |
+|---|---|---|
+| 1. Receive message and validate non-empty input | Deterministic | Required fields and empty-input rejection are exact rules. |
+| 2. Extract intent, summary, actions, evidence, and possible dates | LLM judgment | Language and implied intent vary too much for a fixed parser. Output must match a Pydantic schema. |
+| 3. Ground evidence and dates in the source message | Deterministic | Unsupported quotes and dates can be detected and downgraded or removed consistently. |
+| 4. Resolve supported relative dates and priority | Deterministic | Calendar arithmetic and urgency policy should not vary between runs. |
+| 5. Decide whether a reply is needed | LLM judgment + deterministic policy | The model interprets intent; explicit questions and reply phrases provide a deterministic floor. |
+| 6. Draft a reply when needed | LLM judgment | Tone and wording require language judgment, but the draft may use only validated facts and actions. |
+| 7. Review grounding and safety | LLM judgment + deterministic policy | A second model pass finds semantic problems; code enforces non-negotiable authorization rules. |
+| 8. Persist the result and audit state | Deterministic | SQLite records the message, actions, status, revisions, and decisions. |
+| 9. Correct, approve, or reject | Human-in-the-loop | A person owns factual corrections and the final decision. Approval never sends the draft. |
+| 10. Create an external draft or task in a future integration | Deterministic after human approval | Side effects belong behind an idempotent adapter and an approval check; they are intentionally absent from v0.1. |
+
+The operating boundary is deliberate: the model proposes; deterministic policies constrain; a human
+decides. See [`docs/WORKFLOW_AND_DEPLOYMENT.md`](docs/WORKFLOW_AND_DEPLOYMENT.md) for exceptions,
+integration points, rollout stages, error handling, and the FDE audit → evals → deployment loop.
+
 ## Product goal
 
 The assistant should be useful every day: reduce inbox review time, prevent commitments from being
@@ -15,6 +45,27 @@ the number of implemented features.
 
 ```text
 Message -> Analysis Agent -> optional Draft Agent -> Review Agent -> SQLite
+```
+
+```text
+Existing inbox / form
+        |
+        v
+Ingestion adapter --idempotency key--> InboxService
+        |                                  |
+        |                         LLM judgment + schemas
+        |                                  |
+        |                         deterministic policies
+        |                                  |
+        +----------------------------> SQLite audit record
+                                           |
+                                           v
+                                    Human review queue
+                                           |
+                                  approve / revise / reject
+                                           |
+                                           v
+                             Future side-effect adapter (gated)
 ```
 
 ## Installation
@@ -78,6 +129,38 @@ The daily evaluation fixtures live in `evals/daily_cases.json`. Offline evaluati
 deterministic policies against known structured outputs without API calls or SQLite writes.
 The open-ended taxonomy, risk tiers, sampling strategy, release gates, and expansion roadmap are
 documented in [`docs/EVALUATION_STRATEGY.md`](docs/EVALUATION_STRATEGY.md).
+
+## Deployment strategy
+
+The first production integration should sit beside the company's existing inbox and task system:
+
+1. An adapter reads a bounded mailbox or receives a webhook; the existing system remains the source.
+2. `InboxService` performs judgment and policy enforcement without external side effects.
+3. SQLite is suitable for the local pilot; a managed relational database replaces it for concurrent
+   production use while preserving the repository boundary.
+4. A review UI displays source evidence, structured actions, draft, risks, and audit history.
+5. Only an approved record may reach a separate, idempotent draft/task adapter. Sending remains a
+   distinct human action unless later evidence supports more autonomy.
+
+Rollout is **sandbox → shadow mode → reviewed drafts → narrowly approved actions**. Advancement requires
+the evaluation gates in `docs/EVALUATION_STRATEGY.md`; a high average score cannot offset a serious
+safety failure. Integration pseudocode with explicit failure paths is in
+[`examples/integration_strategy.py`](examples/integration_strategy.py).
+
+## Error-handling policy
+
+- Empty input fails before any model call.
+- Model access denial tries the documented fallback list; other API errors propagate to the caller for
+  bounded retry at the integration boundary.
+- Every model response is schema-validated by Pydantic; missing structured output fails closed.
+- Unsupported evidence lowers confidence; unsupported dates are removed; ambiguous dates are marked
+  `needs_confirmation`.
+- Missing required drafts and unsafe commitments receive risk flags and remain pending human review.
+- Unknown IDs and empty revisions fail explicitly rather than silently changing state.
+- Integration calls use bounded exponential backoff for transient failures, idempotency keys to prevent
+  duplicates, and a dead-letter queue after retries. Validation and authorization failures are never
+  retried as if they were transient.
+- The current application never sends, deletes, publishes, or modifies an external system.
 
 ## Live evaluation
 
