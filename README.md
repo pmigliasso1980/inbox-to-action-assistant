@@ -130,6 +130,9 @@ deterministic policies against known structured outputs without API calls or SQL
 The open-ended taxonomy, risk tiers, sampling strategy, release gates, and expansion roadmap are
 documented in [`docs/EVALUATION_STRATEGY.md`](docs/EVALUATION_STRATEGY.md).
 
+The personal capability baseline, shadow-pilot commitment, blocked time, and monthly checkpoints are
+documented in [`docs/90_DAY_PLAN.md`](docs/90_DAY_PLAN.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
