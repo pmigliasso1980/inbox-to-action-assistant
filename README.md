@@ -133,6 +133,9 @@ documented in [`docs/EVALUATION_STRATEGY.md`](docs/EVALUATION_STRATEGY.md).
 The personal capability baseline, shadow-pilot commitment, blocked time, and monthly checkpoints are
 documented in [`docs/90_DAY_PLAN.md`](docs/90_DAY_PLAN.md).
 
+The MCP paper-design lab decomposes the target inbox workflow into system-owned servers, tools,
+resources, and prompts in [`docs/MCP_CAPABILITY_MAP.md`](docs/MCP_CAPABILITY_MAP.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
