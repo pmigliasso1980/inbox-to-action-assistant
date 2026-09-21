@@ -140,6 +140,10 @@ The follow-on architecture and protocol-fluency lab diagrams explicit clients an
 tests failure isolation, writes JSON-RPC messages by hand, and traces a complete call in
 [`docs/MCP_ARCHITECTURE_AND_WIRE.md`](docs/MCP_ARCHITECTURE_AND_WIRE.md).
 
+The executable MCP course project starts in [`mcp-document-server/server.py`](mcp-document-server/server.py),
+with reproducible setup and observed debugging evidence in
+[`mcp-document-server/LAB_NOTES.md`](mcp-document-server/LAB_NOTES.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
