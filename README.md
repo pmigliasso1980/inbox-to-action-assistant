@@ -136,6 +136,10 @@ documented in [`docs/90_DAY_PLAN.md`](docs/90_DAY_PLAN.md).
 The MCP paper-design lab decomposes the target inbox workflow into system-owned servers, tools,
 resources, and prompts in [`docs/MCP_CAPABILITY_MAP.md`](docs/MCP_CAPABILITY_MAP.md).
 
+The follow-on architecture and protocol-fluency lab diagrams explicit clients and transports, stress
+tests failure isolation, writes JSON-RPC messages by hand, and traces a complete call in
+[`docs/MCP_ARCHITECTURE_AND_WIRE.md`](docs/MCP_ARCHITECTURE_AND_WIRE.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
