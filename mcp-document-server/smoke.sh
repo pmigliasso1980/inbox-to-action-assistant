@@ -33,4 +33,28 @@ echo "$INVALID_OUTPUT"
 grep -q 'Unknown document: ghost.md' <<<"$INVALID_OUTPUT"
 grep -q '"isError": true' <<<"$INVALID_OUTPUT"
 
+echo "### resources/list"
+RESOURCES_OUTPUT="$("${INSPECTOR[@]}" --method resources/list)"
+echo "$RESOURCES_OUTPUT"
+grep -q 'docs://documents' <<<"$RESOURCES_OUTPUT"
+grep -q 'application/json' <<<"$RESOURCES_OUTPUT"
+
+echo "### resources/templates/list"
+TEMPLATES_OUTPUT="$("${INSPECTOR[@]}" --method resources/templates/list)"
+echo "$TEMPLATES_OUTPUT"
+grep -q 'docs://documents/{doc_id}' <<<"$TEMPLATES_OUTPUT"
+grep -q 'docs://documents/{doc_id}/stats' <<<"$TEMPLATES_OUTPUT"
+
+echo "### resources/read (direct JSON catalog)"
+CATALOG_OUTPUT="$("${INSPECTOR[@]}" --method resources/read --uri docs://documents)"
+echo "$CATALOG_OUTPUT"
+grep -q 'application/json' <<<"$CATALOG_OUTPUT"
+grep -q 'onboarding.docx' <<<"$CATALOG_OUTPUT"
+
+echo "### resources/read (templated text)"
+DOCUMENT_OUTPUT="$("${INSPECTOR[@]}" --method resources/read --uri docs://documents/plan.md)"
+echo "$DOCUMENT_OUTPUT"
+grep -q 'text/plain' <<<"$DOCUMENT_OUTPUT"
+grep -q 'Project plan: phase one' <<<"$DOCUMENT_OUTPUT"
+
 echo "MCP smoke checks passed."

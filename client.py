@@ -8,6 +8,7 @@ The client launches ``server.py`` itself; do not start the server separately.
 """
 
 import asyncio
+import json
 import logging
 import sys
 from pathlib import Path
@@ -17,6 +18,7 @@ logging.disable(logging.CRITICAL)
 
 from mcp import ClientSession, StdioServerParameters  # noqa: E402
 from mcp.client.stdio import stdio_client  # noqa: E402
+from mcp.shared.exceptions import McpError  # noqa: E402
 
 SERVER = StdioServerParameters(
     command=sys.executable,
@@ -39,6 +41,31 @@ async def run_tool(session: ClientSession, name: str, args: dict[str, Any]) -> s
     if result.isError:
         raise RuntimeError(f"tool {name} failed: {text_of(result)}")
     return text_of(result)
+
+
+async def read_uri(session: ClientSession, uri: str) -> Any:
+    """Read one resource and interpret it according to its declared MIME type."""
+    result = await session.read_resource(uri)
+    if not result.contents:
+        raise ValueError(f"Resource returned no contents: {uri}")
+    entry = result.contents[0]
+
+    # Binary resources contain base64 in `blob` rather than a `text` field.
+    if not hasattr(entry, "text"):
+        return entry.blob
+
+    if (entry.mimeType or "").startswith("application/json"):
+        return json.loads(entry.text)
+
+    return entry.text
+
+
+async def try_read_uri(session: ClientSession, uri: str, default: Any = None) -> Any:
+    """Return a resource or a caller-supplied default when MCP cannot read it."""
+    try:
+        return await read_uri(session, uri)
+    except McpError:
+        return default
 
 
 async def main() -> None:
@@ -119,6 +146,43 @@ async def main() -> None:
             )
             print("report.pdf ->", report)
             print("onboarding.docx ->", onboarding)
+
+            print("\n--- direct resources ---")
+            resources = await session.list_resources()
+            for resource in resources.resources:
+                print(f"{resource.uri}  ({resource.mimeType})  {resource.name}")
+
+            print("\n--- resource templates ---")
+            templates = await session.list_resource_templates()
+            for template in templates.resourceTemplates:
+                print(f"{template.uriTemplate}  ({template.mimeType})")
+
+            print("\n--- MIME-aware reads ---")
+            ids = await read_uri(session, "docs://documents")
+            print("catalog:", ids, "| type:", type(ids).__name__)
+            for doc_id in ids:
+                text = await read_uri(session, f"docs://documents/{doc_id}")
+                stats = await read_uri(session, f"docs://documents/{doc_id}/stats")
+                print(f"[{doc_id}] {text}")
+                print(f"    stats: {stats['words']} words, {stats['characters']} chars")
+
+            print("\n--- tool/resource failure comparison ---")
+            tool_result = await session.call_tool("read_document", {"doc_id": "ghost.md"})
+            print("tool  -> raised? no | isError:", tool_result.isError)
+            print("        text:", text_of(tool_result)[:120])
+
+            for label, uri in (
+                ("resource", "docs://documents/ghost.md"),
+                ("bad scheme", "nonsense://nowhere"),
+            ):
+                try:
+                    await read_uri(session, uri)
+                    print(label, "-> raised? no")
+                except McpError as exc:
+                    print(label, "-> raised", type(exc).__name__, "|", str(exc)[:120])
+
+            optional = await try_read_uri(session, "nonsense://optional", default=[])
+            print("optional missing context ->", optional)
 
 
 if __name__ == "__main__":

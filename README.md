@@ -8,15 +8,18 @@ This project is also an FDE workflow-design case study: it shows where determini
 judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
 design on top of existing systems rather than replace them.
 
-## Current graded submission — Module 5 MCP Client
+## Current graded submission — Module 6 MCP Resources
 
 The required files are available directly at the repository root so automated graders do not need to
 infer nested paths:
 
-- [`client.py`](client.py) — connects, initializes, discovers four tools, invokes them, distinguishes
-  five failure modes, and provides a reusable `run_tool` helper.
+- [`client.py`](client.py) — consumes four tools plus direct and templated resources with centralized
+  MIME-aware decoding and both failure mechanisms.
 - [`server.py`](server.py) — root entry point for the persistent MCP document server.
-- [`LAB_NOTES.md`](LAB_NOTES.md) — observed outputs and required analysis.
+- [`show_resources.py`](show_resources.py) — lists both resource inventories and performs representative
+  reads.
+- [`smoke.sh`](smoke.sh) — Inspector CLI verification across tools and resources.
+- [`MODULE_6_LAB_NOTES.md`](MODULE_6_LAB_NOTES.md) — observed outputs and required analysis.
 
 Run the submission with:
 
@@ -167,6 +170,9 @@ results are documented in
 The async reference client in [`mcp-document-server/client.py`](mcp-document-server/client.py)
 demonstrates initialization, discovery, typed-content extraction, both MCP failure channels, safe
 subprocess cleanup, and concurrent calls.
+
+To avoid implementation drift, the repository-root [`client.py`](client.py) is now canonical and the
+nested client is a compatibility launcher for the course project directory.
 
 Observed handshake, discovery, naive-client failure, content-block behavior, round-trip state, and the
 five-case failure taxonomy are recorded in

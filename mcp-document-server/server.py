@@ -1,5 +1,6 @@
 """MCP document server used by the inbox assistant course project."""
 
+import json
 import logging
 from typing import Annotated, Literal
 
@@ -109,6 +110,31 @@ def search_documents(
         ):
             hits.append(doc_id)
     return hits[:limit]
+
+
+@mcp.resource("docs://documents", mime_type="application/json")
+def document_catalog() -> str:
+    """Return all available case-sensitive document ids as a JSON array."""
+    return json.dumps(sorted(docs))
+
+
+@mcp.resource("docs://documents/{doc_id}", mime_type="text/plain")
+def document_contents(doc_id: str) -> str:
+    """Return the complete text of one known document without modifying it."""
+    if doc_id not in docs:
+        raise ValueError(f"Unknown document: {doc_id}")
+    return docs[doc_id]
+
+
+@mcp.resource("docs://documents/{doc_id}/stats", mime_type="application/json")
+def document_stats(doc_id: str) -> str:
+    """Return document identity, character count, and word count as JSON."""
+    if doc_id not in docs:
+        raise ValueError(f"Unknown document: {doc_id}")
+    text = docs[doc_id]
+    return json.dumps(
+        {"doc_id": doc_id, "characters": len(text), "words": len(text.split())}
+    )
 
 
 if __name__ == "__main__":

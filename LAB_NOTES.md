@@ -1,5 +1,8 @@
 # Module 5 Lab Submission — MCP Client
 
+> Module 6 resource evidence is in [`MODULE_6_LAB_NOTES.md`](MODULE_6_LAB_NOTES.md). This file remains
+> the Module 5 client record.
+
 ## Submission files
 
 | Required artifact | Repository-root file | Extended evidence |
