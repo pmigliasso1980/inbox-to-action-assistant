@@ -144,6 +144,10 @@ The executable MCP course project starts in [`mcp-document-server/server.py`](mc
 with reproducible setup and observed debugging evidence in
 [`mcp-document-server/LAB_NOTES.md`](mcp-document-server/LAB_NOTES.md).
 
+Its four typed tools, generated-schema checks, direct-call harness, Inspector smoke test, and observed
+results are documented in
+[`mcp-document-server/MODULE_4_LAB_NOTES.md`](mcp-document-server/MODULE_4_LAB_NOTES.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
