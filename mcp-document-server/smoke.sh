@@ -57,4 +57,16 @@ echo "$DOCUMENT_OUTPUT"
 grep -q 'text/plain' <<<"$DOCUMENT_OUTPUT"
 grep -q 'Project plan: phase one' <<<"$DOCUMENT_OUTPUT"
 
+echo "### prompts/list"
+PROMPTS_OUTPUT="$("${INSPECTOR[@]}" --method prompts/list)"
+echo "$PROMPTS_OUTPUT"
+grep -q 'format_document' <<<"$PROMPTS_OUTPUT"
+grep -q 'summarize_document' <<<"$PROMPTS_OUTPUT"
+grep -q 'review_document' <<<"$PROMPTS_OUTPUT"
+
+echo "### prompts/get (summarize_document)"
+PROMPT_OUTPUT="$("${INSPECTOR[@]}" --method prompts/get --prompt-name summarize_document --prompt-args doc_id=plan.md max_words=40)"
+echo "$PROMPT_OUTPUT"
+grep -q 'no more than 40 words' <<<"$PROMPT_OUTPUT"
+
 echo "MCP smoke checks passed."

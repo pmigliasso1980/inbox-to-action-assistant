@@ -8,18 +8,17 @@ This project is also an FDE workflow-design case study: it shows where determini
 judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
 design on top of existing systems rather than replace them.
 
-## Current graded submission — Module 6 MCP Resources
+## Current graded submission — Module 7 MCP Prompts
 
 The required files are available directly at the repository root so automated graders do not need to
 infer nested paths:
 
-- [`client.py`](client.py) — consumes four tools plus direct and templated resources with centralized
-  MIME-aware decoding and both failure mechanisms.
+- [`client.py`](client.py) — consumes tools, resources, and prompts, and provides an opt-in slash-command
+  interface with prefix completion and required-field validation.
 - [`server.py`](server.py) — root entry point for the persistent MCP document server.
-- [`show_resources.py`](show_resources.py) — lists both resource inventories and performs representative
-  reads.
-- [`smoke.sh`](smoke.sh) — Inspector CLI verification across tools and resources.
-- [`MODULE_6_LAB_NOTES.md`](MODULE_6_LAB_NOTES.md) — observed outputs and required analysis.
+- [`show_prompts.py`](show_prompts.py) — lists prompt menu metadata and resolves all three prompts.
+- [`smoke.sh`](smoke.sh) — Inspector CLI verification across tools, resources, and prompts.
+- [`MODULE_7_LAB_NOTES.md`](MODULE_7_LAB_NOTES.md) — observed outputs and required analysis.
 
 Run the submission with:
 

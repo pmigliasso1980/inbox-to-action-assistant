@@ -5,6 +5,7 @@ import logging
 from typing import Annotated, Literal
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp.prompts import base
 from pydantic import Field
 
 logging.basicConfig(level=logging.INFO)
@@ -135,6 +136,54 @@ def document_stats(doc_id: str) -> str:
     return json.dumps(
         {"doc_id": doc_id, "characters": len(text), "words": len(text.split())}
     )
+
+
+@mcp.prompt()
+def format_document(doc_id: str) -> list[base.Message]:
+    """Produce instructions to reformat a document into clean Markdown."""
+    return [
+        base.UserMessage(
+            f"Reformat the document '{doc_id}' into clean, well-structured "
+            "Markdown. Use a single top-level heading for the title, section "
+            "headings for major parts, bullet lists where items are enumerated, "
+            "and fenced code blocks for any code. Preserve all original meaning "
+            "and do not invent new content."
+        )
+    ]
+
+
+@mcp.prompt()
+def summarize_document(
+    doc_id: Annotated[str, Field(description="Which document to summarize.")],
+    max_words: Annotated[int, Field(description="Upper bound on summary length.")] = 100,
+) -> list[base.Message]:
+    """Produce instructions to summarize a document within a word limit."""
+    return [
+        base.UserMessage(
+            f"Summarize the document '{doc_id}' in no more than {max_words} words. "
+            "Keep every factual claim faithful to the source, do not add information "
+            "that is not present, and prefer plain language over jargon. If the "
+            "document is already shorter than the limit, return it essentially "
+            "unchanged rather than padding it."
+        )
+    ]
+
+
+@mcp.prompt()
+def review_document(
+    doc_id: str, audience: str = "a new team member"
+) -> list[base.Message]:
+    """Produce a two-turn review exchange for a document."""
+    return [
+        base.UserMessage(
+            f"Review the document '{doc_id}' for clarity and completeness, "
+            f"assuming the reader is {audience}."
+        ),
+        base.AssistantMessage(
+            "I will review it in three passes: first what is unclear, then what is "
+            "missing, then what could be cut. Here is the review:"
+        ),
+    ]
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-"""Repository-root entry point for the Module 5 MCP server submission.
+"""Repository-root entry point for the current MCP server submission.
 
 The course server is maintained in ``mcp-document-server/server.py`` across
 Modules 3–8. This root entry point makes the graded deliverable immediately

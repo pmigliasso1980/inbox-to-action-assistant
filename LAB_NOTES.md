@@ -1,5 +1,7 @@
 # Module 5 Lab Submission — MCP Client
 
+> Module 7 prompt evidence is in [`MODULE_7_LAB_NOTES.md`](MODULE_7_LAB_NOTES.md).
+>
 > Module 6 resource evidence is in [`MODULE_6_LAB_NOTES.md`](MODULE_6_LAB_NOTES.md). This file remains
 > the Module 5 client record.
 

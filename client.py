@@ -1,4 +1,4 @@
-"""Module 5 MCP client — repository-root graded deliverable.
+"""MCP client — repository-root graded deliverable.
 
 Run with the pinned environment:
 
@@ -33,6 +33,59 @@ def text_of(result: Any) -> str:
         for block in result.content
         if getattr(block, "type", None) == "text"
     )
+
+
+def as_conversation(prompt_result: Any) -> list[dict[str, Any]]:
+    """Convert resolved prompt text messages into plain conversation turns."""
+    turns = []
+    for message in prompt_result.messages:
+        content = message.content
+        if getattr(content, "type", None) == "text":
+            turns.append({"role": message.role, "content": content.text})
+    return turns
+
+
+async def slash_command_loop(session: ClientSession) -> None:
+    """Run a minimal slash-command interface with server-driven autocomplete."""
+    prompts = (await session.list_prompts()).prompts
+
+    print("\nAvailable commands (type part of a name, or 'quit'):")
+    for prompt in prompts:
+        print(f"  /{prompt.name} - {prompt.description}")
+
+    while True:
+        typed = input("\n/").strip()
+        if typed in {"quit", "exit", ""}:
+            return
+
+        matches = [prompt for prompt in prompts if prompt.name.startswith(typed)]
+        if not matches:
+            print(f"no command starts with {typed!r}")
+            continue
+        if len(matches) > 1:
+            print("ambiguous:", ", ".join(f"/{prompt.name}" for prompt in matches))
+            continue
+
+        chosen = matches[0]
+        print(f"-> /{chosen.name}")
+        arguments: dict[str, str] = {}
+        for argument in chosen.arguments or []:
+            label = argument.name
+            if argument.description:
+                label += f" ({argument.description})"
+            if not argument.required:
+                label += " [optional, press Enter to skip]"
+            value = input(f"    {label}: ").strip()
+            if value:
+                arguments[argument.name] = value
+            elif argument.required:
+                print(f"    {argument.name} is required — aborting")
+                break
+        else:
+            result = await session.get_prompt(chosen.name, arguments)
+            print(f"\n--- injected context ({len(result.messages)} message(s)) ---")
+            for turn in as_conversation(result):
+                print(f"[{turn['role']}] {turn['content']}")
 
 
 async def run_tool(session: ClientSession, name: str, args: dict[str, Any]) -> str:
@@ -183,6 +236,45 @@ async def main() -> None:
 
             optional = await try_read_uri(session, "nonsense://optional", default=[])
             print("optional missing context ->", optional)
+
+            print("\n--- prompts ---")
+            prompts = await session.list_prompts()
+            for prompt in prompts.prompts:
+                args = ", ".join(
+                    f"{arg.name}{'' if arg.required else '?'}"
+                    for arg in (prompt.arguments or [])
+                )
+                print(f"/{prompt.name}({args}) - {prompt.description}")
+
+            print("\n--- argument types ---")
+            try:
+                bad = await session.get_prompt(
+                    "summarize_document", {"doc_id": "plan.md", "max_words": 40}
+                )
+                print("int argument accepted:", bad.messages[0].content.text[:60])
+            except Exception as exc:
+                print("int argument REJECTED:", type(exc).__name__)
+                print(str(exc)[:500])
+
+            corrected = await session.get_prompt(
+                "summarize_document", {"doc_id": "plan.md", "max_words": "40"}
+            )
+            print("string argument accepted:", corrected.messages[0].content.text[:75])
+
+            print("\n--- resolved prompts ---")
+            for name, args in [
+                ("format_document", {"doc_id": "plan.md"}),
+                ("summarize_document", {"doc_id": "plan.md", "max_words": "40"}),
+                ("review_document", {"doc_id": "report.pdf"}),
+            ]:
+                result = await session.get_prompt(name, args)
+                print(f"\n/{name} -> {len(result.messages)} message(s)")
+                for turn in as_conversation(result):
+                    print(f"  [{turn['role']}] {turn['content'][:100]}...")
+
+            # Keep automated runs non-interactive; pass --interactive for the lab UI.
+            if "--interactive" in sys.argv:
+                await slash_command_loop(session)
 
 
 if __name__ == "__main__":
