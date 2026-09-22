@@ -148,6 +148,14 @@ Its four typed tools, generated-schema checks, direct-call harness, Inspector sm
 results are documented in
 [`mcp-document-server/MODULE_4_LAB_NOTES.md`](mcp-document-server/MODULE_4_LAB_NOTES.md).
 
+The async reference client in [`mcp-document-server/client.py`](mcp-document-server/client.py)
+demonstrates initialization, discovery, typed-content extraction, both MCP failure channels, safe
+subprocess cleanup, and concurrent calls.
+
+Observed handshake, discovery, naive-client failure, content-block behavior, round-trip state, and the
+five-case failure taxonomy are recorded in
+[`mcp-document-server/MODULE_5_LAB_NOTES.md`](mcp-document-server/MODULE_5_LAB_NOTES.md).
+
 ## Deployment strategy
 
 The first production integration should sit beside the company's existing inbox and task system:
