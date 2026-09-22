@@ -8,22 +8,27 @@ This project is also an FDE workflow-design case study: it shows where determini
 judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
 design on top of existing systems rather than replace them.
 
-## Current graded submission — Module 7 MCP Prompts
+## Current graded submission — Module 8 MCP Capstone
 
-The required files are available directly at the repository root so automated graders do not need to
-infer nested paths:
+The complete capstone is in [`mcp-capstone/`](mcp-capstone/) as required by the lab:
 
-- [`client.py`](client.py) — consumes tools, resources, and prompts, and provides an opt-in slash-command
-  interface with prefix completion and required-field validation.
-- [`server.py`](server.py) — root entry point for the persistent MCP document server.
-- [`show_prompts.py`](show_prompts.py) — lists prompt menu metadata and resolves all three prompts.
-- [`smoke.sh`](smoke.sh) — Inspector CLI verification across tools, resources, and prompts.
-- [`MODULE_7_LAB_NOTES.md`](MODULE_7_LAB_NOTES.md) — observed outputs and required analysis.
+- [`mcp-capstone/DESIGN.md`](mcp-capstone/DESIGN.md) — capability inventory, primitive classification,
+  hard calls, and URI design.
+- [`mcp-capstone/server.py`](mcp-capstone/server.py) — three tools, three resources, and two prompts.
+- [`mcp-capstone/client.py`](mcp-capstone/client.py) — discovery, happy paths, four labelled failures, and
+  a state-change round trip.
+- [`mcp-capstone/show_all.py`](mcp-capstone/show_all.py) — complete in-process schema inventory.
+- [`mcp-capstone/smoke.sh`](mcp-capstone/smoke.sh) — six Inspector CLI protocol checks.
+- [`mcp-capstone/REVIEW.md`](mcp-capstone/REVIEW.md) — design defence, duplication test, risk audit, and
+  Inspector-driven improvements.
 
 Run the submission with:
 
 ```bash
-mcp-document-server/.venv/bin/python client.py
+cd mcp-capstone
+.venv/bin/python show_all.py
+.venv/bin/python client.py
+bash smoke.sh
 ```
 
 ## Why AI belongs here
