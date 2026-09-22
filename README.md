@@ -8,6 +8,22 @@ This project is also an FDE workflow-design case study: it shows where determini
 judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
 design on top of existing systems rather than replace them.
 
+## Current graded submission — Module 5 MCP Client
+
+The required files are available directly at the repository root so automated graders do not need to
+infer nested paths:
+
+- [`client.py`](client.py) — connects, initializes, discovers four tools, invokes them, distinguishes
+  five failure modes, and provides a reusable `run_tool` helper.
+- [`server.py`](server.py) — root entry point for the persistent MCP document server.
+- [`LAB_NOTES.md`](LAB_NOTES.md) — observed outputs and required analysis.
+
+Run the submission with:
+
+```bash
+mcp-document-server/.venv/bin/python client.py
+```
+
 ## Why AI belongs here
 
 Inbox messages are unstructured: intent, implied actions, tone, and ambiguous dates cannot be handled
