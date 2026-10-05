@@ -1,0 +1,3 @@
+PASS: 18 synthetic cases
+Categories: {'adversarial': 4, 'exception': 4, 'known_failure': 4, 'typical': 6}
+PASS: schema, uniqueness, coverage, and human-review safety invariants

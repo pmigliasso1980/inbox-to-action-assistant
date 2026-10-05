@@ -4,5 +4,6 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+.codex-build/
 *.egg-info/
 docs/SESSION_LOG.md
