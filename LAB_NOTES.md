@@ -1,111 +1,71 @@
-# Module 5 Lab Submission — MCP Client
+# Lab 1 submission: Read Your Token Bill
 
-> Module 7 prompt evidence is in [`MODULE_7_LAB_NOTES.md`](MODULE_7_LAB_NOTES.md).
->
-> Module 6 resource evidence is in [`MODULE_6_LAB_NOTES.md`](MODULE_6_LAB_NOTES.md). This file remains
-> the Module 5 client record.
+This is the repository-root grading entry point for the current lab. The expanded calculations and source descriptions are in [`token-cost-lab-1/README.md`](token-cost-lab-1/README.md), and the 30-turn spreadsheet is [`token-cost-lab-1/loop-tax.csv`](token-cost-lab-1/loop-tax.csv).
 
-## Submission files
+Track: **Track A — Codex CLI**
 
-| Required artifact | Repository-root file | Extended evidence |
-|---|---|---|
-| MCP client | [`client.py`](client.py) | [`mcp-document-server/client.py`](mcp-document-server/client.py) |
-| MCP server | [`server.py`](server.py) | [`mcp-document-server/server.py`](mcp-document-server/server.py) |
-| Lab notes | This file | [`mcp-document-server/MODULE_5_LAB_NOTES.md`](mcp-document-server/MODULE_5_LAB_NOTES.md) |
+Price sheet: uncached input **$2.00/M**, output **$10.00/M**, cache write **$2.50/M**, cached input **$0.20/M**.
 
-Run the graded client from the repository root:
+## Exercise 1: five token predictions and counts
 
-```bash
-mcp-document-server/.venv/bin/python client.py
-```
+Actual counts use `tiktoken 0.14.0` with the `o200k_base` encoding. Predictions are characters divided by four.
 
-The server is launched by the client through `sys.executable`; it must not be started separately.
+| Content | Characters | Predicted | Counted | Counted/predicted |
+|---|---:|---:|---:|---:|
+| One-line prompt | 50 | 12.50 | 11 | 0.880 |
+| English paragraph | 264 | 66.00 | 49 | 0.742 |
+| Same paragraph in Spanish | 309 | 77.25 | 62 | 0.803 |
+| `mcp-capstone/server.py`, 213 lines | 6,948 | 1,737.00 | 1,575 | 0.907 |
+| `evals/daily_cases.json`, 205 lines | 6,563 | 1,640.75 | 1,652 | 1.007 |
 
-## Handshake and discovery evidence
+The rule underestimated JSON the most: **1,652 counted versus 1,640.75 predicted**, a **1.007 ratio**.
 
-Observed initialization:
+Spanish used **13 more tokens** than English: **62 versus 49 tokens**.
 
-```text
-connected to: inbox-case-server 1.30.0
-```
+## Exercise 2: price three calls
 
-`inbox-case-server` comes from `FastMCP("inbox-case-server")`. Version 1.30.0 is the SDK-generated
-implementation version, not a separately configured product release. The response advertises tools,
-resources, and prompts, which says those method families are supported—not that each has inventory.
+| Call | Uncached | Cache write | Cached | Output | Real context | Cost | Output share |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 12,400 | 0 | 0 | 1,850 | 12,400 | **$0.043300** | 42.73% |
+| 2 | 900 | 0 | 11,500 | 1,850 | 12,400 | **$0.022600** | 81.86% |
+| 3 | 900 | 11,500 | 0 | 1,850 | 12,400 | **$0.049050** | 37.72% |
 
-Observed `tools/list` inventory:
+The provider report `input 12,400; cached 11,500; output 1,850` normalizes to **900 uncached input, 0 cache write, 11,500 cached input, and 1,850 output**.
 
-```text
-read_document(doc_id) required=['doc_id']
-edit_document(doc_id, old_text, new_text) required=['doc_id', 'old_text', 'new_text']
-list_documents() required=[]
-search_documents(query, scope, limit) required=['query']
-```
+For 10,000 monthly calls, Call 1 costs **$433.00**, Call 2 costs **$226.00**, and the Call 2 pattern saves **$207.00/month**.
 
-The metadata matches Inspector because both use the server-owned `tools/list` response. The SDK wraps
-the list in a result object so pagination metadata can be added alongside `.tools`.
+## Exercise 3: the loop tax
 
-## Deliberate buggy version
+The complete per-turn spreadsheet has 30 rows in [`token-cost-lab-1/loop-tax.csv`](token-cost-lab-1/loop-tax.csv).
 
-The required naive loop was run temporarily and then removed. It printed:
+| Run | Total input | Total output | Total cost |
+|---|---:|---:|---:|
+| 20 turns | 445,000 | 8,000 | **$0.970** |
+| 30 turns | 892,500 | 12,000 | **$1.905** |
 
-```text
-report.pdf -> The quarterly report covers revenue and costs.
-ghost.md -> Error executing tool read_document: Unknown document: ghost.md. Call list_documents for valid ids.
-```
+Pasting a 5,000-token file on turn 1 of the 30-turn run adds **150,000 input tokens** and **$0.300**, raising cost to **$2.205**. The cheapest avoidance is to retrieve only the needed excerpt for the one turn and then remove or compact it; sending the 5,000 tokens once costs **$0.010**.
 
-No exception propagated. The loop's two bugs were failure to check `result.isError` and assuming
-`result.content[0]` was text representing the complete result. A consumer could mistake the error text
-for document contents.
+## Exercise 4: cost per completed task
 
-## Correct content handling
+| Setup | API spend | Tickets reaching a person | People cost | Total cost |
+|---|---:|---:|---:|---:|
+| A, 55% success | **$5.80** | **202.5** | $405.00 | **$410.80** |
+| B, 92% success | **$11.88** | **6.4** | $12.80 | **$24.68** |
 
-The submitted client checks `isError` and iterates over typed content. `list_documents` produced:
+Cost per call hid failure and human-escalation cost: the higher-priced model costs **$386.12 less per 1,000 completed tickets**.
 
-```text
-blocks returned: 3
-text_of(...)      -> 'onboarding.docx\nplan.md\nreport.pdf'
-structuredContent -> {'result': ['onboarding.docx', 'plan.md', 'report.pdf']}
-```
+## Exercise 5: real baseline
 
-There is one text block per item. Reading only the first would silently lose two documents. A script
-that needs a list should use `structuredContent["result"]`; text blocks are suitable for a model or
-human reader.
+- **Task:** Draft a concise professional email from synthetic scheduling notes in a fresh, isolated, read-only Codex CLI session.
+- **Turns:** 1.
+- **Context at end:** **15,048 tokens**: 14,977 input plus 71 output.
+- **Biggest context item:** Codex system instructions, tool definitions, and installed skill metadata.
+- **Normalized usage:** 7,553 uncached input; 0 cache write; 7,424 cached input; 71 output.
+- **Cost:** **$0.017301** using the lab price sheet.
+- **Completed to quality bar:** **yes**.
 
-## State round trip
+The output contained a subject, the changed Thursday 10:00 meeting time, the Wednesday-noon blocker deadline, and a concise thank-you. The surprising baseline finding was that a tiny email prompt still ended with **15,048 context tokens**, because fixed agent instructions and tools dominated the task content.
 
-```text
-before: Project plan: phase one, phase two, phase three.
-edit  : Updated plan.md.
-after : Project plan: phase 1, phase two, phase three.
-```
+## Archived earlier lab notes
 
-The edit remains visible because the calls share one server process and its in-memory dictionary. It
-resets after reconnecting because a new subprocess creates a fresh dictionary.
-
-## Five failure modes
-
-| Failure | Raised? | `isError` | Detector |
-|---|---:|---:|---|
-| Bad document ID | No | `True` | Tool code |
-| Text not found | No | `True` | Tool code |
-| Missing required argument | No | `True` | SDK/Pydantic validation |
-| Limit 99 | No | `True` | SDK/Pydantic validation |
-| Unknown tool | No | `True` | Server dispatcher |
-
-Under MCP SDK 1.30.0 all five arrived as tool-error results. `try/except` alone would therefore
-mishandle all five. Checking only `isError` handles these five but misses raised transport, protocol,
-resource, and subprocess failures. Robust clients need both mechanisms.
-
-`run_tool` converts tool-error results to `RuntimeError`, which is convenient for scripts. A model host
-should retain a lower-level path that passes readable failure content back to the model so it can repair
-its call.
-
-## Additional verification
-
-- Removing `initialize()` still launched the server, but performed no handshake or useful operation.
-- Both the transport and session use `async with`, guaranteeing subprocess and pipe cleanup.
-- The final client never indexes `result.content[0]`.
-- Two concurrent reads returned the correct corresponding contents; JSON-RPC request IDs make response
-  correlation safe.
-- The client ran end to end without an unhandled exception.
+The previous root `LAB_NOTES.md` for the MCP client lab is preserved as [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).

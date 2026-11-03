@@ -1,5 +1,15 @@
 # Inbox-to-Action Assistant
 
+## Current graded submission — Lab 1: Read Your Token Bill
+
+The current submission is available directly from the repository root:
+
+- [`LAB_NOTES.md`](LAB_NOTES.md) — all five exercises, token counts, pricing, loop tax, task-cost comparison, and the real baseline.
+- [`token-cost-lab-1/README.md`](token-cost-lab-1/README.md) — expanded calculations and reproducibility evidence.
+- [`token-cost-lab-1/loop-tax.csv`](token-cost-lab-1/loop-tax.csv) — the required 30-turn spreadsheet.
+
+The earlier MCP client lab notes remain archived in [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).
+
 Turn emails, messages, or notes into summaries, tasks, dates, priorities, and reviewed reply drafts.
 The current version accepts manually pasted text and stores results in SQLite. It never sends messages
 or performs external actions.
@@ -8,7 +18,7 @@ This project is also an FDE workflow-design case study: it shows where determini
 judgment, and human approval belong in a real inbox workflow, then demonstrates how to deploy that
 design on top of existing systems rather than replace them.
 
-## Current graded submission — Module 8 MCP Capstone
+## Earlier project — Module 8 MCP Capstone
 
 The complete capstone is in [`mcp-capstone/`](mcp-capstone/) as required by the lab:
 
