@@ -1,0 +1,20 @@
+{
+  "id": "item-010",
+  "completed": false,
+  "fallback_invoked": false,
+  "ungrounded_answer": false,
+  "score": 0,
+  "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 390 (char 389)",
+  "text": "",
+  "steps": 0,
+  "cap_hit": false,
+  "tool_calls": [],
+  "usage": {
+    "calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0
+  }
+}

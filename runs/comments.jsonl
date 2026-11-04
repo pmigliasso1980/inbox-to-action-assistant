@@ -1,0 +1,1 @@
+{"timestamp": "2026-11-04T01:54:45.807558+00:00", "run_id": "boundary-proof", "item_id": "normal-auto-approve", "file": "range_total.py", "line": 3, "severity": "major", "body": "range(n + 1) reads one item beyond the requested prefix."}

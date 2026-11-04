@@ -1,0 +1,27 @@
+[
+  {
+    "case": "normal-auto-approve",
+    "result": {
+      "written": true,
+      "dry_run": false,
+      "comment": {
+        "file": "range_total.py",
+        "line": 3,
+        "severity": "major",
+        "body": "range(n + 1) reads one item beyond the requested prefix."
+      }
+    }
+  },
+  {
+    "case": "same-auto-deny",
+    "error": "user declined the pending write"
+  },
+  {
+    "case": "invalid-severity",
+    "error": "invalid severity: 'critical'"
+  },
+  {
+    "case": "path-traversal",
+    "error": "unknown or non-canonical file: ../../etc/passwd"
+  }
+]

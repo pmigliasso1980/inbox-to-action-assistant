@@ -1,48 +1,36 @@
-# Module 2 submission: Reflection
+# Module 3 submission: Tool Use
 
-This is the repository-root grading entry point for Labs 2.1 and 2.2.
+This is the repository-root grading index for Labs 3.1 and 3.2.
 
-## Lab 2.1 deliverables
+## Lab 3.1 — Build a Tool-Using Agent
 
-- [`evals/rubric.md`](evals/rubric.md) — separately committed, immutable rubric with deterministic and subjective criteria.
-- [`agents/gates.py`](agents/gates.py) — mechanical validation.
-- [`agents/reflection.py`](agents/reflection.py) — structured critique, gate, revision, best-draft selection, and iteration artifacts.
-- [`runs/reflection/summary.json`](runs/reflection/summary.json) — 0.9452 reflection score, $0.351780 cost, and full diagnostics.
-- [`REFLECTION_REPORT.md`](REFLECTION_REPORT.md) — no demonstrated lift beyond the 0.0667 noise floor.
+- [`agents/tool_agent.py`](agents/tool_agent.py) — hand-written loop, parallel results, `pause_turn`, cap handling, explicit errors, and traces.
+- [`agents/review_tools.py`](agents/review_tools.py) — three strict, read-only tools with executor validation and result confirmation.
+- [`evals/run_tools.py`](evals/run_tools.py) — fixed 20-item tools-in-evaluation harness.
+- [`runs/tools/summary.json`](runs/tools/summary.json) — score, deltas, tool/error/rejection metrics, tokens, cost, and latency.
+- [`runs/tools/item-001/trace.jsonl`](runs/tools/item-001/trace.jsonl) — complete end-to-end trace.
+- [`TOOLS_REPORT.md`](TOOLS_REPORT.md) — progression, rationale, failure mapping, confirmation evidence, and cost comparison.
 
-## Lab 2.2 deliverables
+Observed result: mean F1 **0.8833**, only +0.0048 over baseline and -0.0619 versus reflection, below the 0.0667 noise floor. Cost was **$0.669085**. This generic tool set did not produce reliable lift.
 
-- [`FAILURE_INJECTION_PREDICTIONS.md`](FAILURE_INJECTION_PREDICTIONS.md) — predictions written before running.
-- Five run directories: `runs/reflection-control`, `runs/reflection-inject-self-confirm`, `runs/reflection-inject-drift`, `runs/reflection-inject-nonmono`, and `runs/reflection-all-controls`.
-- [`FAILURE_INJECTION_REPORT.md`](FAILURE_INJECTION_REPORT.md) — comparative table, evidence quotes, conclusions, and three production alerts.
+## Lab 3.2 — Fallbacks and Permission Boundaries
 
-The same 10-item subset was used for all five Lab 2.2 configurations. Rubric drift caused the largest score loss; self-confirmation caused the largest cost increase; forced non-monotonic revision did not reduce score on the saturated subset.
+- [`agents/tool_controls.py`](agents/tool_controls.py) — six failure modes, retry/fallback policy, separate handles, strict write schema, approval callback, dry run, validation, and auditing.
+- [`evals/run_fallbacks.py`](evals/run_fallbacks.py) — 120-item implicit/explicit failure matrix.
+- [`runs/fallbacks/summary.json`](runs/fallbacks/summary.json) — all 12 configuration summaries.
+- [`evals/run_boundary_cases.py`](evals/run_boundary_cases.py) — reproducible four-case boundary proof.
+- [`runs/audit.jsonl`](runs/audit.jsonl) and [`runs/boundary-cases.json`](runs/boundary-cases.json) — approved, denied, invalid, and hostile attempts.
+- [`FALLBACK_PERMISSION_REPORT.md`](FALLBACK_PERMISSION_REPORT.md) — recovery analysis, boundary results, and junior-engineer analogy.
 
-## Archived Module 1 summary
+Explicit fallback invocation reached 100% for rate-limit, timeout, auth, and empty modes. The measured ungrounded-answer rate was **0%** in every configuration. Matrix cost was **$2.768370**.
 
-## Lab 1.1 deliverables
+## Verification and spend
 
-- [`agents/llm.py`](agents/llm.py) — shared `claude-opus-5` client, structured output, token counting, normalized usage, cost accounting, retry configuration, and JSONL usage logging.
-- [`verify_setup.py`](verify_setup.py) — token count plus low/high effort round trip.
-- [`SETUP_BASELINE_NOTE.md`](SETUP_BASELINE_NOTE.md) — 16-line usage and cost comparison.
-- [`PROJECT_TREE.txt`](PROJECT_TREE.txt) — directory listing proving `agents/`, `evals/`, `data/`, `runs/`, and `graph/` exist.
+```bash
+PYTHONPATH=. pytest -q
+PYTHONPATH=. python3 evals/run_boundary_cases.py
+```
 
-Observed setup result: both low and high effort used 23 input and 116 output tokens and cost **$0.003015 each**. High effort was not materially better for the trivial prompt.
+All **45 tests pass**. Total new Anthropic spend for Module 3 was **$3.437455**, below the authorized $8 ceiling.
 
-## Lab 1.2 deliverables
-
-- [`evals/dataset.jsonl`](evals/dataset.jsonl) — 20 frozen measurement items, version 1.1.0.
-- [`evals/devset.jsonl`](evals/devset.jsonl) — 5 separate prompt-development items.
-- [`evals/prompt_baseline.txt`](evals/prompt_baseline.txt) — frozen zero-shot prompt and defect taxonomy.
-- [`evals/score.py`](evals/score.py) — deterministic exact category-and-line precision, recall, and F1.
-- [`evals/run_baseline.py`](evals/run_baseline.py) — one-call-per-item harness with raw artifacts, usage, cost, and latency.
-- [`runs/baseline/run-1/summary.json`](runs/baseline/run-1/summary.json) — mean score **0.8786**, cost **$0.144060**.
-- [`runs/baseline/run-2/summary.json`](runs/baseline/run-2/summary.json) — mean score **0.9452**, cost **$0.144585**.
-- [`BASELINE_REPORT.md`](BASELINE_REPORT.md) — task justification, **0.0667 noise floor**, cost/latency, five failure classifications, and architectural roadmap.
-
-All 40 official raw item outputs are committed under `runs/baseline/`. No model judge was used. The initial taxonomy calibration is preserved separately under `runs/calibration-taxonomy-v1/` rather than being presented as a valid baseline.
-
-## Archived earlier submissions
-
-- [`TOKEN_BILL_LAB_NOTES.md`](TOKEN_BILL_LAB_NOTES.md) — Read Your Token Bill.
-- [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md) — MCP client lab.
+Earlier submissions remain in their dedicated reports, including `BASELINE_REPORT.md`, `REFLECTION_REPORT.md`, and `FAILURE_INJECTION_REPORT.md`.

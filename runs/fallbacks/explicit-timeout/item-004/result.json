@@ -1,0 +1,60 @@
+{
+  "id": "item-004",
+  "completed": true,
+  "fallback_invoked": true,
+  "ungrounded_answer": false,
+  "score": 1.0,
+  "error": null,
+  "text": "```json\n{\"defects\":[{\"category\":\"sql_injection\",\"line\":2,\"explanation\":\"find_user builds the query with an f-string interpolating the untrusted `name` directly into a quoted SQL literal (f\\\"SELECT * FROM users WHERE name = '{name}'\\\") and passes it to conn.execute; a value like \\\"' OR '1'='1\\\" alters the query. Linter also flags line 2 as sql_interpolation. Fix: use a parameterized query, e.g. conn.execute(\\\"SELECT * FROM users WHERE name = ?\\\", (name,)).\"}]}\n```\nNote: static_smoke timed out twice; grounding came from the linter fallback plus direct source read.",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "run_tests",
+      "arguments": {
+        "file": "users.py",
+        "suite": "static_smoke"
+      },
+      "result_summary": "{\"grounded\": true, \"used_fallback\": true, \"result\": {\"file\": \"users.py\", \"profile\": \"all\", \"findings\": [{\"line\": 2, \"rule\": \"sql_interpolation\", \"message\": \"SQL appears to interpolate input\"}]}, \"failure\": null, \"attempts\": [{\"tool\": \"run_tests\", \"attempt\": 1, \"error\": \"upstream timed out after 30s\", \"retryable\": true}, {\"tool\": \"run_tests\", \"attempt\": 2, \"error\": \"upstream timed out after 30s\", \"retryable\": true}, {\"tool\": \"run_linter\", \"attempt\": 1, \"confirmed\": true, \"verdict\": \"type, emptine",
+      "confirmation": "explicit retry/fallback policy completed",
+      "confirmed": true,
+      "latency_ms": 0.29799999902024865,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1338,
+        "output_tokens": 122,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.00974
+      }
+    },
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "users.py"
+      },
+      "result_summary": "{\"file\": \"users.py\", \"code\": \"def find_user(conn, name):\\n    query = f\\\"SELECT * FROM users WHERE name = '{name}'\\\"\\n    return conn.execute(query).fetchone()\", \"line_count\": 3}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.05108298500999808,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1338,
+        "output_tokens": 122,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.00974
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 3163,
+    "output_tokens": 362,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.024864999999999998
+  }
+}

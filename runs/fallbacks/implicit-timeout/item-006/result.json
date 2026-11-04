@@ -1,0 +1,60 @@
+{
+  "id": "item-006",
+  "completed": true,
+  "fallback_invoked": false,
+  "ungrounded_answer": false,
+  "score": 0.0,
+  "error": null,
+  "text": "static_smoke timed out; recovered via read_code.\n\n{\"defects\":[{\"category\":\"async_misuse\",\"line\":2,\"explanation\":\"notify is declared `async def` but never awaits anything; `client.post(...)` is called synchronously. If client is an async client, `response` is a coroutine and `response.status_code` (line 3) raises AttributeError while the request is never actually sent (RuntimeWarning: coroutine never awaited). Needs `response = await client.post(...)`.\"},{\"category\":\"unnecessary_async\",\"line\":1,\"explanation\":\"Conversely, if client is a sync client, the `async def` is pointless and forces every caller to await, a misleading API contract; no awaits exist in the body.\"}]}",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "run_tests",
+      "arguments": {
+        "file": "notify.py",
+        "suite": "static_smoke"
+      },
+      "result_summary": "upstream timed out after 30s",
+      "confirmation": "executor error",
+      "confirmed": false,
+      "latency_ms": 0.0,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1339,
+        "output_tokens": 124,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.009795
+      }
+    },
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "notify.py"
+      },
+      "result_summary": "{\"file\": \"notify.py\", \"code\": \"async def notify(client, user_id):\\n    response = client.post('/notify', json={'user': user_id})\\n    return response.status_code\", \"line_count\": 3}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.20679202862083912,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1339,
+        "output_tokens": 124,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.009795
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 2944,
+    "output_tokens": 392,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.02452
+  }
+}

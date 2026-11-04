@@ -1,0 +1,90 @@
+{
+  "id": "item-007",
+  "file": "average.py",
+  "draft": {
+    "defects": [
+      {
+        "category": "division_by_zero",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+      }
+    ]
+  },
+  "final": {
+    "defects": [
+      {
+        "category": "division_by_zero",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "When values is empty, len(values) is 0 and the division raises ZeroDivisionError."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "error": null,
+  "latency_seconds": 4.5036294590099715,
+  "text": "{\"defects\":[{\"category\":\"division_by_zero\",\"line\":2,\"severity\":\"medium\",\"rationale\":\"When values is empty, len(values) is 0 and the division raises ZeroDivisionError.\"}]}",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "average.py"
+      },
+      "result_summary": "{\"file\": \"average.py\", \"code\": \"def average(values):\\n    return sum(values) / len(values)\", \"line_count\": 2}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.1010830164887011,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2614,
+        "output_tokens": 118,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01602
+      }
+    },
+    {
+      "step": 1,
+      "name": "run_linter",
+      "arguments": {
+        "file": "average.py",
+        "profile": "all"
+      },
+      "result_summary": "{\"file\": \"average.py\", \"profile\": \"all\", \"findings\": []}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.15362497651949525,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2614,
+        "output_tokens": 118,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01602
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 5466,
+    "output_tokens": 187,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.032005
+  }
+}

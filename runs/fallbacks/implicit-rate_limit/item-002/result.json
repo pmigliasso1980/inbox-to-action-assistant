@@ -1,0 +1,60 @@
+{
+  "id": "item-002",
+  "completed": true,
+  "fallback_invoked": false,
+  "ungrounded_answer": false,
+  "score": 0.0,
+  "error": null,
+  "text": "static_smoke was rate-limited; recovered via read_code (and the source is fully visible).\n\n```json\n{\"defects\":[{\"category\":\"mutable_default_argument\",\"line\":1,\"explanation\":\"def add_tag(tag, tags=[]) uses a mutable list as a default; line 2 tags.append(tag) mutates that shared default object, so successive calls without an explicit tags argument accumulate tags across calls instead of starting empty. Fix: default to None and create a new list inside.\"}]}\n```",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "run_tests",
+      "arguments": {
+        "file": "tags.py",
+        "suite": "static_smoke"
+      },
+      "result_summary": "rate limit exceeded, retry after 60s",
+      "confirmation": "executor error",
+      "confirmed": false,
+      "latency_ms": 0.0,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1341,
+        "output_tokens": 124,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.009805
+      }
+    },
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "tags.py"
+      },
+      "result_summary": "{\"file\": \"tags.py\", \"code\": \"def add_tag(tag, tags=[]):\\n    tags.append(tag)\\n    return tags\", \"line_count\": 3}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.2976249670609832,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 1341,
+        "output_tokens": 124,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.009805
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 2943,
+    "output_tokens": 305,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.02234
+  }
+}

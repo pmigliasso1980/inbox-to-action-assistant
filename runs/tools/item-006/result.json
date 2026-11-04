@@ -1,0 +1,107 @@
+{
+  "id": "item-006",
+  "file": "notify.py",
+  "draft": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "low",
+        "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+      }
+    ]
+  },
+  "final": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "client.post is called inside an async function without await, so response is an un-awaited coroutine and response.status_code on line 3 raises AttributeError while the request may never be sent."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "low",
+        "rationale": "The POST passes no timeout, so an unresponsive server can block the call indefinitely."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.6666666666666666,
+    "detail": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 2,
+      "expected": 1,
+      "missed": [],
+      "extra": [
+        [
+          "missing_timeout",
+          2
+        ]
+      ]
+    }
+  },
+  "error": null,
+  "latency_seconds": 6.6988091669627465,
+  "text": "{\"defects\":[{\"category\":\"missing_await\",\"line\":2,\"severity\":\"high\",\"rationale\":\"client.post is called inside an async function without await, so response is an un-awaited coroutine and response.status_code on line 3 raises AttributeError while the request may never be sent.\"},{\"category\":\"missing_timeout\",\"line\":2,\"severity\":\"low\",\"rationale\":\"The POST passes no timeout, so an unresponsive server can block the call indefinitely.\"}]}",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "notify.py"
+      },
+      "result_summary": "{\"file\": \"notify.py\", \"code\": \"async def notify(client, user_id):\\n    response = client.post('/notify', json={'user': user_id})\\n    return response.status_code\", \"line_count\": 3}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.08337502367794514,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2697,
+        "output_tokens": 120,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.016485
+      }
+    },
+    {
+      "step": 1,
+      "name": "run_linter",
+      "arguments": {
+        "file": "notify.py",
+        "profile": "all"
+      },
+      "result_summary": "{\"file\": \"notify.py\", \"profile\": \"all\", \"findings\": []}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.2000840031541884,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2697,
+        "output_tokens": 120,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.016485
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 5659,
+    "output_tokens": 312,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.036095
+  }
+}

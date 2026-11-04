@@ -1,0 +1,150 @@
+{
+  "subset_size": 10,
+  "total_cost_usd": 2.768370000000001,
+  "configurations": [
+    {
+      "configuration": "implicit-none",
+      "failure_mode": "none",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.36666666666666664,
+      "cost_usd": 0.2209
+    },
+    {
+      "configuration": "explicit-none",
+      "failure_mode": "none",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.5,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.36666666666666664,
+      "cost_usd": 0.22669499999999998
+    },
+    {
+      "configuration": "implicit-rate_limit",
+      "failure_mode": "rate_limit",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.2833333333333333,
+      "cost_usd": 0.237665
+    },
+    {
+      "configuration": "explicit-rate_limit",
+      "failure_mode": "rate_limit",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 1.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.35,
+      "cost_usd": 0.24792000000000003
+    },
+    {
+      "configuration": "implicit-timeout",
+      "failure_mode": "timeout",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.1,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.1,
+      "score_on_completed": 0.4,
+      "cost_usd": 0.23674499999999998
+    },
+    {
+      "configuration": "explicit-timeout",
+      "failure_mode": "timeout",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 1.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.35,
+      "cost_usd": 0.23986999999999997
+    },
+    {
+      "configuration": "implicit-auth",
+      "failure_mode": "auth",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.25,
+      "cost_usd": 0.23429000000000003
+    },
+    {
+      "configuration": "explicit-auth",
+      "failure_mode": "auth",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 1.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.3333333333333333,
+      "cost_usd": 0.24617000000000003
+    },
+    {
+      "configuration": "implicit-empty",
+      "failure_mode": "empty",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 0.9,
+      "fallback_invocation_rate": 0.2,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.4074074074074074,
+      "cost_usd": 0.219935
+    },
+    {
+      "configuration": "explicit-empty",
+      "failure_mode": "empty",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 1.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.45,
+      "cost_usd": 0.22637000000000002
+    },
+    {
+      "configuration": "implicit-garbage",
+      "failure_mode": "garbage",
+      "policy": "implicit",
+      "items": 10,
+      "task_completion_rate": 1.0,
+      "fallback_invocation_rate": 0.0,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 2.0,
+      "score_on_completed": 0.29999999999999993,
+      "cost_usd": 0.23379
+    },
+    {
+      "configuration": "explicit-garbage",
+      "failure_mode": "garbage",
+      "policy": "explicit",
+      "items": 10,
+      "task_completion_rate": 0.9,
+      "fallback_invocation_rate": 0.9,
+      "ungrounded_answer_rate": 0.0,
+      "mean_tool_calls": 1.8,
+      "score_on_completed": 0.5,
+      "cost_usd": 0.19802
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 # Inbox-to-Action Assistant
 
-## Current graded submission — Module 2: Reflection
+## Current graded submission — Module 3: Tool Use
 
 The current submission is available directly from the repository root:
 
-- [`LAB_NOTES.md`](LAB_NOTES.md) — root grading index for Labs 2.1 and 2.2.
-- [`REFLECTION_REPORT.md`](REFLECTION_REPORT.md) — measured reflection lift and diagnostics.
-- [`FAILURE_INJECTION_REPORT.md`](FAILURE_INJECTION_REPORT.md) — five-configuration comparison and production monitors.
-- [`runs/reflection/`](runs/reflection/) — full 20-item reflection artifacts.
+- [`LAB_NOTES.md`](LAB_NOTES.md) — root grading index for Labs 3.1 and 3.2.
+- [`TOOLS_REPORT.md`](TOOLS_REPORT.md) — grounded-tool measurement and failure mapping.
+- [`FALLBACK_PERMISSION_REPORT.md`](FALLBACK_PERMISSION_REPORT.md) — failure matrix and permission-boundary proof.
+- [`runs/tools/`](runs/tools/) and [`runs/fallbacks/`](runs/fallbacks/) — complete traces and summaries.
 
 Earlier notes remain archived in [`TOKEN_BILL_LAB_NOTES.md`](TOKEN_BILL_LAB_NOTES.md) and [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).
 

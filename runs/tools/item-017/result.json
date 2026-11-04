@@ -1,0 +1,138 @@
+{
+  "id": "item-017",
+  "file": "download.py",
+  "draft": {
+    "defects": [
+      {
+        "category": "missing_timeout",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+      },
+      {
+        "category": "ssrf",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+      },
+      {
+        "category": "path_traversal",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+      }
+    ]
+  },
+  "final": {
+    "defects": [
+      {
+        "category": "missing_timeout",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "requests.get has no timeout, so the call can hang indefinitely on an unresponsive server."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "response status is never checked, so a 404/500 error body is written to disk as the downloaded file."
+      },
+      {
+        "category": "path_traversal",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "destination is opened for writing without validation, allowing writes outside the intended directory."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.3333333333333333,
+    "detail": {
+      "precision": 0.3333333333333333,
+      "recall": 0.3333333333333333,
+      "true_positive": 1,
+      "predicted": 3,
+      "expected": 3,
+      "missed": [
+        [
+          "ssrf",
+          4
+        ],
+        [
+          "unchecked_status",
+          6
+        ]
+      ],
+      "extra": [
+        [
+          "path_traversal",
+          5
+        ],
+        [
+          "unchecked_status",
+          4
+        ]
+      ]
+    }
+  },
+  "error": null,
+  "latency_seconds": 5.629153791000135,
+  "text": "{\"defects\":[{\"category\":\"missing_timeout\",\"line\":4,\"severity\":\"medium\",\"rationale\":\"requests.get has no timeout, so the call can hang indefinitely on an unresponsive server.\"},{\"category\":\"unchecked_status\",\"line\":4,\"severity\":\"medium\",\"rationale\":\"response status is never checked, so a 404/500 error body is written to disk as the downloaded file.\"},{\"category\":\"path_traversal\",\"line\":5,\"severity\":\"medium\",\"rationale\":\"destination is opened for writing without validation, allowing writes outside the intended directory.\"}]}",
+  "steps": 2,
+  "cap_hit": false,
+  "tool_calls": [
+    {
+      "step": 1,
+      "name": "read_code",
+      "arguments": {
+        "file": "download.py"
+      },
+      "result_summary": "{\"file\": \"download.py\", \"code\": \"import requests\\n\\ndef download(url, destination):\\n    response = requests.get(url)\\n    with open(destination, 'wb') as output:\\n        output.write(response.content)\\n    return destination\", \"line_count\": 7}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.30204199720174074,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2808,
+        "output_tokens": 118,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01699
+      }
+    },
+    {
+      "step": 1,
+      "name": "run_linter",
+      "arguments": {
+        "file": "download.py",
+        "profile": "all"
+      },
+      "result_summary": "{\"file\": \"download.py\", \"profile\": \"all\", \"findings\": [{\"line\": 4, \"rule\": \"network_without_timeout\", \"message\": \"network-style get call has no timeout keyword\"}]}",
+      "confirmation": "type, emptiness, and relevance checks passed",
+      "confirmed": true,
+      "latency_ms": 0.6167090032249689,
+      "token_usage_so_far": {
+        "calls": 1,
+        "input_tokens": 2808,
+        "output_tokens": 118,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01699
+      }
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "input_tokens": 5937,
+    "output_tokens": 301,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.03721
+  }
+}

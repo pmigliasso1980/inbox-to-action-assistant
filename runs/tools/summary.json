@@ -1,0 +1,1929 @@
+{
+  "items": 20,
+  "ordering": "tools_in_evaluation",
+  "mean_score": 0.8833333333333334,
+  "baseline_mean": 0.8785714285714284,
+  "reflection_mean": 0.9452380952380952,
+  "delta_vs_baseline": 0.004761904761904967,
+  "delta_vs_reflection": -0.061904761904761796,
+  "noise_floor": 0.06666666666666676,
+  "mean_tool_calls": 2.0,
+  "tool_call_distribution": {
+    "read_code": 20,
+    "run_linter": 20
+  },
+  "tool_error_rate_by_tool": {
+    "read_code": 0.0,
+    "run_linter": 0.0
+  },
+  "confirmation_rejection_rate": 0.0,
+  "max_steps_fraction": 0.0,
+  "input_tokens": 111557,
+  "output_tokens": 4452,
+  "cached_tokens": 0,
+  "cost_usd": 0.669085,
+  "mean_latency_seconds": 5.657726281249779,
+  "cost_per_score_point": 1.4050784999999395,
+  "reflection_cost_per_score_point": 0.05276699999999991,
+  "wall_clock_seconds": 113.17285604204517,
+  "results": [
+    {
+      "id": "item-001",
+      "file": "range_total.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "off_by_one",
+            "line": 3,
+            "severity": "high",
+            "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "off_by_one",
+            "line": 3,
+            "severity": "high",
+            "rationale": "range(n + 1) iterates n+1 indices, so values[i] on line 4 reads one element past the requested first n and raises IndexError when len(values) == n."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 6.7800767089938745,
+      "text": "{\"defects\":[{\"category\":\"off_by_one\",\"line\":3,\"severity\":\"high\",\"rationale\":\"range(n + 1) iterates n+1 indices, so values[i] on line 4 reads one element past the requested first n and raises IndexError when len(values) == n.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "range_total.py"
+          },
+          "result_summary": "{\"file\": \"range_total.py\", \"code\": \"def total_first_n(values, n):\\n    total = 0\\n    for i in range(n + 1):\\n        total += values[i]\\n    return total\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.09791698539629579,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2623,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016165
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "range_total.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"range_total.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.5429169978015125,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2623,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016165
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5518,
+        "output_tokens": 212,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03289
+      }
+    },
+    {
+      "id": "item-002",
+      "file": "tags.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "mutable_default",
+            "line": 1,
+            "severity": "high",
+            "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "mutable_default",
+            "line": 1,
+            "severity": "high",
+            "rationale": "The default list argument is created once and reused, so appended tags accumulate across calls instead of starting empty."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.113720291003119,
+      "text": "{\"defects\":[{\"category\":\"mutable_default\",\"line\":1,\"severity\":\"high\",\"rationale\":\"The default list argument is created once and reused, so appended tags accumulate across calls instead of starting empty.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "tags.py"
+          },
+          "result_summary": "{\"file\": \"tags.py\", \"code\": \"def add_tag(tag, tags=[]):\\n    tags.append(tag)\\n    return tags\", \"line_count\": 3}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.07349997758865356,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2614,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01607
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "tags.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"tags.py\", \"profile\": \"all\", \"findings\": [{\"line\": 1, \"rule\": \"mutable_default\", \"message\": \"mutable default persists across calls\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.13695802772417665,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2614,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01607
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5517,
+        "output_tokens": 190,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032335
+      }
+    },
+    {
+      "id": "item-003",
+      "file": "config.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "swallowed_exception",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "swallowed_exception",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "A bare Exception handler returns '{}' for any read failure, so missing files or permission errors silently become an empty config instead of surfacing the error."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.853399790998083,
+      "text": "{\"defects\": [{\"category\": \"swallowed_exception\", \"line\": 5, \"severity\": \"medium\", \"rationale\": \"A bare Exception handler returns '{}' for any read failure, so missing files or permission errors silently become an empty config instead of surfacing the error.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "config.py"
+          },
+          "result_summary": "{\"file\": \"config.py\", \"code\": \"def load_config(path):\\n    try:\\n        with open(path) as handle:\\n            return handle.read()\\n    except Exception:\\n        return '{}'\", \"line_count\": 6}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.08783303201198578,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2640,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01615
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "config.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"config.py\", \"profile\": \"all\", \"findings\": [{\"line\": 5, \"rule\": \"broad_exception\", \"message\": \"broad Exception handler can hide operational failures\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.15600002370774746,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2640,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01615
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5587,
+        "output_tokens": 208,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033135
+      }
+    },
+    {
+      "id": "item-004",
+      "file": "users.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "sql_injection",
+            "line": 2,
+            "severity": "critical",
+            "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "sql_injection",
+            "line": 2,
+            "severity": "critical",
+            "rationale": "The name argument is f-string interpolated into the SQL query, so input like ' OR '1'='1 alters the query; use parameterized placeholders."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 14.295330042019486,
+      "text": "{\"defects\":[{\"category\":\"sql_injection\",\"line\":2,\"severity\":\"critical\",\"rationale\":\"The name argument is f-string interpolated into the SQL query, so input like ' OR '1'='1 alters the query; use parameterized placeholders.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "users.py"
+          },
+          "result_summary": "{\"file\": \"users.py\", \"code\": \"def find_user(conn, name):\\n    query = f\\\"SELECT * FROM users WHERE name = '{name}'\\\"\\n    return conn.execute(query).fetchone()\", \"line_count\": 3}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.09787501767277718,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2626,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01608
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "users.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"users.py\", \"profile\": \"all\", \"findings\": [{\"line\": 2, \"rule\": \"sql_interpolation\", \"message\": \"SQL appears to interpolate input\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.6795829976908863,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2626,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01608
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5566,
+        "output_tokens": 204,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03293
+      }
+    },
+    {
+      "id": "item-005",
+      "file": "files.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "path_traversal",
+            "line": 4,
+            "severity": "high",
+            "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "path_traversal",
+            "line": 4,
+            "severity": "high",
+            "rationale": "filename is joined into root without validation, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 3.8457450419664383,
+      "text": "{\"defects\":[{\"category\":\"path_traversal\",\"line\":4,\"severity\":\"high\",\"rationale\":\"filename is joined into root without validation, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "files.py"
+          },
+          "result_summary": "{\"file\": \"files.py\", \"code\": \"from pathlib import Path\\n\\ndef read_upload(root, filename):\\n    path = Path(root) / filename\\n    return path.read_text()\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.3284169943071902,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2626,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01608
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "files.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"files.py\", \"profile\": \"all\", \"findings\": [{\"line\": 4, \"rule\": \"unconfined_path\", \"message\": \"joined path needs confinement validation\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.18400000408291817,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2626,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01608
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5554,
+        "output_tokens": 198,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03272
+      }
+    },
+    {
+      "id": "item-006",
+      "file": "notify.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "low",
+            "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "client.post is called inside an async function without await, so response is an un-awaited coroutine and response.status_code on line 3 raises AttributeError while the request may never be sent."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "low",
+            "rationale": "The POST passes no timeout, so an unresponsive server can block the call indefinitely."
+          }
+        ]
+      },
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 2,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "missing_timeout",
+              2
+            ]
+          ]
+        }
+      },
+      "error": null,
+      "latency_seconds": 6.6988091669627465,
+      "text": "{\"defects\":[{\"category\":\"missing_await\",\"line\":2,\"severity\":\"high\",\"rationale\":\"client.post is called inside an async function without await, so response is an un-awaited coroutine and response.status_code on line 3 raises AttributeError while the request may never be sent.\"},{\"category\":\"missing_timeout\",\"line\":2,\"severity\":\"low\",\"rationale\":\"The POST passes no timeout, so an unresponsive server can block the call indefinitely.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "notify.py"
+          },
+          "result_summary": "{\"file\": \"notify.py\", \"code\": \"async def notify(client, user_id):\\n    response = client.post('/notify', json={'user': user_id})\\n    return response.status_code\", \"line_count\": 3}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.08337502367794514,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2697,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016485
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "notify.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"notify.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.2000840031541884,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2697,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016485
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5659,
+        "output_tokens": 312,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.036095
+      }
+    },
+    {
+      "id": "item-007",
+      "file": "average.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "division_by_zero",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "division_by_zero",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "When values is empty, len(values) is 0 and the division raises ZeroDivisionError."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.5036294590099715,
+      "text": "{\"defects\":[{\"category\":\"division_by_zero\",\"line\":2,\"severity\":\"medium\",\"rationale\":\"When values is empty, len(values) is 0 and the division raises ZeroDivisionError.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "average.py"
+          },
+          "result_summary": "{\"file\": \"average.py\", \"code\": \"def average(values):\\n    return sum(values) / len(values)\", \"line_count\": 2}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.1010830164887011,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2614,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01602
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "average.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"average.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.15362497651949525,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2614,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01602
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5466,
+        "output_tokens": 187,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032005
+      }
+    },
+    {
+      "id": "item-008",
+      "file": "profile.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "null_dereference",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Chained attribute access assumes user.profile and .name are non-None; a missing profile or name raises AttributeError."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "null_dereference",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Chained access user.profile.name.strip() raises AttributeError when profile or name is None, with no guard."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.017955207964405,
+      "text": "{\"defects\":[{\"category\":\"null_dereference\",\"line\":2,\"severity\":\"medium\",\"rationale\":\"Chained access user.profile.name.strip() raises AttributeError when profile or name is None, with no guard.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "profile.py"
+          },
+          "result_summary": "{\"file\": \"profile.py\", \"code\": \"def display_name(user):\\n    return user.profile.name.strip()\", \"line_count\": 2}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.11487503070384264,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2623,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016115
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "profile.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"profile.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.16783300088718534,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2623,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016115
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5490,
+        "output_tokens": 193,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032275
+      }
+    },
+    {
+      "id": "item-009",
+      "file": "export.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "resource_leak",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "resource_leak",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "The file opened here is never closed and no context manager is used, so the descriptor leaks and buffered rows may be lost if writing raises."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.918136833002791,
+      "text": "{\"defects\":[{\"category\":\"resource_leak\",\"line\":2,\"severity\":\"medium\",\"rationale\":\"The file opened here is never closed and no context manager is used, so the descriptor leaks and buffered rows may be lost if writing raises.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "export.py"
+          },
+          "result_summary": "{\"file\": \"export.py\", \"code\": \"def export_rows(path, rows):\\n    handle = open(path, 'w')\\n    for row in rows:\\n        handle.write(','.join(row) + '\\\\n')\\n    return len(rows)\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.09137502638623118,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2631,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016105
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "export.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"export.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.2833330072462559,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2631,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016105
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5544,
+        "output_tokens": 199,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032695
+      }
+    },
+    {
+      "id": "item-010",
+      "file": "tokens.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "insecure_random",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "insecure_random",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Reset tokens are built from random.randint, a predictable Mersenne Twister PRNG, so an attacker observing tokens can predict others and hijack account resets."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.82918579201214,
+      "text": "{\"defects\":[{\"category\":\"insecure_random\",\"line\":4,\"severity\":\"high\",\"rationale\":\"Reset tokens are built from random.randint, a predictable Mersenne Twister PRNG, so an attacker observing tokens can predict others and hijack account resets.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "tokens.py"
+          },
+          "result_summary": "{\"file\": \"tokens.py\", \"code\": \"import random\\n\\ndef reset_token():\\n    return ''.join(str(random.randint(0, 9)) for _ in range(24))\", \"line_count\": 4}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.13729202328249812,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2624,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01617
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "tokens.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"tokens.py\", \"profile\": \"all\", \"findings\": [{\"line\": 4, \"rule\": \"predictable_random\", \"message\": \"non-cryptographic PRNG used\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.23783301003277302,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2624,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01617
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5555,
+        "output_tokens": 213,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033100000000000004
+      }
+    },
+    {
+      "id": "item-011",
+      "file": "convert.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "critical",
+            "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "critical",
+            "rationale": "filename is interpolated unescaped into os.system's shell string, so a name like 'a; rm -rf /' runs arbitrary commands."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.124214040988591,
+      "text": "{\"defects\":[{\"category\":\"command_injection\",\"line\":4,\"severity\":\"critical\",\"rationale\":\"filename is interpolated unescaped into os.system's shell string, so a name like 'a; rm -rf /' runs arbitrary commands.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "convert.py"
+          },
+          "result_summary": "{\"file\": \"convert.py\", \"code\": \"import os\\n\\ndef convert(filename):\\n    return os.system(f\\\"convert {filename} output.png\\\")\", \"line_count\": 4}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.30450004851445556,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2694,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01647
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "convert.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"convert.py\", \"profile\": \"all\", \"findings\": [{\"line\": 4, \"rule\": \"shell_execution\", \"message\": \"shell command construction requires injection review\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.2886669826693833,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2694,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01647
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5682,
+        "output_tokens": 229,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.034135
+      }
+    },
+    {
+      "id": "item-012",
+      "file": "counter.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "The counter is read into `current` and written back on the next line without a lock, so concurrent threads can read the same value and lose increments."
+          }
+        ]
+      },
+      "score": {
+        "score": 0.0,
+        "detail": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "true_positive": 0,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [
+            [
+              "race_condition",
+              6
+            ]
+          ],
+          "extra": [
+            [
+              "race_condition",
+              5
+            ]
+          ]
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.301803750044201,
+      "text": "{\"defects\":[{\"category\":\"race_condition\",\"line\":5,\"severity\":\"medium\",\"rationale\":\"The counter is read into `current` and written back on the next line without a lock, so concurrent threads can read the same value and lose increments.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "counter.py"
+          },
+          "result_summary": "{\"file\": \"counter.py\", \"code\": \"counter = 0\\n\\ndef increment():\\n    global counter\\n    current = counter\\n    counter = current + 1\\n    return counter\", \"line_count\": 7}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.21316698985174298,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2620,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.0161
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "counter.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"counter.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.2092499635182321,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2620,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.0161
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5506,
+        "output_tokens": 220,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033030000000000004
+      }
+    },
+    {
+      "id": "item-013",
+      "file": "access.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "identity_comparison",
+            "line": 2,
+            "severity": "high",
+            "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "identity_comparison",
+            "line": 2,
+            "severity": "high",
+            "rationale": "`user_role is 'admin'` compares object identity, so an equal but non-interned string (e.g. built at runtime) fails the check and a legitimate admin is denied edit access."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.8139501250116155,
+      "text": "{\"defects\":[{\"category\":\"identity_comparison\",\"line\":2,\"severity\":\"high\",\"rationale\":\"`user_role is 'admin'` compares object identity, so an equal but non-interned string (e.g. built at runtime) fails the check and a legitimate admin is denied edit access.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "access.py"
+          },
+          "result_summary": "{\"file\": \"access.py\", \"code\": \"def can_edit(user_role):\\n    if user_role is 'admin':\\n        return True\\n    return False\", \"line_count\": 4}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.18525001360103488,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2622,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01606
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "access.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"access.py\", \"profile\": \"all\", \"findings\": [{\"line\": 2, \"rule\": \"string_identity\", \"message\": \"string identity comparison is not value equality\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.3612909931689501,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2622,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01606
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5531,
+        "output_tokens": 214,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03300500000000001
+      }
+    },
+    {
+      "id": "item-014",
+      "file": "drain.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "infinite_loop",
+            "line": 3,
+            "severity": "high",
+            "rationale": "Condition len(queue) >= 0 is always true, so the loop keeps running until pop(0) raises IndexError on the empty list."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "infinite_loop",
+            "line": 3,
+            "severity": "high",
+            "rationale": "The condition len(queue) >= 0 is always true, so the loop never exits normally and pop(0) raises IndexError once the queue is empty."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.808226875029504,
+      "text": "{\"defects\":[{\"category\":\"infinite_loop\",\"line\":3,\"severity\":\"high\",\"rationale\":\"The condition len(queue) >= 0 is always true, so the loop never exits normally and pop(0) raises IndexError once the queue is empty.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "drain.py"
+          },
+          "result_summary": "{\"file\": \"drain.py\", \"code\": \"def drain(queue):\\n    processed = []\\n    while len(queue) >= 0:\\n        processed.append(queue.pop(0))\\n    return processed\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.17504201969131827,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2629,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016145
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "drain.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"drain.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.3387079923413694,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2629,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016145
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5531,
+        "output_tokens": 205,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032780000000000004
+      }
+    },
+    {
+      "id": "item-015",
+      "file": "admin.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "auth_bypass",
+            "line": 3,
+            "severity": "critical",
+            "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "auth_bypass",
+            "line": 3,
+            "severity": "critical",
+            "rationale": "The condition uses `or`, so any non-empty token grants admin access without matching expected_token()."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.758160625002347,
+      "text": "{\"defects\":[{\"category\":\"auth_bypass\",\"line\":3,\"severity\":\"critical\",\"rationale\":\"The condition uses `or`, so any non-empty token grants admin access without matching expected_token().\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "admin.py"
+          },
+          "result_summary": "{\"file\": \"admin.py\", \"code\": \"def admin_action(request):\\n    token = request.headers.get('X-Admin-Token')\\n    if token or token == expected_token():\\n        return perform_admin_action()\\n    raise PermissionError()\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.1296249683946371,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2621,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016105
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "admin.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"admin.py\", \"profile\": \"all\", \"findings\": [{\"line\": 2, \"rule\": \"network_without_timeout\", \"message\": \"network-style get call has no timeout keyword\"}, {\"line\": 3, \"rule\": \"permissive_boolean\", \"message\": \"OR condition may bypass validation\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.22020802134647965,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2621,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016105
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5607,
+        "output_tokens": 190,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032785
+      }
+    },
+    {
+      "id": "item-016",
+      "file": "lookup.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "result_overwritten",
+            "line": 7,
+            "severity": "high",
+            "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "result_overwritten",
+            "line": 7,
+            "severity": "high",
+            "rationale": "The else branch clears found on every non-matching item, so a valid match is discarded unless it is the last element and the function wrongly returns None."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 4.874315541994292,
+      "text": "{\"defects\":[{\"category\":\"result_overwritten\",\"line\":7,\"severity\":\"high\",\"rationale\":\"The else branch clears found on every non-matching item, so a valid match is discarded unless it is the last element and the function wrongly returns None.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "lookup.py"
+          },
+          "result_summary": "{\"file\": \"lookup.py\", \"code\": \"def find(items, target):\\n    found = None\\n    for item in items:\\n        if item.id == target:\\n            found = item\\n        else:\\n            found = None\\n    return found\", \"line_count\": 8}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.24029205087572336,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2621,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016155
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "lookup.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"lookup.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.3453749814070761,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2621,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016155
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5522,
+        "output_tokens": 203,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.032685
+      }
+    },
+    {
+      "id": "item-017",
+      "file": "download.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+          },
+          {
+            "category": "ssrf",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get has no timeout, so the call can hang indefinitely on an unresponsive server."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "response status is never checked, so a 404/500 error body is written to disk as the downloaded file."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "destination is opened for writing without validation, allowing writes outside the intended directory."
+          }
+        ]
+      },
+      "score": {
+        "score": 0.3333333333333333,
+        "detail": {
+          "precision": 0.3333333333333333,
+          "recall": 0.3333333333333333,
+          "true_positive": 1,
+          "predicted": 3,
+          "expected": 3,
+          "missed": [
+            [
+              "ssrf",
+              4
+            ],
+            [
+              "unchecked_status",
+              6
+            ]
+          ],
+          "extra": [
+            [
+              "path_traversal",
+              5
+            ],
+            [
+              "unchecked_status",
+              4
+            ]
+          ]
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.629153791000135,
+      "text": "{\"defects\":[{\"category\":\"missing_timeout\",\"line\":4,\"severity\":\"medium\",\"rationale\":\"requests.get has no timeout, so the call can hang indefinitely on an unresponsive server.\"},{\"category\":\"unchecked_status\",\"line\":4,\"severity\":\"medium\",\"rationale\":\"response status is never checked, so a 404/500 error body is written to disk as the downloaded file.\"},{\"category\":\"path_traversal\",\"line\":5,\"severity\":\"medium\",\"rationale\":\"destination is opened for writing without validation, allowing writes outside the intended directory.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "download.py"
+          },
+          "result_summary": "{\"file\": \"download.py\", \"code\": \"import requests\\n\\ndef download(url, destination):\\n    response = requests.get(url)\\n    with open(destination, 'wb') as output:\\n        output.write(response.content)\\n    return destination\", \"line_count\": 7}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.30204199720174074,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2808,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01699
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "download.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"download.py\", \"profile\": \"all\", \"findings\": [{\"line\": 4, \"rule\": \"network_without_timeout\", \"message\": \"network-style get call has no timeout keyword\"}]}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.6167090032249689,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2808,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01699
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5937,
+        "output_tokens": 301,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03721
+      }
+    },
+    {
+      "id": "item-018",
+      "file": "cache.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Lookup keys only on product_id while the value depends on currency, so a cached price from one currency is returned for requests in another."
+          }
+        ]
+      },
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 2,
+          "missed": [
+            [
+              "race_condition",
+              7
+            ]
+          ],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.30077941698255,
+      "text": "{\"defects\":[{\"category\":\"incorrect_cache_key\",\"line\":4,\"severity\":\"high\",\"rationale\":\"Lookup keys only on product_id while the value depends on currency, so a cached price from one currency is returned for requests in another.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "cache.py"
+          },
+          "result_summary": "{\"file\": \"cache.py\", \"code\": \"cache = {}\\n\\ndef price(product_id, currency, fetch):\\n    if product_id in cache:\\n        return cache[product_id]\\n    value = fetch(product_id, currency)\\n    cache[product_id] = value\\n    return value\", \"line_count\": 8}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.12741703540086746,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2619,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016095
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "cache.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"cache.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.3165830275975168,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2619,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016095
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5540,
+        "output_tokens": 231,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033475000000000005
+      }
+    },
+    {
+      "id": "item-019",
+      "file": "expiry.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "timezone_naive",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "timezone_naive",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "datetime.now() yields a naive local-time value, so comparison on line 5 with an aware/UTC expires_at is off by the UTC offset or raises TypeError."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 5.0317490409943275,
+      "text": "{\"defects\":[{\"category\":\"timezone_naive\",\"line\":4,\"severity\":\"medium\",\"rationale\":\"datetime.now() yields a naive local-time value, so comparison on line 5 with an aware/UTC expires_at is off by the UTC offset or raises TypeError.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "expiry.py"
+          },
+          "result_summary": "{\"file\": \"expiry.py\", \"code\": \"from datetime import datetime\\n\\ndef is_expired(expires_at):\\n    now = datetime.now()\\n    return now >= expires_at\", \"line_count\": 5}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.24570804089307785,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2636,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01623
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "expiry.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"expiry.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.32954197376966476,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2636,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01623
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5545,
+        "output_tokens": 216,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033125
+      }
+    },
+    {
+      "id": "item-020",
+      "file": "transfer.py",
+      "draft": {
+        "defects": [
+          {
+            "category": "non_atomic_transaction",
+            "line": 5,
+            "severity": "high",
+            "rationale": "The two saves are not wrapped in a transaction, so a failure after debiting the source loses the funds without crediting the target."
+          },
+          {
+            "category": "invalid_amount",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Negative or zero amounts are not rejected, allowing a negative transfer to drain the target account."
+          }
+        ]
+      },
+      "final": {
+        "defects": [
+          {
+            "category": "non_atomic_transaction",
+            "line": 5,
+            "severity": "high",
+            "rationale": "The source debit is persisted on its own; if the later credit or save on lines 6-7 fails, the money is destroyed since no transaction wraps both saves."
+          },
+          {
+            "category": "invalid_amount",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "The only guard checks balance, so a negative amount passes and credits the source while debiting the target."
+          }
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 2,
+          "predicted": 2,
+          "expected": 2,
+          "missed": [],
+          "extra": []
+        }
+      },
+      "error": null,
+      "latency_seconds": 6.656184084014967,
+      "text": "{\"defects\":[{\"category\":\"non_atomic_transaction\",\"line\":5,\"severity\":\"high\",\"rationale\":\"The source debit is persisted on its own; if the later credit or save on lines 6-7 fails, the money is destroyed since no transaction wraps both saves.\"},{\"category\":\"invalid_amount\",\"line\":2,\"severity\":\"medium\",\"rationale\":\"The only guard checks balance, so a negative amount passes and credits the source while debiting the target.\"}]}",
+      "steps": 2,
+      "cap_hit": false,
+      "tool_calls": [
+        {
+          "step": 1,
+          "name": "read_code",
+          "arguments": {
+            "file": "transfer.py"
+          },
+          "result_summary": "{\"file\": \"transfer.py\", \"code\": \"def transfer(db, source, target, amount):\\n    if source.balance < amount:\\n        raise ValueError('insufficient funds')\\n    source.balance -= amount\\n    db.save(source)\\n    target.balance += amount\\n    db.save(target)\\n    return True\", \"line_count\": 8}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.11337501928210258,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2693,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016515
+          }
+        },
+        {
+          "step": 1,
+          "name": "run_linter",
+          "arguments": {
+            "file": "transfer.py",
+            "profile": "all"
+          },
+          "result_summary": "{\"file\": \"transfer.py\", \"profile\": \"all\", \"findings\": []}",
+          "confirmation": "type, emptiness, and relevance checks passed",
+          "confirmed": true,
+          "latency_ms": 0.2911249757744372,
+          "token_usage_so_far": {
+            "calls": 1,
+            "input_tokens": 2693,
+            "output_tokens": 122,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.016515
+          }
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5700,
+        "output_tokens": 327,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.036675
+      }
+    }
+  ]
+}
