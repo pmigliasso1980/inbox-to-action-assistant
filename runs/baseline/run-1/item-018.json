@@ -1,0 +1,40 @@
+{
+  "id": "item-018",
+  "difficulty": "hard",
+  "file": "cache.py",
+  "output": {
+    "defects": [
+      {
+        "category": "incorrect_cache_key",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.6666666666666666,
+    "detail": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 2,
+      "missed": [
+        [
+          "race_condition",
+          7
+        ]
+      ],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 977,
+    "output_tokens": 72,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.006685,
+  "latency_seconds": 2.0762212090194225
+}

@@ -1,0 +1,56 @@
+{
+  "id": "item-009",
+  "difficulty": "medium",
+  "file": "export.py",
+  "output": {
+    "defects": [
+      {
+        "category": "resource_leak",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "File handle is never closed; on exception or in non-CPython runtimes data may remain unflushed and descriptors leak."
+      },
+      {
+        "category": "type_error",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "len(rows) fails with TypeError if rows is a generator/iterator, which the for-loop otherwise accepts."
+      },
+      {
+        "category": "improper_escaping",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "Naive ','.join produces corrupt CSV when field values contain commas, quotes, or newlines."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.5,
+    "detail": {
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 3,
+      "expected": 1,
+      "missed": [],
+      "extra": [
+        [
+          "improper_escaping",
+          4
+        ],
+        [
+          "type_error",
+          5
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 738,
+    "output_tokens": 267,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.010365,
+  "latency_seconds": 5.045087291044183
+}

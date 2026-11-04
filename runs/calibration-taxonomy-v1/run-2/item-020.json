@@ -1,0 +1,59 @@
+{
+  "id": "item-020",
+  "difficulty": "hard",
+  "file": "transfer.py",
+  "output": {
+    "defects": [
+      {
+        "category": "missing_transaction_atomicity",
+        "line": 5,
+        "severity": "high",
+        "rationale": "If db.save(target) fails after the source debit is persisted, funds vanish since the two saves are not wrapped in a single transaction/rollback."
+      },
+      {
+        "category": "missing_input_validation",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "A negative amount passes the balance check and lets the caller drain the target account into the source, inverting the transfer."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.0,
+    "detail": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positive": 0,
+      "predicted": 2,
+      "expected": 2,
+      "missed": [
+        [
+          "invalid_amount",
+          2
+        ],
+        [
+          "non_atomic_transaction",
+          5
+        ]
+      ],
+      "extra": [
+        [
+          "missing_input_validation",
+          2
+        ],
+        [
+          "missing_transaction_atomicity",
+          5
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 762,
+    "output_tokens": 155,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.007685,
+  "latency_seconds": 3.887885542004369
+}

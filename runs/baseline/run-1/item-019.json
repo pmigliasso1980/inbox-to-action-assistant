@@ -1,0 +1,35 @@
+{
+  "id": "item-019",
+  "difficulty": "hard",
+  "file": "expiry.py",
+  "output": {
+    "defects": [
+      {
+        "category": "timezone_naive",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 948,
+    "output_tokens": 88,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00694,
+  "latency_seconds": 2.631415832962375
+}

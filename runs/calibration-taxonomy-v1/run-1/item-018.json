@@ -1,0 +1,51 @@
+{
+  "id": "item-018",
+  "difficulty": "hard",
+  "file": "cache.py",
+  "output": {
+    "defects": [
+      {
+        "category": "incorrect_cache_key",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in a different currency."
+      },
+      {
+        "category": "unbounded_cache_growth",
+        "line": 7,
+        "severity": "low",
+        "rationale": "The module-level dict never evicts entries, so memory grows without bound and stale prices are never refreshed."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.5,
+    "detail": {
+      "precision": 0.5,
+      "recall": 0.5,
+      "true_positive": 1,
+      "predicted": 2,
+      "expected": 2,
+      "missed": [
+        [
+          "race_condition",
+          7
+        ]
+      ],
+      "extra": [
+        [
+          "unbounded_cache_growth",
+          7
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 751,
+    "output_tokens": 169,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00798,
+  "latency_seconds": 3.586804124992341
+}

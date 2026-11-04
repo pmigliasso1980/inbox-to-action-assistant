@@ -1,0 +1,26 @@
+.
+├── agents/
+│   ├── __init__.py
+│   └── llm.py
+├── data/
+│   └── README.md
+├── evals/
+│   ├── daily_cases.json
+│   ├── dataset.jsonl
+│   ├── devset.jsonl
+│   ├── prompt_baseline.txt
+│   ├── run_baseline.py
+│   └── score.py
+├── graph/
+│   └── .gitkeep
+├── runs/
+│   ├── baseline/
+│   │   ├── run-1/ (20 item artifacts, summary.json, usage.jsonl)
+│   │   └── run-2/ (20 item artifacts, summary.json, usage.jsonl)
+│   ├── calibration-taxonomy-v1/
+│   │   ├── run-1/
+│   │   └── run-2/
+│   └── usage.jsonl
+├── LAB_NOTES.md
+├── SETUP_BASELINE_NOTE.md
+└── verify_setup.py

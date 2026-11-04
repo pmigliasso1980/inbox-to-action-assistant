@@ -1,0 +1,35 @@
+{
+  "id": "item-010",
+  "difficulty": "medium",
+  "file": "tokens.py",
+  "output": {
+    "defects": [
+      {
+        "category": "insecure_random",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Password/reset tokens generated with the predictable random module instead of secrets, allowing attackers to guess tokens and hijack accounts."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 946,
+    "output_tokens": 82,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00678,
+  "latency_seconds": 6.0343341659754515
+}

@@ -1,0 +1,35 @@
+{
+  "id": "item-012",
+  "difficulty": "medium",
+  "file": "counter.py",
+  "output": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 6,
+        "severity": "medium",
+        "rationale": "The read-modify-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 942,
+    "output_tokens": 74,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00656,
+  "latency_seconds": 2.469525083026383
+}

@@ -1,0 +1,45 @@
+{
+  "id": "item-010",
+  "difficulty": "medium",
+  "file": "tokens.py",
+  "output": {
+    "defects": [
+      {
+        "category": "insecure_randomness",
+        "line": 4,
+        "severity": "high",
+        "rationale": "random.randint uses a predictable Mersenne Twister PRNG, so reset tokens can be guessed/reproduced; secrets module should be used for security tokens."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.0,
+    "detail": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positive": 0,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [
+        [
+          "insecure_random",
+          4
+        ]
+      ],
+      "extra": [
+        [
+          "insecure_randomness",
+          4
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 720,
+    "output_tokens": 93,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.005925,
+  "latency_seconds": 4.146096415992361
+}

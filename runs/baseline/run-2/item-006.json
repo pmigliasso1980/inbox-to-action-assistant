@@ -1,0 +1,35 @@
+{
+  "id": "item-006",
+  "difficulty": "easy",
+  "file": "notify.py",
+  "output": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "The async client.post coroutine is not awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request is never sent)."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 947,
+    "output_tokens": 85,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00686,
+  "latency_seconds": 3.059447249979712
+}

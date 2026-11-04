@@ -1,0 +1,46 @@
+{
+  "id": "item-011",
+  "difficulty": "medium",
+  "file": "convert.py",
+  "output": {
+    "defects": [
+      {
+        "category": "command_injection",
+        "line": 4,
+        "severity": "critical",
+        "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "os.system's exit status is returned but never checked, so conversion failures go unnoticed by callers treating it as success."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.6666666666666666,
+    "detail": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 2,
+      "expected": 1,
+      "missed": [],
+      "extra": [
+        [
+          "unchecked_status",
+          4
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 936,
+    "output_tokens": 145,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.008305,
+  "latency_seconds": 3.003244082967285
+}

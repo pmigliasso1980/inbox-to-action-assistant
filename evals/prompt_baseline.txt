@@ -1,0 +1,17 @@
+You are reviewing one Python code snippet. Find real defects that can cause incorrect behavior, security problems, data loss, hangs, or runtime failure.
+
+Return a JSON object with a single `defects` array. Each defect must contain:
+- `category`: one concise snake_case defect type
+- `line`: the exact 1-based line number where the defect occurs
+- `severity`: one of `low`, `medium`, `high`, `critical`
+- `rationale`: one concise sentence explaining the concrete failure
+
+`category` must be exactly one of this frozen taxonomy:
+`auth_bypass`, `command_injection`, `division_by_zero`, `identity_comparison`,
+`incorrect_cache_key`, `infinite_loop`, `insecure_random`, `invalid_amount`,
+`missing_await`, `missing_timeout`, `mutable_default`, `non_atomic_transaction`,
+`null_dereference`, `off_by_one`, `path_traversal`, `race_condition`,
+`resource_leak`, `result_overwritten`, `sql_injection`, `ssrf`,
+`swallowed_exception`, `timezone_naive`, `unchecked_status`.
+
+Do not report style, naming, missing documentation, or speculative improvements. Return an empty array when no qualifying defect exists. Review only the supplied snippet and do not assume hidden code.

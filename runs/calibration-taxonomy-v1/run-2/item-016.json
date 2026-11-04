@@ -1,0 +1,45 @@
+{
+  "id": "item-016",
+  "difficulty": "medium",
+  "file": "lookup.py",
+  "output": {
+    "defects": [
+      {
+        "category": "incorrect_logic",
+        "line": 7,
+        "severity": "high",
+        "rationale": "The else branch resets found to None, so a match is lost unless it is the last item; the loop should break on match."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.0,
+    "detail": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positive": 0,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [
+        [
+          "result_overwritten",
+          7
+        ]
+      ],
+      "extra": [
+        [
+          "incorrect_logic",
+          7
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 728,
+    "output_tokens": 100,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00614,
+  "latency_seconds": 6.238339125004131
+}

@@ -1,14 +1,15 @@
 # Inbox-to-Action Assistant
 
-## Current graded submission — Lab 1: Read Your Token Bill
+## Current graded submission — Module 1: Architecture Over Model
 
 The current submission is available directly from the repository root:
 
-- [`LAB_NOTES.md`](LAB_NOTES.md) — all five exercises, token counts, pricing, loop tax, task-cost comparison, and the real baseline.
-- [`token-cost-lab-1/README.md`](token-cost-lab-1/README.md) — expanded calculations and reproducibility evidence.
-- [`token-cost-lab-1/loop-tax.csv`](token-cost-lab-1/loop-tax.csv) — the required 30-turn spreadsheet.
+- [`LAB_NOTES.md`](LAB_NOTES.md) — root grading index for Labs 1.1 and 1.2.
+- [`SETUP_BASELINE_NOTE.md`](SETUP_BASELINE_NOTE.md) — verified low/high effort usage and cost.
+- [`BASELINE_REPORT.md`](BASELINE_REPORT.md) — two official runs, noise floor, and failure roadmap.
+- [`runs/baseline/`](runs/baseline/) — 40 raw item artifacts and both summaries.
 
-The earlier MCP client lab notes remain archived in [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).
+Earlier notes remain archived in [`TOKEN_BILL_LAB_NOTES.md`](TOKEN_BILL_LAB_NOTES.md) and [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).
 
 Turn emails, messages, or notes into summaries, tasks, dates, priorities, and reviewed reply drafts.
 The current version accepts manually pasted text and stores results in SQLite. It never sends messages

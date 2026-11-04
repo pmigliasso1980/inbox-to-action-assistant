@@ -1,0 +1,35 @@
+{
+  "id": "item-001",
+  "difficulty": "easy",
+  "file": "range_total.py",
+  "output": {
+    "defects": [
+      {
+        "category": "off_by_one",
+        "line": 3,
+        "severity": "high",
+        "rationale": "range(n+1) iterates one element too many, summing n+1 items and raising IndexError when len(values)==n."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 949,
+    "output_tokens": 74,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.006595,
+  "latency_seconds": 2.9228949589887634
+}

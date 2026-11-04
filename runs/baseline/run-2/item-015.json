@@ -1,0 +1,35 @@
+{
+  "id": "item-015",
+  "difficulty": "medium",
+  "file": "admin.py",
+  "output": {
+    "defects": [
+      {
+        "category": "auth_bypass",
+        "line": 3,
+        "severity": "critical",
+        "rationale": "Using `or` means any non-empty token passes without matching expected_token(), allowing arbitrary callers to perform admin actions."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 968,
+    "output_tokens": 81,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.006865,
+  "latency_seconds": 2.5656433749827556
+}

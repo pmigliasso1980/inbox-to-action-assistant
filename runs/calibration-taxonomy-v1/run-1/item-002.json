@@ -1,0 +1,45 @@
+{
+  "id": "item-002",
+  "difficulty": "easy",
+  "file": "tags.py",
+  "output": {
+    "defects": [
+      {
+        "category": "mutable_default_argument",
+        "line": 1,
+        "severity": "high",
+        "rationale": "The default list is created once at function definition, so tags accumulate across calls and callers unexpectedly share state."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.0,
+    "detail": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positive": 0,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [
+        [
+          "mutable_default",
+          1
+        ]
+      ],
+      "extra": [
+        [
+          "mutable_default_argument",
+          1
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 711,
+    "output_tokens": 74,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.005405,
+  "latency_seconds": 2.429937749984674
+}

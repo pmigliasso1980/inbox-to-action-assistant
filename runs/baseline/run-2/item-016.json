@@ -1,0 +1,35 @@
+{
+  "id": "item-016",
+  "difficulty": "medium",
+  "file": "lookup.py",
+  "output": {
+    "defects": [
+      {
+        "category": "result_overwritten",
+        "line": 7,
+        "severity": "high",
+        "rationale": "The else branch resets `found` to None, so a match is discarded unless it is the last element, returning None incorrectly."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 954,
+    "output_tokens": 99,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.007245,
+  "latency_seconds": 6.641036709013861
+}

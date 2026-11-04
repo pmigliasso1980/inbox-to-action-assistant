@@ -1,0 +1,55 @@
+{
+  "id": "item-015",
+  "difficulty": "medium",
+  "file": "admin.py",
+  "output": {
+    "defects": [
+      {
+        "category": "broken_authentication",
+        "line": 3,
+        "severity": "critical",
+        "rationale": "Using `or` means any non-empty token passes the check without matching expected_token(), granting admin access to anyone."
+      },
+      {
+        "category": "timing_attack",
+        "line": 3,
+        "severity": "low",
+        "rationale": "Token comparison uses `==` instead of a constant-time compare, leaking token content via timing."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.0,
+    "detail": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positive": 0,
+      "predicted": 2,
+      "expected": 1,
+      "missed": [
+        [
+          "auth_bypass",
+          3
+        ]
+      ],
+      "extra": [
+        [
+          "broken_authentication",
+          3
+        ],
+        [
+          "timing_attack",
+          3
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 742,
+    "output_tokens": 173,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.008035,
+  "latency_seconds": 3.9271194169996306
+}

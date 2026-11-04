@@ -1,0 +1,35 @@
+{
+  "id": "item-007",
+  "difficulty": "medium",
+  "file": "average.py",
+  "output": {
+    "defects": [
+      {
+        "category": "division_by_zero",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 924,
+    "output_tokens": 68,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.00632,
+  "latency_seconds": 2.580512207990978
+}

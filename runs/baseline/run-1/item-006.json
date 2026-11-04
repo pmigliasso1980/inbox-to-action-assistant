@@ -1,0 +1,46 @@
+{
+  "id": "item-006",
+  "difficulty": "easy",
+  "file": "notify.py",
+  "output": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "low",
+        "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+      }
+    ]
+  },
+  "score": {
+    "score": 0.6666666666666666,
+    "detail": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 2,
+      "expected": 1,
+      "missed": [],
+      "extra": [
+        [
+          "missing_timeout",
+          2
+        ]
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 947,
+    "output_tokens": 146,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.008385,
+  "latency_seconds": 3.4087509579840116
+}

@@ -1,0 +1,35 @@
+{
+  "id": "item-003",
+  "difficulty": "easy",
+  "file": "config.py",
+  "output": {
+    "defects": [
+      {
+        "category": "swallowed_exception",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+      }
+    ]
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage": {
+    "input_tokens": 950,
+    "output_tokens": 94,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "cost_usd": 0.0071,
+  "latency_seconds": 3.0866219580057077
+}
