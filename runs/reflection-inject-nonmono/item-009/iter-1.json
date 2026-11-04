@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "resource_leak",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data, especially if write raises."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2908,
+    "output_tokens": 110,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.01729
+  },
+  "stopping_decision": "revise"
+}

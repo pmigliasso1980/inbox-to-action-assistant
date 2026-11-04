@@ -1,0 +1,70 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "sql_injection",
+        "line": 2,
+        "severity": "critical",
+        "rationale": "The `name` parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "defects array (single entry)",
+        "observation": "The review reports exactly one finding. Snippets used in this task normally contain several interacting defects (e.g., resource/connection leaks, unchecked error or None returns, missing authorization checks, unvalidated input beyond the SQL string, transaction/commit handling). Stopping after the most obvious SQL injection suggests the rest of the snippet was not examined.",
+        "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+        "severity": "major"
+      },
+      {
+        "location": "defects[0].rationale",
+        "observation": "The rationale states the generic risk ('allows arbitrary SQL injection') and a remedy, but does not trace the concrete failure path (which untrusted source reaches `name`, and what a crafted value would do to the executed statement). Evidence alignment requires explaining why the cited line is the operation responsible.",
+        "rubric_criterion": "evidence_alignment \u2014 the cited line contains the responsible operation and the rationale explains that connection",
+        "severity": "minor"
+      },
+      {
+        "location": "defects[0].line = 2",
+        "observation": "Line 2 is cited for interpolation, but if the interpolation occurs at the string-construction line and execution occurs elsewhere, the finding must point at the line performing the unsafe composition/execution. Confirm the cited line holds that operation rather than, say, a function signature.",
+        "rubric_criterion": "evidence_alignment / line_numbers_valid",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Re-read the entire supplied snippet line by line and add every additional material defect you can support with a specific line: unclosed cursors/connections, missing commit/rollback on exception, unchecked return values or None dereferences, missing authN/authZ or ownership checks, unvalidated/unbounded input, and any interaction between these and the injection flaw.",
+      "Expand the SQL injection rationale to name the untrusted input source and describe a concrete exploit outcome (e.g., a crafted `name` value terminating the literal and appending a destructive clause), not just the label 'SQL injection'.",
+      "Verify the cited line number points at the exact statement that composes or executes the unsafe query; adjust if the interpolation and execution are on different lines.",
+      "Keep the existing SQL injection finding intact (category and corrected line only) while adding new findings; stay within eight total and avoid duplicate category+line pairs.",
+      "Do not add findings that rely on unstated callers, frameworks, or deployment context \u2014 every new finding must be grounded in code visible in the snippet."
+    ]
+  },
+  "invalid_criteria": [
+    "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+    "evidence_alignment \u2014 the cited line contains the responsible operation and the rationale explains that connection",
+    "evidence_alignment / line_numbers_valid"
+  ],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2418,
+    "output_tokens": 1018,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.037540000000000004
+  },
+  "stopping_decision": "revise"
+}

@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "auth_bypass",
+        "line": 3,
+        "severity": "critical",
+        "rationale": "Using `or` instead of `and` lets any non-empty token pass authentication without matching the expected token."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2906,
+    "output_tokens": 100,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.01703
+  },
+  "stopping_decision": "satisfactory"
+}

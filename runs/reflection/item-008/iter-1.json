@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "null_dereference",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "Chained access assumes user.profile and .name are non-None; an AttributeError is raised when profile or name is missing/None."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2830,
+    "output_tokens": 128,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.01735
+  },
+  "stopping_decision": "satisfactory"
+}

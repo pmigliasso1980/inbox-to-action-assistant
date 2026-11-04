@@ -1,0 +1,48 @@
+{
+  "iteration": 3,
+  "draft": {
+    "defects": [
+      {
+        "category": "sql_injection",
+        "line": 2,
+        "severity": "critical",
+        "rationale": "The caller-supplied `name` is interpolated into the SQL literal on this line, so a value like `' OR '1'='1' --` terminates the quoted string and alters the WHERE clause, leaking or destroying rows when the built string is executed on line 3."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [
+      {
+        "location": "defects[0] rationale",
+        "observation": "The rationale cites line 2 for the interpolation but attributes execution to line 3; if the execution call is itself a separate defect (e.g., unparameterized execute or missing error handling), it is not reported as its own finding.",
+        "rubric_criterion": "coverage",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 6,
+    "input_tokens": 9151,
+    "output_tokens": 2369,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.10498000000000002
+  },
+  "stopping_decision": "satisfactory"
+}

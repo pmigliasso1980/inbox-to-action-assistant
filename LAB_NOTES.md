@@ -1,6 +1,24 @@
-# Module 1 submission: Architecture Over Model
+# Module 2 submission: Reflection
 
-This is the repository-root grading entry point for Labs 1.1 and 1.2.
+This is the repository-root grading entry point for Labs 2.1 and 2.2.
+
+## Lab 2.1 deliverables
+
+- [`evals/rubric.md`](evals/rubric.md) — separately committed, immutable rubric with deterministic and subjective criteria.
+- [`agents/gates.py`](agents/gates.py) — mechanical validation.
+- [`agents/reflection.py`](agents/reflection.py) — structured critique, gate, revision, best-draft selection, and iteration artifacts.
+- [`runs/reflection/summary.json`](runs/reflection/summary.json) — 0.9452 reflection score, $0.351780 cost, and full diagnostics.
+- [`REFLECTION_REPORT.md`](REFLECTION_REPORT.md) — no demonstrated lift beyond the 0.0667 noise floor.
+
+## Lab 2.2 deliverables
+
+- [`FAILURE_INJECTION_PREDICTIONS.md`](FAILURE_INJECTION_PREDICTIONS.md) — predictions written before running.
+- Five run directories: `runs/reflection-control`, `runs/reflection-inject-self-confirm`, `runs/reflection-inject-drift`, `runs/reflection-inject-nonmono`, and `runs/reflection-all-controls`.
+- [`FAILURE_INJECTION_REPORT.md`](FAILURE_INJECTION_REPORT.md) — comparative table, evidence quotes, conclusions, and three production alerts.
+
+The same 10-item subset was used for all five Lab 2.2 configurations. Rubric drift caused the largest score loss; self-confirmation caused the largest cost increase; forced non-monotonic revision did not reduce score on the saturated subset.
+
+## Archived Module 1 summary
 
 ## Lab 1.1 deliverables
 

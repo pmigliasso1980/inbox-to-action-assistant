@@ -1,0 +1,41 @@
+{
+  "iteration": 4,
+  "draft": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "client.post on an async client returns a coroutine; without await, response.status_code raises AttributeError and the request is never sent."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 8,
+    "input_tokens": 11864,
+    "output_tokens": 412,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.06962
+  },
+  "stopping_decision": "revise"
+}

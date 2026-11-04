@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "infinite_loop",
+        "line": 3,
+        "severity": "high",
+        "rationale": "Condition len(queue) >= 0 is always true, so the loop never exits normally and pop(0) raises IndexError on the empty list."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2887,
+    "output_tokens": 111,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.01721
+  },
+  "stopping_decision": "satisfactory"
+}

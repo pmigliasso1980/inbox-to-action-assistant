@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "timezone_naive",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "datetime.now() returns a naive local-time datetime, so comparison with a timezone-aware expires_at raises TypeError and with a UTC-based naive value yields wrong expiry results."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [],
+    "revision_instructions": []
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2895,
+    "output_tokens": 129,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.0177
+  },
+  "stopping_decision": "satisfactory"
+}

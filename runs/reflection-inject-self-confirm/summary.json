@@ -1,0 +1,1746 @@
+{
+  "name": "reflection-inject-self-confirm",
+  "mode": "self-confirm",
+  "items": 10,
+  "mean_score": 0.9666666666666668,
+  "delta_vs_baseline_run1": 0.08809523809523834,
+  "noise_floor": 0.06666666666666676,
+  "per_item_scores": {
+    "item-001": 1.0,
+    "item-002": 1.0,
+    "item-003": 1.0,
+    "item-004": 1.0,
+    "item-005": 1.0,
+    "item-006": 0.6666666666666666,
+    "item-007": 1.0,
+    "item-008": 1.0,
+    "item-009": 1.0,
+    "item-010": 1.0
+  },
+  "stopping_reasons": {
+    "satisfactory": 5,
+    "cap": 5
+  },
+  "satisfaction_at_1_rate": 0.1,
+  "mean_iterations": 2.5,
+  "gate_failure_fraction": 0.0,
+  "non_monotonic_rate": 0.1,
+  "input_tokens": 72928,
+  "output_tokens": 21062,
+  "cached_tokens": 0,
+  "cost_usd": 0.8911899999999999,
+  "calls": 50,
+  "wall_clock_seconds": 380.6605429170304,
+  "results": [
+    {
+      "id": "item-001",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 2,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "off_by_one",
+                "line": 3,
+                "severity": "high",
+                "rationale": "range(n+1) iterates one element too many, summing n+1 items and raising IndexError when len(values)==n."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. A snippet that contains an off-by-one loop bound almost always carries interacting defects (e.g., unvalidated input length, division by zero on empty input, accumulator initialization, mutation of shared state). Stopping at the first easy index bug leaves the coverage criterion unmet.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 3 rationale",
+                "observation": "The rationale asserts both 'sums n+1 items' and 'raises IndexError when len(values)==n' without naming the indexing expression on line 3 that performs the out-of-range access. If the summation on line 3 uses values[i], say so explicitly; the evidence link between the cited line and the failure is currently implicit.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "line 3 rationale",
+                "observation": "The claim 'len(values)==n' presumes the relationship between n and the collection length, which may be an unstated assumption if n is derived elsewhere in the snippet. Tie the claim to the actual binding of n visible in the code.",
+                "rubric_criterion": "precision",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire snippet line by line and add any additional material defects (empty-input division, uninitialized or mis-initialized accumulators, unvalidated parameters, resource leaks, unsafe concurrency or shared mutation), keeping total findings at eight or fewer and one finding per category+line pair.",
+              "Rewrite the line 3 rationale to quote or name the exact operation on that line that indexes out of range, so the cited line visibly contains the failing operation.",
+              "Ground the n-versus-length claim in how n is actually bound in the snippet rather than assuming the caller passes len(values); if n is computed in the snippet, cite that relationship.",
+              "Leave the existing off_by_one/line 3 finding intact in category, line, and severity while adding the new findings."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2400,
+            "output_tokens": 909,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.034725
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "off_by_one",
+                "line": 3,
+                "severity": "high",
+                "rationale": "The loop bound range(n + 1) on line 3 drives index i up to n, so the indexing expression values[i] on line 4 accesses one past the intended first n elements, summing n+1 items and raising IndexError whenever n is passed as the sequence length (e.g. total_first_n(values, len(values)))."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports only one defect. If the snippet also contains an unvalidated n (e.g. n exceeding len(values)) or an uninitialized/mis-scoped accumulator, those would be distinct material defects left uncovered.",
+                "rubric_criterion": "coverage",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the snippet for a second independent defect (notably missing validation that n <= len(values), or accumulator initialization/return placement) and add it as a separate finding only if the responsible operation is visible on a specific line.",
+              "Leave the existing off_by_one finding at line 3 exactly as written; its category, line, severity, and rationale are already correct and evidence-aligned."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5655,
+            "output_tokens": 1491,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.06555
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 4,
+        "input_tokens": 5655,
+        "output_tokens": 1491,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.06555
+      }
+    },
+    {
+      "id": "item-002",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 2,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "mutable_default",
+                "line": 1,
+                "severity": "high",
+                "rationale": "The default list is created once and shared across calls, so tags accumulate across separate invocations."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding (mutable_default at line 1). A single-finding review is the classic signature of stopping after the easiest issue; mutable-default arguments are rarely the only material defect in a snippet long enough to be submitted for review. No other candidate areas (input validation, error handling, resource lifetime, concurrency, injection surfaces) are addressed or explicitly ruled out.",
+                "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+                "severity": "major"
+              },
+              {
+                "location": "line 1",
+                "observation": "Line 1 is cited as the location of a mutable default argument. For that to hold, line 1 must be the function signature line containing the `=[]` (or equivalent) default. If the snippet begins with imports, a decorator, or a docstring, the correct defect is attached to the wrong line, which costs the frozen category-and-line F1 directly.",
+                "rubric_criterion": "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+                "severity": "major"
+              },
+              {
+                "location": "rationale text",
+                "observation": "The rationale states accumulation across invocations but does not tie it to the specific observable failure in this code (e.g., which caller-visible value is corrupted, or which returned structure grows unboundedly). It reads as the generic textbook description of the pattern rather than a trace through this snippet.",
+                "rubric_criterion": "concrete_defect / evidence_alignment \u2014 rationale must explain the concrete failure path, not name a generic risk",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-read the snippet line by line and confirm that line 1 is the exact line containing the mutable default parameter. If the default appears on a different line (e.g., a multi-line signature), update the line number to the line holding the `=[]`/`={}` token.",
+              "Make a second pass over the whole snippet looking for additional material defects in these categories: unvalidated or unsanitized input reaching a query/command/path, unchecked return values or swallowed exceptions, resources opened without guaranteed close, off-by-one or boundary errors in indexing/slicing, state mutated while iterating, and race or TOCTOU windows. Add each distinct one as its own finding.",
+              "Where two defects interact (for example, the shared mutable default being mutated by a code path that also lacks validation), add the interaction as a separate finding and state in the rationale how the two combine to worsen the failure.",
+              "Rewrite the existing rationale so it traces the concrete failure in this code: name the parameter, name the mutation site, and state what a second caller observes as a result.",
+              "Keep the existing mutable_default finding intact unless its line number is provably wrong; do not reword or recategorize it while adding new findings.",
+              "Stay within eight findings total, ensure no two findings share the same category and line, and keep every line number within the bounds of the supplied snippet."
+            ]
+          },
+          "invalid_criteria": [
+            "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+            "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+            "concrete_defect / evidence_alignment \u2014 rationale must explain the concrete failure path, not name a generic risk"
+          ],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2379,
+            "output_tokens": 1198,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.04184499999999999
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "mutable_default",
+                "line": 1,
+                "severity": "high",
+                "rationale": "The `tags=[]` default list on line 1 is created once at definition time and mutated by `tags.append(tag)` on line 2, so a second caller invoking add_tag() without a list receives the previous caller's tags still present in the returned list."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [
+              {
+                "location": "defects array (single finding)",
+                "observation": "Only one defect is reported. If the snippet contains additional material issues (e.g., unvalidated input, missing return, error handling on other lines), coverage would be incomplete; the single finding itself is well-formed and concrete.",
+                "rubric_criterion": "coverage",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the remaining lines of the snippet for any second, distinct material defect (correctness, security, or data-integrity) and add it only if the cited line genuinely contains the responsible operation; do not alter the existing mutable_default finding."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5883,
+            "output_tokens": 1654,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.070765
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 4,
+        "input_tokens": 5883,
+        "output_tokens": 1654,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.070765
+      }
+    },
+    {
+      "id": "item-003",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "cap",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "swallowed_exception",
+                "line": 5,
+                "severity": "medium",
+                "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently running with wrong settings."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "whole draft (single finding at line 5)",
+                "observation": "The review reports only one defect. A snippet containing a broad try/except around config loading almost always carries additional material defects (e.g., unvalidated/missing keys used downstream, path handling, resource leaks from unclosed file handles, insecure deserialization of config data). Stopping after the easiest issue leaves distinct defects unreported.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale states the generic risk ('hiding real failures') but does not trace a concrete downstream failure path \u2014 i.e., which later operation consumes the empty config and what incorrect/unsafe behavior results. Without that, evidence alignment between line 5 and a runtime failure is weak.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet line by line and add any further material defects (correctness, security, data-integrity, resource-leak) that are visible, up to the eight-finding limit; do not add style or speculative findings.",
+              "Keep the existing line 5 swallowed_exception finding intact, but extend its rationale to name the specific downstream consumer of the empty config and the concrete incorrect behavior that results.",
+              "Verify every new finding cites the exact line containing the responsible operation, uses a taxonomy category, an integer line within range, an allowed severity, and that no two findings share the same category and line."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2420,
+            "output_tokens": 687,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.029275000000000002
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "swallowed_exception",
+                "line": 5,
+                "severity": "medium",
+                "rationale": "Any failure (missing file, permission denied, decode error) is silently replaced by the literal '{}', so callers that parse and read configuration keys from this return value silently proceed with an empty config and fall back to defaults instead of surfacing the misconfiguration."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (whole review)",
+                "observation": "The review reports exactly one finding (swallowed exception at line 5). A snippet that reads a file, decodes it, and returns a JSON-ish string literal typically contains additional material defects (e.g., unclosed file handle / resource leak, unvalidated path, returning a raw string where callers expect a parsed object, encoding assumptions). Stopping after the easiest issue is explicitly listed in the rubric's defects to look for.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale asserts behavior of callers ('callers that parse and read configuration keys from this return value') that is not shown in the supplied snippet. The concrete failure path should be grounded in the snippet itself rather than in an assumed caller.",
+                "rubric_criterion": "precision",
+                "severity": "minor"
+              },
+              {
+                "location": "defects[0].line",
+                "observation": "Line 5 is cited as the location of the swallowed exception, but the responsible operation is typically the `except` clause / `return '{}'` statement. Confirm the cited line actually contains the swallowing construct and not the preceding read call.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet and add every other distinct material defect you can substantiate (resource/file-handle leaks, unvalidated or externally-controlled paths, type mismatch between returned value and its documented contract, encoding/decode assumptions), up to the eight-finding limit.",
+              "Verify that line 5 is the exact line containing the exception-swallowing construct; if the `except`/`return` is on a different line, correct the citation.",
+              "Rewrite the rationale so the concrete failure path is grounded in operations visible in the snippet rather than in assumed caller behavior.",
+              "Do not alter or remove the existing swallowed_exception finding if its category and line are correct \u2014 only refine its rationale and add new findings."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5513,
+            "output_tokens": 1589,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.06729
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "swallowed_exception",
+                "line": 5,
+                "severity": "medium",
+                "rationale": "The bare `except Exception` catches every error from open/read (missing file, permission denied, decode error) and returns the literal '{}' with no logging or re-raise, so a real I/O failure is indistinguishable from an empty config."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "whole output \u2014 single finding",
+                "observation": "The review reports exactly one defect (a swallowed exception at line 5). A snippet that contains a bare `except Exception` around file I/O and returns a literal '{}' almost certainly also exhibits related, independently material defects \u2014 e.g. the returned '{}' being a string where a parsed mapping is expected (type/data-integrity failure at the return site), an unclosed file handle, unvalidated parse of untrusted config content, or the caller path that consumes the sentinel. Stopping after the easiest issue is explicitly listed as a defect to look for under coverage.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "rationale of the single finding",
+                "observation": "The rationale explains the masking of I/O errors well, but does not trace the concrete downstream failure path (what breaks when '{}' is returned instead of a real config). Without that, it reads closer to a generic 'don't swallow exceptions' risk than a demonstrated failure.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "line 5 citation",
+                "observation": "The rationale attributes behaviour to both the `except` clause and the `return '{}'` statement, which are normally on different lines. If the return is not on line 5, the finding is a correct defect attached to the wrong line.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "major"
+              }
+            ],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 8789,
+            "output_tokens": 2305,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.10157000000000001
+          },
+          "stopping_decision": "cap"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 8789,
+        "output_tokens": 2305,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.10157000000000001
+      }
+    },
+    {
+      "id": "item-004",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "sql_injection",
+                "line": 2,
+                "severity": "critical",
+                "rationale": "The `name` parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. Snippets used in this task normally contain several interacting defects (e.g., resource/connection leaks, unchecked error or None returns, missing authorization checks, unvalidated input beyond the SQL string, transaction/commit handling). Stopping after the most obvious SQL injection suggests the rest of the snippet was not examined.",
+                "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale states the generic risk ('allows arbitrary SQL injection') and a remedy, but does not trace the concrete failure path (which untrusted source reaches `name`, and what a crafted value would do to the executed statement). Evidence alignment requires explaining why the cited line is the operation responsible.",
+                "rubric_criterion": "evidence_alignment \u2014 the cited line contains the responsible operation and the rationale explains that connection",
+                "severity": "minor"
+              },
+              {
+                "location": "defects[0].line = 2",
+                "observation": "Line 2 is cited for interpolation, but if the interpolation occurs at the string-construction line and execution occurs elsewhere, the finding must point at the line performing the unsafe composition/execution. Confirm the cited line holds that operation rather than, say, a function signature.",
+                "rubric_criterion": "evidence_alignment / line_numbers_valid",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-read the entire supplied snippet line by line and add every additional material defect you can support with a specific line: unclosed cursors/connections, missing commit/rollback on exception, unchecked return values or None dereferences, missing authN/authZ or ownership checks, unvalidated/unbounded input, and any interaction between these and the injection flaw.",
+              "Expand the SQL injection rationale to name the untrusted input source and describe a concrete exploit outcome (e.g., a crafted `name` value terminating the literal and appending a destructive clause), not just the label 'SQL injection'.",
+              "Verify the cited line number points at the exact statement that composes or executes the unsafe query; adjust if the interpolation and execution are on different lines.",
+              "Keep the existing SQL injection finding intact (category and corrected line only) while adding new findings; stay within eight total and avoid duplicate category+line pairs.",
+              "Do not add findings that rely on unstated callers, frameworks, or deployment context \u2014 every new finding must be grounded in code visible in the snippet."
+            ]
+          },
+          "invalid_criteria": [
+            "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+            "evidence_alignment \u2014 the cited line contains the responsible operation and the rationale explains that connection",
+            "evidence_alignment / line_numbers_valid"
+          ],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2418,
+            "output_tokens": 1018,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.037540000000000004
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "sql_injection",
+                "line": 2,
+                "severity": "critical",
+                "rationale": "The caller-supplied `name` is interpolated into the SQL literal on this line, so a value like `' OR '1'='1' --` terminates the quoted string and alters the WHERE clause, leaking or destroying rows when the built string is executed on line 3."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "whole review (single finding)",
+                "observation": "The review reports exactly one defect (SQL injection at line 2). Snippets used in this task typically contain several interacting defects \u2014 e.g. unvalidated/unchecked result handling, missing error or connection cleanup, missing authorization check, or unsafe use of the executed result on subsequent lines. The review appears to have stopped after the easiest and most visible issue.",
+                "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+                "severity": "major"
+              },
+              {
+                "location": "line 2 / line 3 rationale",
+                "observation": "The rationale asserts the built string 'is executed on line 3', but the finding is anchored only to line 2. If execution, cursor handling, or commit occurs on line 3 and carries its own defect (e.g. no parameterization at execute, missing transaction rollback, unclosed resource), that is a separate material defect not reported. The cross-line reference also needs to match the actual snippet content rather than being inferred.",
+                "rubric_criterion": "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-read the supplied snippet line by line and add every additional material defect you can substantiate \u2014 in particular resource/connection cleanup, missing error handling on the execute/fetch path, absent authorization or input-existence checks, and any defect that interacts with the injection (e.g. results used without a null/empty check).",
+              "Keep the existing sql_injection finding at line 2 exactly as written; do not reword or relocate it while adding new findings.",
+              "For each new finding, cite the precise line containing the responsible operation and write a rationale that traces a concrete failure path (specific input or condition \u2192 specific wrong behavior), not a generic risk label.",
+              "Do not add findings that depend on unstated callers, frameworks, or deployment context; stay within what the snippet shows, and keep the total at eight or fewer with no duplicate category+line pairs."
+            ]
+          },
+          "invalid_criteria": [
+            "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+            "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure"
+          ],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5855,
+            "output_tokens": 1939,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.07775000000000001
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "sql_injection",
+                "line": 2,
+                "severity": "critical",
+                "rationale": "The caller-supplied `name` is interpolated into the SQL literal on this line, so a value like `' OR '1'='1' --` terminates the quoted string and alters the WHERE clause, leaking or destroying rows when the built string is executed on line 3."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [
+              {
+                "location": "defects[0] rationale",
+                "observation": "The rationale cites line 2 for the interpolation but attributes execution to line 3; if the execution call is itself a separate defect (e.g., unparameterized execute or missing error handling), it is not reported as its own finding.",
+                "rubric_criterion": "coverage",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 9151,
+            "output_tokens": 2369,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.10498000000000002
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 9151,
+        "output_tokens": 2369,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.10498000000000002
+      }
+    },
+    {
+      "id": "item-005",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "cap",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "path_traversal",
+                "line": 4,
+                "severity": "high",
+                "rationale": "filename is joined without validation, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding (path_traversal at line 4). Snippets of this type that perform unvalidated path joins almost always also exhibit adjacent defects (e.g., unclosed file handles, missing existence/permission checks, unhandled exceptions on read, symlink following, or returning raw contents without encoding/size limits). Stopping after the first and easiest issue is explicitly listed as a defect in the rubric ('A material defect omitted because the review stopped after finding an easier issue').",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale states the escape mechanism but does not tie it to the specific operation on the cited line (e.g., 'os.path.join(root, filename) returns the absolute path unchanged when filename is absolute, so the subsequent open() reads outside root'). As written a reader cannot confirm that line 4 is the join rather than the open.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the full snippet line by line and add any additional material defects visible in the code \u2014 in particular check for: unclosed/leaked file handles, missing error handling around file I/O, absolute-path handling in the join, symlink resolution, and unbounded reads. Add each as a separate finding with its own category and line.",
+              "Keep the existing path_traversal finding at line 4 unchanged except for strengthening the rationale; do not renumber or recategorize it.",
+              "Expand the rationale to name the exact operation on line 4 (the join/open call) and state the concrete failure path, including the absolute-path case where join discards the root prefix.",
+              "Do not add speculative findings that depend on an unstated framework, caller, or deployment context; only report defects visible in the supplied lines, and keep the total at eight or fewer with no duplicate category+line pairs."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2402,
+            "output_tokens": 891,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.034284999999999996
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "path_traversal",
+                "line": 4,
+                "severity": "high",
+                "rationale": "Path(root) / filename returns filename unchanged when it is absolute, and '../' segments are not normalized or checked against root, so the read_text() on line 5 can read arbitrary files outside root."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. A snippet that constructs a path from untrusted input and reads it almost always contains additional material defects (e.g., unhandled FileNotFoundError/PermissionError on the read, missing encoding specification causing locale-dependent decoding or UnicodeDecodeError, unvalidated/empty filename, symlink resolution not performed via resolve(), or the result being returned to a caller without size limits). Stopping after the easiest issue is explicitly listed as a defect to look for.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 4 rationale",
+                "observation": "The finding is attached to line 4 (the join) but the described failure (arbitrary file disclosure) is actually executed on line 5, which the rationale itself names. The line attribution is defensible but should be stated unambiguously so the cited line clearly contains the operation responsible for the failure.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan every line of the supplied snippet and add any additional findings that are directly visible in the code \u2014 in particular check the file-read call for unhandled exceptions (missing/unreadable file), missing explicit encoding, and any missing validation of the filename before use. Add only findings supported by code actually present; do not invent framework or caller assumptions.",
+              "Keep the existing path_traversal finding exactly as-is (same category, line 4, severity high) and do not weaken or reword its rationale while adding new findings.",
+              "If you keep line 4 for the traversal finding, make the rationale state explicitly that line 4 produces the unsanitized path that is then dereferenced; alternatively cite the line containing the read operation. Do not report the same category twice on different lines for the same underlying issue.",
+              "Ensure the final output remains valid JSON with at most eight findings, integer lines within the snippet range, taxonomy categories, allowed severities, and non-empty rationales."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5595,
+            "output_tokens": 1870,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.074725
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "path_traversal",
+                "line": 4,
+                "severity": "high",
+                "rationale": "Line 4 produces an unsanitized path: Path(root) / filename returns filename unchanged when it is absolute, and '../' segments are not normalized or checked against root, so the resulting path read on line 5 can disclose arbitrary files outside root."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding (path traversal on line 4). A snippet that builds a path from user input and reads it on line 5 almost always carries additional material defects in the surrounding lines (e.g., unchecked file open/read errors, unclosed file handle, returning raw file contents or decoding without encoding handling, missing existence/size limits). Stopping after the most obvious issue risks the 'material defect omitted' failure mode in the rubric's coverage criterion.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "rationale, line 4 finding",
+                "observation": "The rationale spans two lines (4 and 5) in one finding. The traversal construction is on line 4, but the rationale asserts the disclosure happens via the read on line 5. This is acceptable attribution, but the finding would be stronger if it stated explicitly why line 4 (not line 5) is the responsible operation, so the evidence-alignment check is unambiguous.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan every line of the supplied snippet, not just the path construction, and add any additional concrete defects you can point to with a specific line: unhandled I/O exceptions, file handles left open, unbounded reads, missing existence or permission checks, and any interaction between the traversal and how the contents are returned to the caller.",
+              "Keep the existing path_traversal finding on line 4 exactly as written; do not reword or move it while adding new findings.",
+              "In the line-4 rationale, add one clause making clear that line 4 is the construction site of the attacker-controlled path, so the cited line matches the responsible operation.",
+              "Add only findings you can tie to visible code; do not infer a web framework, caller, or deployment context. Stay at or below eight findings and avoid repeating the same category on the same line."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 8854,
+            "output_tokens": 2830,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.11502
+          },
+          "stopping_decision": "cap"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 8854,
+        "output_tokens": 2830,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.11502
+      }
+    },
+    {
+      "id": "item-006",
+      "selected_iteration": 1,
+      "final_score": 0.6666666666666666,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "missing_await",
+                "line": 2,
+                "severity": "high",
+                "rationale": "The async client.post coroutine is not awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+              },
+              {
+                "category": "missing_timeout",
+                "line": 2,
+                "severity": "low",
+                "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [
+              {
+                "location": "defects[1] (missing_timeout, line 2)",
+                "observation": "Two findings are attached to the same line 2; they are distinct categories so the no-duplicate rule holds, but the rationale for the timeout finding does not explain how it interacts with the un-awaited call (if the coroutine is never awaited, the hang path is moot until the await bug is fixed).",
+                "rubric_criterion": "evidence_alignment / coverage (interacting defects)",
+                "severity": "minor"
+              },
+              {
+                "location": "overall findings list",
+                "observation": "Only two findings are reported, both on the same call expression. If the snippet contains other material defects (error handling of non-2xx responses, unvalidated input, resource cleanup), stopping here risks the 'omitted defect' failure mode.",
+                "rubric_criterion": "coverage",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Optionally extend the missing_timeout rationale to note the interaction with the un-awaited call, i.e. that once the await is added the unbounded request can block the event loop task indefinitely.",
+              "Re-scan the remainder of the snippet for additional material defects (response status checking, exception handling, client/session lifecycle) and add any that are directly visible, keeping the total at or below eight findings and preserving the two existing correct findings verbatim."
+            ]
+          },
+          "invalid_criteria": [
+            "evidence_alignment / coverage (interacting defects)"
+          ],
+          "score": {
+            "score": 0.6666666666666666,
+            "detail": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 2,
+              "expected": 1,
+              "missed": [],
+              "extra": [
+                [
+                  "missing_timeout",
+                  2
+                ]
+              ]
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2470,
+            "output_tokens": 715,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.030225
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2470,
+        "output_tokens": 715,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.030225
+      }
+    },
+    {
+      "id": "item-007",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 2,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "division_by_zero",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports only one finding (division by zero at line 2). The rubric expects distinct material defects to be enumerated, including interacting ones; a single-finding review strongly suggests the pass stopped at the first easy issue rather than scanning the whole snippet for other runtime, security, or data-integrity failures.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 2 rationale",
+                "observation": "The rationale asserts an empty-sequence ZeroDivisionError but does not confirm that line 2 is the line performing the division (versus the line computing len or binding values). If the division occurs on a different line, this is a correct defect attached to the wrong line.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "line 2 rationale",
+                "observation": "The rationale does not state whether the caller can actually supply an empty sequence (no guard, no prior validation shown). As written it reads as a generic risk statement rather than a traced failure path within the snippet.",
+                "rubric_criterion": "concrete_defect / precision",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the full snippet line by line and add any further material defects (e.g., unchecked indexing, type/None handling, resource leaks, unvalidated input, integer vs. float division, mutation of shared state), keeping the total at eight or fewer findings.",
+              "Verify that line 2 is the exact line containing the division operation; if the division appears elsewhere, move the finding to that line number.",
+              "Expand the rationale to trace the concrete failure path: name the function entry point, state that no empty-sequence guard exists before the division, and describe the observable failure (uncaught ZeroDivisionError propagating to the caller).",
+              "Do not alter or remove the existing division_by_zero finding if it is confirmed correct; only correct its line number and strengthen its rationale."
+            ]
+          },
+          "invalid_criteria": [
+            "concrete_defect / precision"
+          ],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2369,
+            "output_tokens": 840,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.032845
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "division_by_zero",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "In average(), line 2 performs the division sum(values)/len(values) with no prior empty-sequence guard, so passing an empty list makes len(values) zero and an uncaught ZeroDivisionError propagates to the caller."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [
+              {
+                "location": "defects[0] \u2014 single finding",
+                "observation": "The review reports only one defect. If the snippet contains additional material issues (e.g., unvalidated inputs, type errors, resource handling) beyond the empty-sequence division, coverage would be incomplete; as submitted it reads as a single-issue review.",
+                "rubric_criterion": "coverage",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Before finalizing, re-scan the full snippet for any second, distinct material defect (correctness, security, or data-integrity) and add it as a separate finding only if it is directly evidenced by a specific line; do not alter the existing division_by_zero finding at line 2."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5536,
+            "output_tokens": 1320,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.06068
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 4,
+        "input_tokens": 5536,
+        "output_tokens": 1320,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.06068
+      }
+    },
+    {
+      "id": "item-008",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "cap",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "null_dereference",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "Chained access assumes user.profile and .name are non-None; an AttributeError is raised if profile or name is missing/None."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (whole review)",
+                "observation": "The review reports exactly one finding. Snippets used in this task typically contain several interacting defects (e.g., unvalidated input, unchecked return values, resource leaks, error-path handling). Stopping after the first easy null-dereference suggests the review terminated early rather than scanning the full snippet.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale states the generic risk ('AttributeError is raised if profile or name is missing/None') but does not trace the concrete failure path: which caller or input condition produces a None profile, and what the observable impact is (unhandled 500, aborted request, partial write).",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "defects[0].line = 2",
+                "observation": "The finding cites line 2 without quoting or paraphrasing the expression at that line, so the reader cannot confirm the chained access actually occurs there rather than at an adjacent line. Correct defects attached to the wrong line are an explicitly listed defect mode.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet line by line and add any additional material defects (unchecked return values, unvalidated external input, resource/handle leaks, concurrency or error-path issues, data-integrity problems), keeping the total at eight findings or fewer and avoiding duplicate category+line pairs.",
+              "Expand the existing rationale for line 2 to name the concrete failure path: the input condition under which profile or name is None, the exception raised, and the resulting observable impact.",
+              "Verify that line 2 is the exact line containing the chained attribute access; quote the operation in the rationale so the evidence link is explicit, and correct the line number if it is off.",
+              "Do not weaken or remove the existing null_dereference finding while adding new ones; preserve its category, line, and severity unless the line number proves incorrect."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2382,
+            "output_tokens": 938,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.03536
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "null_dereference",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "Line 2 performs the chained access `user.profile.name.strip()`; if a user record has no profile row (profile is None) or an unset name (name is None), the attribute lookup raises AttributeError, propagating as an unhandled error to the caller rendering the profile."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. A snippet long enough to contain line 2 plus the surrounding profile-rendering logic almost certainly contains additional distinct defects (e.g., unchecked lookup of `user` itself, missing existence/permission check, error handling around the fetch, or output escaping). Stopping after the first easy AttributeError risks the 'material defect omitted' failure named in the rubric.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 2 rationale",
+                "observation": "The rationale asserts a database-backed model ('no profile row') and a caller 'rendering the profile'. Those are framework/deployment assumptions not established by the cited line; the concrete failure (AttributeError on None) stands on its own without them.",
+                "rubric_criterion": "precision",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet and add any additional distinct defects (e.g., unvalidated/missing lookup of the base object, absent error handling, unsafe output, or interacting defects), each on its own line, staying within the eight-finding limit.",
+              "Trim the line-2 rationale to the evidence actually in the snippet: state that the chained attribute access raises AttributeError when an intermediate value is None, and drop the inferred ORM-row and renderer-caller claims.",
+              "Do not alter the category, line number, or severity of the existing correct line-2 finding while adding new findings; ensure no two findings share the same category and line."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5609,
+            "output_tokens": 1788,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.072745
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "null_dereference",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "The chained access `user.profile.name.strip()` raises AttributeError if `user`, `profile`, or `name` is None, as none are checked in the snippet."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (whole review)",
+                "observation": "The review contains exactly one finding. The rubric explicitly warns against 'a material defect omitted because the review stopped after finding an easier issue.' A null-dereference on a chained attribute access is the most obvious issue in such snippets; the review shows no evidence that the remaining lines were examined for correctness, security, resource-handling, or data-integrity defects.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale asserts that `user`, `profile`, and `name` are 'not checked in the snippet' but does not cite where the values originate (e.g., an unchecked lookup or optional return) or describe the concrete failure path to a user-visible error. Without that linkage it reads as a generic 'could be None' risk rather than a demonstrated failure.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "defects[0].line = 2",
+                "observation": "Line 2 is cited as the site of the dereference, but the finding gives no indication that the assignment/origin of `user` was inspected; if the None-producing operation occurs on a different line, the defect is attached to the wrong line (an explicitly listed defect in the rubric). Confirm the cited line is the one performing `.strip()`.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the full supplied snippet line by line and add any additional material defects (e.g., unvalidated input, unchecked return values, resource leaks, exception-swallowing, injection or auth gaps, incorrect boundary conditions) up to the eight-finding limit; do not stop at the first easy issue.",
+              "Expand the existing rationale to name the specific operation on the cited line and the concrete failure path (which call can return None, and what the caller observes when AttributeError propagates).",
+              "Verify that line 2 is the exact line containing the chained attribute access; if the None-producing source is on another line, cite the line where the failing dereference occurs.",
+              "Do not modify or weaken the existing null_dereference finding if it is correct \u2014 only add new, non-duplicate findings with distinct category/line pairs."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 8689,
+            "output_tokens": 2850,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.11469500000000002
+          },
+          "stopping_decision": "cap"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 8689,
+        "output_tokens": 2850,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.11469500000000002
+      }
+    },
+    {
+      "id": "item-009",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "cap",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "resource_leak",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "File handle is opened without a context manager or close, so it leaks and buffered data may be unflushed, especially if write raises mid-loop."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "whole output \u2014 single finding",
+                "observation": "The review reports exactly one defect (resource leak at line 2). The rationale itself hints at other code paths ('if write raises mid-loop'), implying a loop and write operations exist in the snippet that were never examined for validation, error handling, encoding, or data-integrity defects. Stopping after the easiest issue is explicitly called out as a defect in the rubric.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale bundles two distinct failure modes (descriptor leak and unflushed buffered data) and gestures at an exception path in code not cited, without tying either to the concrete behavior at line 2. The 'write raises mid-loop' clause asserts behavior of lines other than the one cited, which weakens evidence alignment and borders on speculation about the loop body.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet line by line and add every additional material defect you can support with the cited line's own operation \u2014 in particular check the loop body and any write/parse/close path the current rationale alludes to, plus input validation, exception handling, and data-integrity hazards. Stay within the eight-finding limit.",
+              "Keep the existing resource_leak finding at line 2 unchanged in category and line; only tighten its rationale so it describes the concrete failure path at line 2 itself (open without close/context manager => descriptor retained and buffer unflushed on early return or exception) rather than speculating about what other lines might raise.",
+              "Ensure every new finding uses a taxonomy category, an integer line within the snippet's range, an allowed severity, and a non-empty rationale, and that no two findings share the same category and line."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2423,
+            "output_tokens": 768,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.031315
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "resource_leak",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "open() without a context manager or close() means the descriptor is retained and buffered data stays unflushed on early return or any exception."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (whole review)",
+                "observation": "The review reports exactly one finding. A snippet that opens a file without a context manager almost always carries additional material defects (unvalidated input/path handling, missing error handling, exception paths, unchecked return values). Stopping after the easiest issue is explicitly called out in the rubric's defect list as 'A material defect omitted because the review stopped after finding an easier issue.'",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "finding 1, line 2 rationale",
+                "observation": "The rationale asserts 'buffered data stays unflushed' without establishing that the handle was opened for writing; if the open is read-mode this part of the failure path does not apply. The concrete failure should be tied to the mode actually used on the cited line.",
+                "rubric_criterion": "evidence_alignment / precision",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet and add each additional material defect you can point to a specific line for \u2014 in particular error/exception paths around the file operation, any unvalidated or caller-supplied path or filename, and any unchecked return value or swallowed exception. Keep the total at eight or fewer findings.",
+              "Where two defects interact (e.g. an unclosed handle combined with an early return or an exception raised later in the same function), state that interaction explicitly in the rationale of the relevant finding.",
+              "Tighten the line-2 rationale so it describes only the failure mode supported by the actual open() mode on that line; drop the unflushed-buffer claim if the handle is not opened for writing.",
+              "Do not alter the category, line, or severity of the existing line-2 resource_leak finding beyond the rationale wording \u2014 it is already correctly attached."
+            ]
+          },
+          "invalid_criteria": [
+            "evidence_alignment / precision"
+          ],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5569,
+            "output_tokens": 1579,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.06732
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "resource_leak",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "open(path,'w') is never closed via context manager or close(), so if write() raises mid-loop (e.g. non-str row element) the handle leaks and buffered data is lost until GC, and even on the normal return at line 5 closure is non-deterministic."
+              },
+              {
+                "category": "path_traversal",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "The caller-supplied path is passed straight to open() in write mode with no validation or base-directory containment, so a value like '../../etc/cron.d/x' overwrites arbitrary files."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects[1] (path_traversal, line 2)",
+                "observation": "The path-traversal claim assumes the `path` argument is attacker-controlled and that the function is exposed to untrusted input. Nothing in a plain file-writing helper establishes that; this is exactly the 'speculative finding that depends on an unstated caller' pattern the rubric calls out.",
+                "rubric_criterion": "precision",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0] (resource_leak, line 2)",
+                "observation": "The rationale is partly sound but mixes a concrete failure (handle leaked when write() raises) with a weaker generic claim ('closure is non-deterministic' on normal return). The concrete path should be stated plainly and the generic CPython-refcount commentary dropped, since it is not a defect on its own.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "whole review",
+                "observation": "Only two findings are reported, and both are attached to the same line (line 2). A snippet with a write loop, per-row writes, and a return almost certainly contains additional material defects (e.g. unhandled encoding/type errors in the loop, missing newline/delimiter escaping, overwrite-without-check, missing error handling around the write). The review appears to have stopped after the easiest issue.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              }
+            ],
+            "revision_instructions": [
+              "Remove the path_traversal finding unless the snippet itself shows the path originating from untrusted input (e.g. a request object or argv); otherwise it is an unsupported caller assumption.",
+              "Tighten the resource_leak rationale to the single concrete failure path: the file object opened at line 2 is not wrapped in a context manager, so an exception during the write loop leaves the descriptor open and buffered rows unflushed. Drop the GC/non-deterministic-close commentary.",
+              "Re-scan the full snippet line by line and add findings for any remaining material correctness or data-integrity defects (e.g. unescaped delimiters or newlines in row values, unhandled non-string row elements, truncation of an existing file, missing flush/error handling before return), citing the exact line where each operation occurs.",
+              "Keep all findings within the eight-item limit, ensure no two share the same category and line, and preserve the corrected resource_leak finding unchanged while revising."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 0.6666666666666666,
+            "detail": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 2,
+              "expected": 1,
+              "missed": [],
+              "extra": [
+                [
+                  "path_traversal",
+                  2
+                ]
+              ]
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 8820,
+            "output_tokens": 2714,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.11195
+          },
+          "stopping_decision": "cap"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 8820,
+        "output_tokens": 2714,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.11195
+      }
+    },
+    {
+      "id": "item-010",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "cap",
+      "iterations": 3,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "insecure_random",
+                "line": 4,
+                "severity": "high",
+                "rationale": "Password reset tokens generated with the predictable random module allow attackers to guess tokens; use secrets instead."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. For a snippet involving password reset token generation, there are almost always interacting defects (e.g., token storage/comparison, expiry handling, user enumeration in the response, non-constant-time comparison, missing invalidation of prior tokens, error/exception paths). Stopping after the easiest issue (insecure_random) leaves material defects unreported.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "defects[0].rationale",
+                "observation": "The rationale states the generic risk ('predictable random module... allow attackers to guess tokens') but does not trace the concrete failure path for the cited line \u2014 i.e., what value line 4 produces, how it is seeded/bounded, and how an attacker observing one token recovers subsequent ones to take over an account.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              },
+              {
+                "location": "defects[0].line = 4",
+                "observation": "The finding asserts that line 4 is the token-generation call, but the rationale does not quote or paraphrase the operation on that line, so the attachment of the defect to that specific line cannot be corroborated from the review itself. If generation occurs on an adjacent line, this becomes a correct defect on the wrong line.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire snippet line by line and add every additional material defect you can support with a specific line, up to the eight-finding limit \u2014 look specifically for: how the token is stored and later compared (plaintext storage, == comparison instead of constant-time), missing or unchecked expiry, missing invalidation of previously issued tokens, user-enumeration via differing responses, and unhandled error paths around DB/email operations.",
+              "Keep the existing insecure_random finding exactly as-is in category and line; do not alter or renumber it while adding new findings.",
+              "Expand the insecure_random rationale to name the concrete failure path: identify the specific call on line 4, explain that its output is derived from a predictable PRNG state, and state that an attacker who observes or requests one token can compute another user's reset token and take over the account.",
+              "Before submitting, verify each cited line actually contains the operation you blame, that no two findings share the same category+line, that all lines are within the snippet's range, and that no finding depends on framework, caller, or deployment behavior not visible in the snippet."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2396,
+            "output_tokens": 975,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.036355
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "insecure_random",
+                "line": 4,
+                "severity": "high",
+                "rationale": "Line 4 builds the 24-character token from random.randint(0, 9), whose digits come from the Mersenne Twister PRNG's predictable, globally shared state, so an attacker who requests or observes enough token output can recover that state and compute another user's reset token, enabling account takeover; use secrets.choice/token_urlsafe instead."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding. A password-reset token snippet that also contains token storage, expiry, lookup, and email/response handling almost certainly exposes additional material defects (e.g., missing expiry check, token comparison without constant-time compare, token leakage in response/log, missing single-use invalidation, SQL/string-built queries). Stopping after the easiest issue (the PRNG) leaves the review incomplete.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 4 rationale",
+                "observation": "The rationale asserts 'a 24-character token from random.randint(0, 9)' and an attacker who can 'observe enough token output' \u2014 if the snippet does not actually expose multiple tokens to the attacker, part of the exploit path is assumed rather than shown. The state-recovery claim should be grounded in what the snippet does (e.g., tokens are returned/emailed), or stated more conservatively as predictability of the generator.",
+                "rubric_criterion": "precision",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-scan the entire supplied snippet line by line and add every additional concrete defect you can anchor to a specific line \u2014 in particular check: token expiry/TTL enforcement, single-use invalidation after redemption, constant-time vs == comparison of the token, token exposure in HTTP responses or logs, query construction (string interpolation vs parameters), and any missing error/transaction handling. Add each as a separate finding with its own category and line.",
+              "Keep the existing line 4 insecure_random finding exactly as-is in category, line, and severity; only trim the rationale's exploit narrative to what the snippet actually demonstrates (predictable PRNG output used for a security-critical reset token) rather than assuming the attacker can observe many tokens.",
+              "Ensure the final output still has at most eight findings, no two findings sharing the same category+line, all line numbers within the snippet's range, and a non-empty rationale that names the concrete failure path for each."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 5792,
+            "output_tokens": 1943,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.07753499999999999
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 3,
+          "draft": {
+            "defects": [
+              {
+                "category": "insecure_random",
+                "line": 4,
+                "severity": "high",
+                "rationale": "The reset token is built from random.randint(0, 9), a non-cryptographic Mersenne Twister PRNG, making the security-critical token predictable; use secrets instead."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "defects array (single entry)",
+                "observation": "The review reports exactly one finding (insecure_random at line 4). Password-reset snippets of this kind almost always contain additional, independently material defects \u2014 e.g. insufficient token entropy/length, missing expiry or single-use invalidation on the stored token, unparameterized SQL or string-formatted queries, token disclosure via logging or the HTTP response, missing user-existence/enumeration handling, and unhandled failure paths. Stopping after the easiest finding leaves interacting defects (predictable token + no expiry + token leak) unreported.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              },
+              {
+                "location": "line 4 rationale",
+                "observation": "The rationale explains the PRNG weakness generically but does not tie it to the concrete failure path in this snippet (how many digits are concatenated, how the token is then stored/compared, and why an attacker can therefore reconstruct it and take over the account). Without that, the cited line's actual operation is only partially connected to the stated failure.",
+                "rubric_criterion": "evidence_alignment",
+                "severity": "minor"
+              }
+            ],
+            "revision_instructions": [
+              "Re-read the supplied snippet line by line and add every additional material defect you can support with a specific line: token entropy/length, missing expiry or single-use invalidation, query construction (SQL injection), token exposure in logs or responses, missing error/None handling, and any transaction or commit omission. Keep the total at eight or fewer findings.",
+              "Do not modify or remove the existing insecure_random finding at line 4; it is correct. Only strengthen its rationale.",
+              "Expand the line 4 rationale to name the concrete attack: state how the token is assembled on that line, the resulting search space, and that an attacker can enumerate or predict it to reset another user's password.",
+              "Ensure each new finding cites the exact line containing the responsible operation, uses a taxonomy category, an integer line within the snippet's range, an allowed severity, and a non-empty rationale, with no two findings sharing the same category and line."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 6,
+            "input_tokens": 9081,
+            "output_tokens": 2814,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.115755
+          },
+          "stopping_decision": "cap"
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 9081,
+        "output_tokens": 2814,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.115755
+      }
+    }
+  ],
+  "cost_per_score_point": 0.10116210810810783
+}

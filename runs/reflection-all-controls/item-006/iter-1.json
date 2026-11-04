@@ -1,0 +1,51 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "line 2",
+        "observation": "The HTTP POST call has no timeout argument; a hung server would block the coroutine indefinitely. This is a distinct, visible defect in the snippet that the review omits.",
+        "rubric_criterion": "coverage",
+        "severity": "major"
+      }
+    ],
+    "revision_instructions": [
+      "Add a second finding with category `missing_timeout` at line 2, severity medium, with a rationale stating the client.post call specifies no timeout so an unresponsive server causes the notify call to hang indefinitely.",
+      "Keep the existing missing_await finding at line 2 exactly as written."
+    ]
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2878,
+    "output_tokens": 388,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.02409
+  },
+  "stopping_decision": "revise"
+}

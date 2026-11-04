@@ -1,0 +1,71 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "mutable_default",
+        "line": 1,
+        "severity": "high",
+        "rationale": "The default list is created once and shared across calls, so tags accumulate across separate invocations."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "defects array (single entry)",
+        "observation": "The review reports exactly one finding (mutable_default at line 1). A single-finding review is the classic signature of stopping after the easiest issue; mutable-default arguments are rarely the only material defect in a snippet long enough to be submitted for review. No other candidate areas (input validation, error handling, resource lifetime, concurrency, injection surfaces) are addressed or explicitly ruled out.",
+        "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+        "severity": "major"
+      },
+      {
+        "location": "line 1",
+        "observation": "Line 1 is cited as the location of a mutable default argument. For that to hold, line 1 must be the function signature line containing the `=[]` (or equivalent) default. If the snippet begins with imports, a decorator, or a docstring, the correct defect is attached to the wrong line, which costs the frozen category-and-line F1 directly.",
+        "rubric_criterion": "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+        "severity": "major"
+      },
+      {
+        "location": "rationale text",
+        "observation": "The rationale states accumulation across invocations but does not tie it to the specific observable failure in this code (e.g., which caller-visible value is corrupted, or which returned structure grows unboundedly). It reads as the generic textbook description of the pattern rather than a trace through this snippet.",
+        "rubric_criterion": "concrete_defect / evidence_alignment \u2014 rationale must explain the concrete failure path, not name a generic risk",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Re-read the snippet line by line and confirm that line 1 is the exact line containing the mutable default parameter. If the default appears on a different line (e.g., a multi-line signature), update the line number to the line holding the `=[]`/`={}` token.",
+      "Make a second pass over the whole snippet looking for additional material defects in these categories: unvalidated or unsanitized input reaching a query/command/path, unchecked return values or swallowed exceptions, resources opened without guaranteed close, off-by-one or boundary errors in indexing/slicing, state mutated while iterating, and race or TOCTOU windows. Add each distinct one as its own finding.",
+      "Where two defects interact (for example, the shared mutable default being mutated by a code path that also lacks validation), add the interaction as a separate finding and state in the rationale how the two combine to worsen the failure.",
+      "Rewrite the existing rationale so it traces the concrete failure in this code: name the parameter, name the mutation site, and state what a second caller observes as a result.",
+      "Keep the existing mutable_default finding intact unless its line number is provably wrong; do not reword or recategorize it while adding new findings.",
+      "Stay within eight findings total, ensure no two findings share the same category and line, and keep every line number within the bounds of the supplied snippet."
+    ]
+  },
+  "invalid_criteria": [
+    "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+    "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+    "concrete_defect / evidence_alignment \u2014 rationale must explain the concrete failure path, not name a generic risk"
+  ],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2379,
+    "output_tokens": 1198,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.04184499999999999
+  },
+  "stopping_decision": "revise"
+}

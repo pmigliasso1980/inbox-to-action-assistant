@@ -1,13 +1,13 @@
 # Inbox-to-Action Assistant
 
-## Current graded submission — Module 1: Architecture Over Model
+## Current graded submission — Module 2: Reflection
 
 The current submission is available directly from the repository root:
 
-- [`LAB_NOTES.md`](LAB_NOTES.md) — root grading index for Labs 1.1 and 1.2.
-- [`SETUP_BASELINE_NOTE.md`](SETUP_BASELINE_NOTE.md) — verified low/high effort usage and cost.
-- [`BASELINE_REPORT.md`](BASELINE_REPORT.md) — two official runs, noise floor, and failure roadmap.
-- [`runs/baseline/`](runs/baseline/) — 40 raw item artifacts and both summaries.
+- [`LAB_NOTES.md`](LAB_NOTES.md) — root grading index for Labs 2.1 and 2.2.
+- [`REFLECTION_REPORT.md`](REFLECTION_REPORT.md) — measured reflection lift and diagnostics.
+- [`FAILURE_INJECTION_REPORT.md`](FAILURE_INJECTION_REPORT.md) — five-configuration comparison and production monitors.
+- [`runs/reflection/`](runs/reflection/) — full 20-item reflection artifacts.
 
 Earlier notes remain archived in [`TOKEN_BILL_LAB_NOTES.md`](TOKEN_BILL_LAB_NOTES.md) and [`MCP_CLIENT_LAB_NOTES.md`](MCP_CLIENT_LAB_NOTES.md).
 

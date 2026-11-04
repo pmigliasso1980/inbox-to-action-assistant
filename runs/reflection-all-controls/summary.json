@@ -1,0 +1,689 @@
+{
+  "name": "reflection-all-controls",
+  "mode": "control",
+  "items": 10,
+  "mean_score": 1.0,
+  "delta_vs_baseline_run1": 0.12142857142857155,
+  "noise_floor": 0.06666666666666676,
+  "per_item_scores": {
+    "item-001": 1.0,
+    "item-002": 1.0,
+    "item-003": 1.0,
+    "item-004": 1.0,
+    "item-005": 1.0,
+    "item-006": 1.0,
+    "item-007": 1.0,
+    "item-008": 1.0,
+    "item-009": 1.0,
+    "item-010": 1.0
+  },
+  "stopping_reasons": {
+    "satisfactory": 10,
+    "cap": 0
+  },
+  "satisfaction_at_1_rate": 0.9,
+  "mean_iterations": 1.1,
+  "gate_failure_fraction": 0.0,
+  "non_monotonic_rate": 0.1,
+  "input_tokens": 31952,
+  "output_tokens": 1552,
+  "cached_tokens": 0,
+  "cost_usd": 0.19856,
+  "calls": 22,
+  "wall_clock_seconds": 67.07604379096301,
+  "results": [
+    {
+      "id": "item-001",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "off_by_one",
+                "line": 3,
+                "severity": "high",
+                "rationale": "range(n+1) iterates n+1 elements, summing one extra item and raising IndexError when len(values)==n."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2871,
+            "output_tokens": 103,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01693
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2871,
+        "output_tokens": 103,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01693
+      }
+    },
+    {
+      "id": "item-002",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "mutable_default",
+                "line": 1,
+                "severity": "high",
+                "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2839,
+            "output_tokens": 95,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01657
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2839,
+        "output_tokens": 95,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01657
+      }
+    },
+    {
+      "id": "item-003",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "swallowed_exception",
+                "line": 5,
+                "severity": "medium",
+                "rationale": "All exceptions (missing file, permission errors, decode errors) are silently swallowed and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2894,
+            "output_tokens": 124,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.017570000000000002
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2894,
+        "output_tokens": 124,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.017570000000000002
+      }
+    },
+    {
+      "id": "item-004",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "sql_injection",
+                "line": 2,
+                "severity": "critical",
+                "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2896,
+            "output_tokens": 108,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01718
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2896,
+        "output_tokens": 108,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01718
+      }
+    },
+    {
+      "id": "item-005",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "path_traversal",
+                "line": 4,
+                "severity": "high",
+                "rationale": "filename is joined without validation, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2870,
+            "output_tokens": 106,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.017
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2870,
+        "output_tokens": 106,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.017
+      }
+    },
+    {
+      "id": "item-006",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 2,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "missing_await",
+                "line": 2,
+                "severity": "high",
+                "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": false,
+            "issues": [
+              {
+                "location": "line 2",
+                "observation": "The HTTP POST call has no timeout argument; a hung server would block the coroutine indefinitely. This is a distinct, visible defect in the snippet that the review omits.",
+                "rubric_criterion": "coverage",
+                "severity": "major"
+              }
+            ],
+            "revision_instructions": [
+              "Add a second finding with category `missing_timeout` at line 2, severity medium, with a rationale stating the client.post call specifies no timeout so an unresponsive server causes the notify call to hang indefinitely.",
+              "Keep the existing missing_await finding at line 2 exactly as written."
+            ]
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2878,
+            "output_tokens": 388,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.02409
+          },
+          "stopping_decision": "revise"
+        },
+        {
+          "iteration": 2,
+          "draft": {
+            "defects": [
+              {
+                "category": "missing_await",
+                "line": 2,
+                "severity": "high",
+                "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+              },
+              {
+                "category": "missing_timeout",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "The client.post call specifies no timeout, so an unresponsive server causes the notify call to hang indefinitely."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 0.6666666666666666,
+            "detail": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 2,
+              "expected": 1,
+              "missed": [],
+              "extra": [
+                [
+                  "missing_timeout",
+                  2
+                ]
+              ]
+            }
+          },
+          "usage_so_far": {
+            "calls": 4,
+            "input_tokens": 6161,
+            "output_tokens": 568,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.045005
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6161,
+        "output_tokens": 568,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.045005
+      }
+    },
+    {
+      "id": "item-007",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "division_by_zero",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2814,
+            "output_tokens": 96,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01647
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2814,
+        "output_tokens": 96,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01647
+      }
+    },
+    {
+      "id": "item-008",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "null_dereference",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "If user.profile or .name is None (common for optional profile fields), attribute access/strip() raises AttributeError since no None check is performed."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2834,
+            "output_tokens": 139,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.017645
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2834,
+        "output_tokens": 139,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.017645
+      }
+    },
+    {
+      "id": "item-009",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "resource_leak",
+                "line": 2,
+                "severity": "medium",
+                "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data, especially if write raises."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2908,
+            "output_tokens": 110,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.01729
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2908,
+        "output_tokens": 110,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.01729
+      }
+    },
+    {
+      "id": "item-010",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "termination": "satisfactory",
+      "iterations": 1,
+      "mechanical_retries": 0,
+      "records": [
+        {
+          "iteration": 1,
+          "draft": {
+            "defects": [
+              {
+                "category": "insecure_random",
+                "line": 4,
+                "severity": "high",
+                "rationale": "Password reset tokens generated with the predictable random module can be guessed, allowing account takeover; use secrets instead."
+              }
+            ]
+          },
+          "gate": [],
+          "critique": {
+            "satisfactory": true,
+            "issues": [],
+            "revision_instructions": []
+          },
+          "invalid_criteria": [],
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          },
+          "usage_so_far": {
+            "calls": 2,
+            "input_tokens": 2865,
+            "output_tokens": 103,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.0169
+          },
+          "stopping_decision": "satisfactory"
+        }
+      ],
+      "usage": {
+        "calls": 2,
+        "input_tokens": 2865,
+        "output_tokens": 103,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0169
+      }
+    }
+  ],
+  "cost_per_score_point": 0.01635199999999998
+}

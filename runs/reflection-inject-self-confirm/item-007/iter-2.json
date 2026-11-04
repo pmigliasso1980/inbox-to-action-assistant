@@ -1,0 +1,50 @@
+{
+  "iteration": 2,
+  "draft": {
+    "defects": [
+      {
+        "category": "division_by_zero",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "In average(), line 2 performs the division sum(values)/len(values) with no prior empty-sequence guard, so passing an empty list makes len(values) zero and an uncaught ZeroDivisionError propagates to the caller."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": true,
+    "issues": [
+      {
+        "location": "defects[0] \u2014 single finding",
+        "observation": "The review reports only one defect. If the snippet contains additional material issues (e.g., unvalidated inputs, type errors, resource handling) beyond the empty-sequence division, coverage would be incomplete; as submitted it reads as a single-issue review.",
+        "rubric_criterion": "coverage",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Before finalizing, re-scan the full snippet for any second, distinct material defect (correctness, security, or data-integrity) and add it as a separate finding only if it is directly evidenced by a specific line; do not alter the existing division_by_zero finding at line 2."
+    ]
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 4,
+    "input_tokens": 5536,
+    "output_tokens": 1320,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.06068
+  },
+  "stopping_decision": "satisfactory"
+}

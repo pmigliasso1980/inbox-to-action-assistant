@@ -1,0 +1,61 @@
+{
+  "iteration": 2,
+  "draft": {
+    "defects": [
+      {
+        "category": "resource_leak",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "open() without a context manager or close() means the descriptor is retained and buffered data stays unflushed on early return or any exception."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "defects array (whole review)",
+        "observation": "The review reports exactly one finding. A snippet that opens a file without a context manager almost always carries additional material defects (unvalidated input/path handling, missing error handling, exception paths, unchecked return values). Stopping after the easiest issue is explicitly called out in the rubric's defect list as 'A material defect omitted because the review stopped after finding an easier issue.'",
+        "rubric_criterion": "coverage",
+        "severity": "major"
+      },
+      {
+        "location": "finding 1, line 2 rationale",
+        "observation": "The rationale asserts 'buffered data stays unflushed' without establishing that the handle was opened for writing; if the open is read-mode this part of the failure path does not apply. The concrete failure should be tied to the mode actually used on the cited line.",
+        "rubric_criterion": "evidence_alignment / precision",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Re-scan the entire supplied snippet and add each additional material defect you can point to a specific line for \u2014 in particular error/exception paths around the file operation, any unvalidated or caller-supplied path or filename, and any unchecked return value or swallowed exception. Keep the total at eight or fewer findings.",
+      "Where two defects interact (e.g. an unclosed handle combined with an early return or an exception raised later in the same function), state that interaction explicitly in the rationale of the relevant finding.",
+      "Tighten the line-2 rationale so it describes only the failure mode supported by the actual open() mode on that line; drop the unflushed-buffer claim if the handle is not opened for writing.",
+      "Do not alter the category, line, or severity of the existing line-2 resource_leak finding beyond the rationale wording \u2014 it is already correctly attached."
+    ]
+  },
+  "invalid_criteria": [
+    "evidence_alignment / precision"
+  ],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 4,
+    "input_tokens": 5569,
+    "output_tokens": 1579,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.06732
+  },
+  "stopping_decision": "revise"
+}

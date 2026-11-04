@@ -1,0 +1,65 @@
+{
+  "iteration": 1,
+  "draft": {
+    "defects": [
+      {
+        "category": "insecure_random",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Password reset tokens generated with the predictable random module allow attackers to guess tokens; use secrets instead."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "defects array (single entry)",
+        "observation": "The review reports exactly one finding. For a snippet involving password reset token generation, there are almost always interacting defects (e.g., token storage/comparison, expiry handling, user enumeration in the response, non-constant-time comparison, missing invalidation of prior tokens, error/exception paths). Stopping after the easiest issue (insecure_random) leaves material defects unreported.",
+        "rubric_criterion": "coverage",
+        "severity": "major"
+      },
+      {
+        "location": "defects[0].rationale",
+        "observation": "The rationale states the generic risk ('predictable random module... allow attackers to guess tokens') but does not trace the concrete failure path for the cited line \u2014 i.e., what value line 4 produces, how it is seeded/bounded, and how an attacker observing one token recovers subsequent ones to take over an account.",
+        "rubric_criterion": "evidence_alignment",
+        "severity": "minor"
+      },
+      {
+        "location": "defects[0].line = 4",
+        "observation": "The finding asserts that line 4 is the token-generation call, but the rationale does not quote or paraphrase the operation on that line, so the attachment of the defect to that specific line cannot be corroborated from the review itself. If generation occurs on an adjacent line, this becomes a correct defect on the wrong line.",
+        "rubric_criterion": "evidence_alignment",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Re-scan the entire snippet line by line and add every additional material defect you can support with a specific line, up to the eight-finding limit \u2014 look specifically for: how the token is stored and later compared (plaintext storage, == comparison instead of constant-time), missing or unchecked expiry, missing invalidation of previously issued tokens, user-enumeration via differing responses, and unhandled error paths around DB/email operations.",
+      "Keep the existing insecure_random finding exactly as-is in category and line; do not alter or renumber it while adding new findings.",
+      "Expand the insecure_random rationale to name the concrete failure path: identify the specific call on line 4, explain that its output is derived from a predictable PRNG state, and state that an attacker who observes or requests one token can compute another user's reset token and take over the account.",
+      "Before submitting, verify each cited line actually contains the operation you blame, that no two findings share the same category+line, that all lines are within the snippet's range, and that no finding depends on framework, caller, or deployment behavior not visible in the snippet."
+    ]
+  },
+  "invalid_criteria": [],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 2,
+    "input_tokens": 2396,
+    "output_tokens": 975,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.036355
+  },
+  "stopping_decision": "revise"
+}

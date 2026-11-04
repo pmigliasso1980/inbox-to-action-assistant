@@ -1,0 +1,62 @@
+{
+  "iteration": 2,
+  "draft": {
+    "defects": [
+      {
+        "category": "sql_injection",
+        "line": 2,
+        "severity": "critical",
+        "rationale": "The caller-supplied `name` is interpolated into the SQL literal on this line, so a value like `' OR '1'='1' --` terminates the quoted string and alters the WHERE clause, leaking or destroying rows when the built string is executed on line 3."
+      }
+    ]
+  },
+  "gate": [],
+  "critique": {
+    "satisfactory": false,
+    "issues": [
+      {
+        "location": "whole review (single finding)",
+        "observation": "The review reports exactly one defect (SQL injection at line 2). Snippets used in this task typically contain several interacting defects \u2014 e.g. unvalidated/unchecked result handling, missing error or connection cleanup, missing authorization check, or unsafe use of the executed result on subsequent lines. The review appears to have stopped after the easiest and most visible issue.",
+        "rubric_criterion": "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+        "severity": "major"
+      },
+      {
+        "location": "line 2 / line 3 rationale",
+        "observation": "The rationale asserts the built string 'is executed on line 3', but the finding is anchored only to line 2. If execution, cursor handling, or commit occurs on line 3 and carries its own defect (e.g. no parameterization at execute, missing transaction rollback, unclosed resource), that is a separate material defect not reported. The cross-line reference also needs to match the actual snippet content rather than being inferred.",
+        "rubric_criterion": "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure",
+        "severity": "minor"
+      }
+    ],
+    "revision_instructions": [
+      "Re-read the supplied snippet line by line and add every additional material defect you can substantiate \u2014 in particular resource/connection cleanup, missing error handling on the execute/fetch path, absent authorization or input-existence checks, and any defect that interacts with the injection (e.g. results used without a null/empty check).",
+      "Keep the existing sql_injection finding at line 2 exactly as written; do not reword or relocate it while adding new findings.",
+      "For each new finding, cite the precise line containing the responsible operation and write a rationale that traces a concrete failure path (specific input or condition \u2192 specific wrong behavior), not a generic risk label.",
+      "Do not add findings that depend on unstated callers, frameworks, or deployment context; stay within what the snippet shows, and keep the total at eight or fewer with no duplicate category+line pairs."
+    ]
+  },
+  "invalid_criteria": [
+    "coverage \u2014 identifies distinct material defects visible in the supplied snippet, including interacting defects when present",
+    "evidence_alignment \u2014 the cited line contains the operation responsible for the stated failure"
+  ],
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  },
+  "usage_so_far": {
+    "calls": 4,
+    "input_tokens": 5855,
+    "output_tokens": 1939,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.07775000000000001
+  },
+  "stopping_decision": "revise"
+}
