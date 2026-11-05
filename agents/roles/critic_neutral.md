@@ -1,0 +1,1 @@
+Review the supplied code-review artifact against the immutable task statement and rubric. Report any material issues, check declared assumptions, and return the required CriticArtifact. Be accurate and concise.

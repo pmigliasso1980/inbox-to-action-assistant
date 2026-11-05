@@ -1,0 +1,601 @@
+{
+  "items": 3,
+  "mean_score": 1.0,
+  "thresholds": {
+    "redundant_pair_jaccard": 0.6,
+    "minimum_unique_contribution": 0.1
+  },
+  "mean_pairwise_jaccard": {
+    "correctness_security": 1.0,
+    "correctness_robustness": 1.0,
+    "security_robustness": 1.0
+  },
+  "unique_contribution": {
+    "correctness": 0.0,
+    "security": 0.0,
+    "robustness": 0.0
+  },
+  "triple_overlap": 0,
+  "role_decisions": {
+    "correctness": {
+      "unique_defects": 0,
+      "score_with": 1.0,
+      "score_without": 1.0,
+      "delta": 0.0,
+      "added_cost": 0.039075
+    },
+    "security": {
+      "unique_defects": 0,
+      "score_with": 1.0,
+      "score_without": 1.0,
+      "delta": 0.0,
+      "added_cost": 0.043445
+    },
+    "robustness": {
+      "unique_defects": 0,
+      "score_with": 1.0,
+      "score_without": 1.0,
+      "delta": 0.0,
+      "added_cost": 0.042115
+    }
+  },
+  "mean_parallel_latency": 6.619314429990482,
+  "estimated_sequential_latency": 17.326739221656073,
+  "input_tokens": 4780,
+  "output_tokens": 3175,
+  "cached_tokens": 30414,
+  "cost_usd": 0.103275,
+  "ablation_cost_usd": 0.053465,
+  "total_experiment_cost_usd": 0.15674,
+  "wall_clock_seconds": 72.63801191700622,
+  "records": [
+    {
+      "id": "item-001",
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "off_by_one",
+              "line": 3,
+              "severity": "high",
+              "rationale": "range(n + 1) iterates one index past the first n elements, causing IndexError when n equals len(values) and summing an extra element otherwise."
+            }
+          ]
+        },
+        "assumptions": [
+          "The intent is to sum exactly the first n elements of values."
+        ],
+        "unresolved": [
+          "Caller-side bounds on n relative to len(values) are unknown."
+        ],
+        "trace_id": "runs/panel/item-001/transcript.jsonl"
+      },
+      "critics": {
+        "correctness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding is correct: range(n + 1) on line 3 sums n+1 elements, producing a wrong total or IndexError when n == len(values). Line 3 is the exact responsible operation, severity is reasonable, and no other material defect exists in this five-line snippet (an empty-values/negative-n concern is caller-dependent and not a distinct defect).",
+          "rejected_assumptions": [],
+          "trace_id": "runs/panel/item-001/transcript.jsonl",
+          "reviewer_role": "correctness"
+        },
+        "security": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "No security boundary is crossed in this snippet: no injection, path handling, authz, SSRF, or randomness. The single reported off_by_one at line 3 is a genuine correctness/IndexError defect correctly located, and nothing security-relevant was omitted.",
+          "rejected_assumptions": [
+            "That an IndexError here constitutes a security-relevant availability failure"
+          ],
+          "trace_id": "runs/panel/item-001/transcript.jsonl",
+          "reviewer_role": "security"
+        },
+        "robustness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding is correct and precisely located: range(n + 1) on line 3 reads values[n], which both over-sums and raises IndexError when n == len(values) (including n=0 on an empty list). No other qualifying defects exist in the five-line snippet; there are no resources, concurrency, or I/O paths to stress. Structure, taxonomy, line range, and count all conform.",
+          "rejected_assumptions": [
+            "That unvalidated negative n or non-integer n constitutes a separate reportable defect; no taxonomy category fits and it is speculative about callers."
+          ],
+          "trace_id": "runs/panel/item-001/transcript.jsonl",
+          "reviewer_role": "robustness"
+        }
+      },
+      "merged": {
+        "decision": "accept",
+        "defects": []
+      },
+      "role_sets": {
+        "correctness": [],
+        "security": [],
+        "robustness": []
+      },
+      "overlaps": {
+        "correctness_security": 1.0,
+        "correctness_robustness": 1.0,
+        "security_robustness": 1.0
+      },
+      "unique_contribution": {
+        "correctness": 0.0,
+        "security": 0.0,
+        "robustness": 0.0
+      },
+      "triple_overlap": 0,
+      "full_revision": {
+        "output": {
+          "defects": [
+            {
+              "category": "off_by_one",
+              "line": 3,
+              "severity": "high",
+              "rationale": "range(n + 1) iterates one index past the first n elements, summing an extra value and raising IndexError when n equals len(values)."
+            }
+          ]
+        },
+        "assumptions": [
+          "The function is intended to sum exactly the first n elements of values."
+        ],
+        "unresolved": [
+          "Caller-side guarantees about n relative to len(values) are not visible in the snippet."
+        ],
+        "trace_id": "runs/panel/item-001/transcript.jsonl"
+      },
+      "full_score": 1.0,
+      "ablations": {
+        "correctness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 303,
+            "output_tokens": 161,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.00554
+          }
+        },
+        "security": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 303,
+            "output_tokens": 170,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.005765
+          }
+        },
+        "robustness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 303,
+            "output_tokens": 206,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.006665
+          }
+        }
+      },
+      "generator_usage": {
+        "calls": 1,
+        "input_tokens": 97,
+        "output_tokens": 170,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.004735
+      },
+      "role_usage": {
+        "correctness": {
+          "calls": 1,
+          "input_tokens": 399,
+          "output_tokens": 189,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 2612,
+          "cost_usd": 0.00672
+        },
+        "security": {
+          "calls": 1,
+          "input_tokens": 402,
+          "output_tokens": 177,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 2617,
+          "cost_usd": 0.006435
+        },
+        "robustness": {
+          "calls": 1,
+          "input_tokens": 400,
+          "output_tokens": 242,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 2604,
+          "cost_usd": 0.00805
+        }
+      },
+      "full_revision_usage": {
+        "calls": 1,
+        "input_tokens": 303,
+        "output_tokens": 173,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.00584
+      },
+      "parallel_latency": 7.243420040991623,
+      "estimated_sequential_latency": 18.81131258199457,
+      "role_latency": {
+        "correctness": 5.651989041012712,
+        "security": 5.916627875005361,
+        "robustness": 7.242695665976498
+      },
+      "bound_events": [],
+      "error": null
+    },
+    {
+      "id": "item-002",
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "mutable_default",
+              "line": 1,
+              "severity": "high",
+              "rationale": "The default list is created once at function definition, so tags accumulate across calls and callers see other callers' tags."
+            }
+          ]
+        },
+        "assumptions": [
+          "Callers often invoke add_tag without passing an explicit list."
+        ],
+        "unresolved": [
+          "No caller code supplied to confirm observed accumulation impact."
+        ],
+        "trace_id": "runs/panel/item-002/transcript.jsonl"
+      },
+      "critics": {
+        "correctness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding correctly identifies the mutable default argument at line 1, which is the only material defect in this three-line snippet. Category, line, and severity are appropriate, and the rationale explains the concrete cross-call accumulation failure. No omitted defects exist.",
+          "rejected_assumptions": [
+            "That absence of caller code weakens the finding \u2014 the defect is self-evident from the signature."
+          ],
+          "trace_id": "runs/panel/item-002/transcript.jsonl",
+          "reviewer_role": "correctness"
+        },
+        "security": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding (mutable default argument at line 1) is the only real defect in this three-line snippet, correctly located and explained with a concrete cross-call data-leak failure path. No injection, traversal, SSRF, or authorization surfaces exist in the supplied code, so no additional security findings are warranted. Severity 'high' is arguably generous but defensible given cross-caller data bleed.",
+          "rejected_assumptions": [
+            "That shared mutable state here constitutes an exploitable authorization or injection boundary failure without caller context."
+          ],
+          "trace_id": "runs/panel/item-002/transcript.jsonl",
+          "reviewer_role": "security"
+        },
+        "robustness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding is the only real defect in the three-line snippet: the mutable default list on line 1 is shared across calls, causing state leakage between unrelated callers. Line number, category, and severity are accurate and evidence-aligned. No additional robustness failure paths (empty input, cleanup, concurrency aside from the shared-state issue already covered) exist in the supplied code.",
+          "rejected_assumptions": [
+            "That absence of caller code weakens the finding \u2014 the defect is intrinsic to the definition."
+          ],
+          "trace_id": "runs/panel/item-002/transcript.jsonl",
+          "reviewer_role": "robustness"
+        }
+      },
+      "merged": {
+        "decision": "accept",
+        "defects": []
+      },
+      "role_sets": {
+        "correctness": [],
+        "security": [],
+        "robustness": []
+      },
+      "overlaps": {
+        "correctness_security": 1.0,
+        "correctness_robustness": 1.0,
+        "security_robustness": 1.0
+      },
+      "unique_contribution": {
+        "correctness": 0.0,
+        "security": 0.0,
+        "robustness": 0.0
+      },
+      "triple_overlap": 0,
+      "full_revision": {
+        "output": {
+          "defects": [
+            {
+              "category": "mutable_default",
+              "line": 1,
+              "severity": "high",
+              "rationale": "The default list is evaluated once at definition, so tags accumulate across calls and callers unexpectedly share state."
+            }
+          ]
+        },
+        "assumptions": [
+          "Callers sometimes invoke add_tag without supplying a list."
+        ],
+        "unresolved": [
+          "No caller code supplied to confirm the magnitude of shared-state impact."
+        ],
+        "trace_id": "runs/panel/item-002/transcript.jsonl"
+      },
+      "full_score": 1.0,
+      "ablations": {
+        "correctness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 278,
+            "output_tokens": 160,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.00539
+          }
+        },
+        "security": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 278,
+            "output_tokens": 155,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.005265
+          }
+        },
+        "robustness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 278,
+            "output_tokens": 166,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.00554
+          }
+        }
+      },
+      "generator_usage": {
+        "calls": 1,
+        "input_tokens": 85,
+        "output_tokens": 157,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.00435
+      },
+      "role_usage": {
+        "correctness": {
+          "calls": 1,
+          "input_tokens": 374,
+          "output_tokens": 183,
+          "cached_input_tokens": 2612,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.006445
+        },
+        "security": {
+          "calls": 1,
+          "input_tokens": 377,
+          "output_tokens": 229,
+          "cached_input_tokens": 2617,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.00761
+        },
+        "robustness": {
+          "calls": 1,
+          "input_tokens": 375,
+          "output_tokens": 221,
+          "cached_input_tokens": 2604,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.0074
+        }
+      },
+      "full_revision_usage": {
+        "calls": 1,
+        "input_tokens": 278,
+        "output_tokens": 165,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.005515
+      },
+      "parallel_latency": 5.03044816601323,
+      "estimated_sequential_latency": 13.796282291936222,
+      "role_latency": {
+        "correctness": 4.168706040945835,
+        "security": 4.597947541973554,
+        "robustness": 5.0296287090168335
+      },
+      "bound_events": [],
+      "error": null
+    },
+    {
+      "id": "item-003",
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "swallowed_exception",
+              "line": 5,
+              "severity": "medium",
+              "rationale": "All exceptions, including permission errors or disk faults, are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+            }
+          ]
+        },
+        "assumptions": [
+          "The snippet is complete and callers treat the '{}' string as a valid empty configuration."
+        ],
+        "unresolved": [
+          "Whether callers can distinguish a genuinely empty config file from a read failure."
+        ],
+        "trace_id": "runs/panel/item-003/transcript.jsonl"
+      },
+      "critics": {
+        "correctness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding (swallowed_exception at line 5, the bare `except Exception` that returns a default) is accurate, concretely tied to the cited line, and describes a real incorrect-result path: a missing/unreadable file silently yields an empty config instead of surfacing the error. No other material functional defect is visible in this six-line snippet; the file handle is properly closed by the context manager and no other logic exists. Severity medium is reasonable.",
+          "rejected_assumptions": [
+            "That callers necessarily misinterpret '{}' \u2014 not needed for the finding to stand, since the swallow itself loses the error signal."
+          ],
+          "trace_id": "runs/panel/item-003/transcript.jsonl",
+          "reviewer_role": "correctness"
+        },
+        "security": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "From the security lens, the snippet's only externally controlled input is `path`, but there is no evidence in the supplied code of a trust boundary, web root, or attacker-supplied path source, so claiming path_traversal would be speculative and is correctly omitted. No injection, SSRF, randomness, or authorization logic exists here. The single reported swallowed_exception on line 5 is correctly located (the bare `except Exception` is the operation that masks failures) and has a concrete consequence: a tampered, deleted, or unreadable config silently degrades to an empty config, which can be a data-integrity/fail-open concern. Severity medium is reasonable given no demonstrated security boundary in-snippet. Findings are within limits, non-duplicated, and line numbers valid.",
+          "rejected_assumptions": [
+            "That `path` is attacker-controlled from an HTTP route or user upload \u2014 not shown in the snippet.",
+            "That the returned '{}' is parsed into security-relevant defaults such as auth settings \u2014 callers are not supplied."
+          ],
+          "trace_id": "runs/panel/item-003/transcript.jsonl",
+          "reviewer_role": "security"
+        },
+        "robustness": {
+          "defects": [],
+          "decision": "accept",
+          "rationale": "The single finding (swallowed_exception at line 5, the bare `except Exception:` handler returning '{}') is correct, concretely explained, and cites the exact responsible line. No other material robustness defect exists: the file handle is closed by the with-statement, there is no loop, concurrency, or timeout surface in the snippet. The review appropriately avoids speculating about caller behavior beyond a declared assumption.",
+          "rejected_assumptions": [
+            "That callers necessarily misinterpret '{}' \u2014 this is noted as an assumption, not asserted as a separate defect."
+          ],
+          "trace_id": "runs/panel/item-003/transcript.jsonl",
+          "reviewer_role": "robustness"
+        }
+      },
+      "merged": {
+        "decision": "accept",
+        "defects": []
+      },
+      "role_sets": {
+        "correctness": [],
+        "security": [],
+        "robustness": []
+      },
+      "overlaps": {
+        "correctness_security": 1.0,
+        "correctness_robustness": 1.0,
+        "security_robustness": 1.0
+      },
+      "unique_contribution": {
+        "correctness": 0.0,
+        "security": 0.0,
+        "robustness": 0.0
+      },
+      "triple_overlap": 0,
+      "full_revision": {
+        "output": {
+          "defects": [
+            {
+              "category": "swallowed_exception",
+              "line": 5,
+              "severity": "medium",
+              "rationale": "A bare except returns '{}' for any failure, so missing files, permission errors, or decode errors silently yield an empty config instead of surfacing the error."
+            }
+          ]
+        },
+        "assumptions": [
+          "The snippet is complete and callers treat the returned '{}' string as a valid empty configuration."
+        ],
+        "unresolved": [
+          "Whether callers can distinguish a genuinely empty config file from a read failure."
+        ],
+        "trace_id": "runs/panel/item-003/transcript.jsonl"
+      },
+      "full_score": 1.0,
+      "ablations": {
+        "correctness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 325,
+            "output_tokens": 195,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.0065
+          }
+        },
+        "security": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 325,
+            "output_tokens": 196,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.006525
+          }
+        },
+        "robustness": {
+          "score_without": 1.0,
+          "delta_with_minus_without": 0.0,
+          "usage": {
+            "calls": 1,
+            "input_tokens": 325,
+            "output_tokens": 186,
+            "cached_input_tokens": 2458,
+            "cache_write_tokens": 0,
+            "cost_usd": 0.006275
+          }
+        }
+      },
+      "generator_usage": {
+        "calls": 1,
+        "input_tokens": 98,
+        "output_tokens": 191,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.005265
+      },
+      "role_usage": {
+        "correctness": {
+          "calls": 1,
+          "input_tokens": 421,
+          "output_tokens": 255,
+          "cached_input_tokens": 2612,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.00848
+        },
+        "security": {
+          "calls": 1,
+          "input_tokens": 424,
+          "output_tokens": 389,
+          "cached_input_tokens": 2617,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.011845
+        },
+        "robustness": {
+          "calls": 1,
+          "input_tokens": 422,
+          "output_tokens": 243,
+          "cached_input_tokens": 2604,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.008185
+        }
+      },
+      "full_revision_usage": {
+        "calls": 1,
+        "input_tokens": 325,
+        "output_tokens": 191,
+        "cached_input_tokens": 2458,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0064
+      },
+      "parallel_latency": 7.584075082966592,
+      "estimated_sequential_latency": 19.37262279103743,
+      "role_latency": {
+        "correctness": 6.869279125006869,
+        "security": 7.58173070801422,
+        "robustness": 4.92161295801634
+      },
+      "bound_events": [],
+      "error": null
+    }
+  ]
+}

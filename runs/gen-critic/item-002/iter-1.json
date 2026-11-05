@@ -1,0 +1,41 @@
+{
+  "iteration": 1,
+  "generator": {
+    "output": {
+      "defects": [
+        {
+          "category": "mutable_default",
+          "line": 1,
+          "severity": "medium",
+          "rationale": "The default list argument is shared across calls, so tags accumulate from previous invocations instead of starting empty."
+        }
+      ]
+    },
+    "assumptions": [
+      "The snippet is the complete function under review with no callers supplied."
+    ],
+    "unresolved": [
+      "Whether callers always pass an explicit list, which would mask the shared-default bug."
+    ],
+    "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+  },
+  "critic": {
+    "defects": [],
+    "decision": "accept",
+    "rationale": "The sole finding is the canonical mutable default argument defect, correctly attributed to line 1 where `tags=[]` appears, with a concrete rationale describing state accumulation across calls. No other qualifying defects exist in the three-line snippet; no duplicates, valid taxonomy category, valid line range. Declared assumptions are supported by the task statement (only the function body was supplied); the 'unresolved' note about callers is a non-speculative caveat that did not produce an extra finding.",
+    "rejected_assumptions": [],
+    "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+  },
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  }
+}

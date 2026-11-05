@@ -1,0 +1,11 @@
+{
+  "thresholds_declared_before_runs": {
+    "redundant_pair_jaccard": 0.6,
+    "minimum_unique_contribution": 0.1
+  },
+  "pairwise_examples": [
+    {"pair": "correctness-security", "correctness_only": "off-by-one prefix summation", "security_only": "SQL injection from interpolated input"},
+    {"pair": "correctness-robustness", "correctness_only": "wrong cache key returns another currency", "robustness_only": "missing timeout hangs on an unresponsive peer"},
+    {"pair": "security-robustness", "security_only": "authorization OR condition permits bypass", "robustness_only": "file handle leaks on an exception"}
+  ]
+}

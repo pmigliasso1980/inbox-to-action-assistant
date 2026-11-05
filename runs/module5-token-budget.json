@@ -1,0 +1,35 @@
+{
+  "scope": "First three fixed evaluation items; primary-path tokens only.",
+  "residual_difference": "Artifacts have different schemas and output lengths, so exact token matching is not possible. Observed tokens/item are reported instead of treating agent count as budget.",
+  "configurations": [
+    {
+      "configuration": "1 critic, combined rubric, 1 pass",
+      "tokens_per_item": 1580.0,
+      "cached_tokens_per_item": 4962.0,
+      "mean_score": 1.0,
+      "cost_usd": 0.05826300000000001,
+      "source": "Derived from iteration 1 of runs/gen-critic; no duplicate calls."
+    },
+    {
+      "configuration": "1 critic, combined rubric, 3 sequential passes",
+      "tokens_per_item": 5625.333333333333,
+      "cached_tokens_per_item": 14886.0,
+      "mean_score": 1.0,
+      "cost_usd": 0.16055999999999998
+    },
+    {
+      "configuration": "3 critics, distinct rubrics, parallel",
+      "tokens_per_item": 2651.6666666666665,
+      "cached_tokens_per_item": 10138.0,
+      "mean_score": 1.0,
+      "cost_usd": 0.103275
+    },
+    {
+      "configuration": "best-of-3 generation, 1 critic",
+      "tokens_per_item": 1831.0,
+      "cached_tokens_per_item": 8501.333333333334,
+      "mean_score": 1.0,
+      "cost_usd": 0.072405
+    }
+  ]
+}

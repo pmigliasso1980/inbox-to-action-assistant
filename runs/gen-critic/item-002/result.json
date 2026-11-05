@@ -1,0 +1,178 @@
+{
+  "id": "item-002",
+  "mode": "adversarial",
+  "selected_iteration": 1,
+  "final_score": 1.0,
+  "accepted_at_1": true,
+  "iterations": 3,
+  "blocking_defects": 0,
+  "assumptions_declared": 3,
+  "assumptions_rejected": 0,
+  "gate_events": [
+    {
+      "iteration": 1,
+      "handoff": "generator",
+      "errors": []
+    },
+    {
+      "iteration": 1,
+      "handoff": "critic",
+      "errors": []
+    },
+    {
+      "iteration": 2,
+      "handoff": "generator",
+      "errors": []
+    },
+    {
+      "iteration": 2,
+      "handoff": "critic",
+      "errors": []
+    },
+    {
+      "iteration": 3,
+      "handoff": "generator",
+      "errors": []
+    },
+    {
+      "iteration": 3,
+      "handoff": "critic",
+      "errors": []
+    }
+  ],
+  "bound_events": [],
+  "records": [
+    {
+      "iteration": 1,
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "mutable_default",
+              "line": 1,
+              "severity": "medium",
+              "rationale": "The default list argument is shared across calls, so tags accumulate from previous invocations instead of starting empty."
+            }
+          ]
+        },
+        "assumptions": [
+          "The snippet is the complete function under review with no callers supplied."
+        ],
+        "unresolved": [
+          "Whether callers always pass an explicit list, which would mask the shared-default bug."
+        ],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "critic": {
+        "defects": [],
+        "decision": "accept",
+        "rationale": "The sole finding is the canonical mutable default argument defect, correctly attributed to line 1 where `tags=[]` appears, with a concrete rationale describing state accumulation across calls. No other qualifying defects exist in the three-line snippet; no duplicates, valid taxonomy category, valid line range. Declared assumptions are supported by the task statement (only the function body was supplied); the 'unresolved' note about callers is a non-speculative caveat that did not produce an extra finding.",
+        "rejected_assumptions": [],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "mutable_default",
+              "line": 1,
+              "severity": "medium",
+              "rationale": "The default list argument is shared across calls, so tags accumulate from previous invocations instead of starting empty."
+            }
+          ]
+        },
+        "assumptions": [
+          "The snippet is the complete function under review with no callers supplied."
+        ],
+        "unresolved": [
+          "Whether callers always pass an explicit list, which would mask the shared-default bug."
+        ],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "critic": {
+        "defects": [],
+        "decision": "accept",
+        "rationale": "The single finding is the only material defect in the three-line snippet: the mutable default list on line 1 is shared across calls, causing accumulation. Category, line, and severity are valid and well-aligned with the evidence. No omissions \u2014 append and return are correct given the default. Assumptions are consistent with the immutable task statement (full function, no callers shown); the 'unresolved' note is informational and does not weaken the finding.",
+        "rejected_assumptions": [],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "generator": {
+        "output": {
+          "defects": [
+            {
+              "category": "mutable_default",
+              "line": 1,
+              "severity": "medium",
+              "rationale": "The default list argument is shared across calls, so tags accumulate from previous invocations instead of starting empty."
+            }
+          ]
+        },
+        "assumptions": [
+          "The snippet is the complete function under review with no callers supplied."
+        ],
+        "unresolved": [
+          "Whether callers always pass an explicit list, which would mask the shared-default bug."
+        ],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "critic": {
+        "defects": [],
+        "decision": "accept",
+        "rationale": "The single finding is the only material defect in the three-line snippet: the mutable default list on line 1 accumulates state across calls. Category, line, severity, and rationale all align with the taxonomy and the cited code. No omitted defects exist (append and return are correct), and no speculative findings were added. The declared assumption that the snippet is complete with no callers is directly supported by the immutable task statement.",
+        "rejected_assumptions": [],
+        "trace_id": "runs/gen-critic/item-002/transcript.jsonl"
+      },
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    }
+  ],
+  "usage": {
+    "calls": 6,
+    "input_tokens": 4110,
+    "output_tokens": 1105,
+    "cached_input_tokens": 14886,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.048174999999999996
+  },
+  "error": null
+}

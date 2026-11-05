@@ -1,0 +1,23 @@
+{
+  "id": "item-001",
+  "selected_index": 2,
+  "selection_rationale": "All three identify the same correct off-by-one at line 3, but candidate 2's rationale is most complete: it names both failure modes (extra element summed and IndexError when n == len(values)) and its assumptions are explicit about indexing and non-negative n, improving evidence alignment without speculation.",
+  "output": {
+    "defects": [
+      {
+        "category": "off_by_one",
+        "line": 3,
+        "severity": "high",
+        "rationale": "range(n + 1) iterates one index past the first n elements, summing an extra item or raising IndexError when n == len(values)."
+      }
+    ]
+  },
+  "score": 1.0,
+  "usage": {
+    "calls": 4,
+    "input_tokens": 968,
+    "output_tokens": 629,
+    "cached_input_tokens": 7374,
+    "cost_usd": 0.020565
+  }
+}

@@ -255,3 +255,15 @@ external actions retain explicit human control.
 5. Add read-only Gmail ingestion.
 6. Create drafts and reminders only after explicit human approval.
 7. Track quality, cost, latency, and recurring use.
+
+## Multi-agent evaluation
+
+Module 5 adds a typed generator–critic loop and a parallel correctness/security/robustness panel. All
+handoffs are bounded and gated, carry transcript trace ids, and use stable cached role prefixes. The
+panel merge is deterministic so overlap and unique contribution remain measurable.
+
+On the three-item cost-controlled evaluation, every architecture reached a 1.0 score. Additional
+reviewers and repeated passes produced no score lift; the panel roles each contributed zero unique
+defects. The recommended default is therefore one combined adversarial critic with conditional
+specialist routing. See [`GEN_CRITIC_REPORT.md`](GEN_CRITIC_REPORT.md) and
+[`PANEL_REPORT.md`](PANEL_REPORT.md) for metrics, limitations, costs, and reproducibility paths.

@@ -33,3 +33,28 @@ PYTHONPATH=. python3 evals/summarize_module4.py
 All **51 tests pass**. Actual Module 4 Anthropic spend, including smoke/calibration and interrupted controls, was **$6.289885**, below the authorized $18 ceiling. Only valid controlled artifacts are included in the submission.
 
 Earlier modules remain available in `BASELINE_REPORT.md`, `REFLECTION_REPORT.md`, `FAILURE_INJECTION_REPORT.md`, `TOOLS_REPORT.md`, and `FALLBACK_PERMISSION_REPORT.md`.
+
+# Module 5 submission: Multi-agent collaboration
+
+## Lab 5.1 — Generator–critic
+
+- `agents/gen_critic.py` implements isolated role handoffs, prompt caching, best-artifact selection,
+  and a maximum of three iterations.
+- `agents/gates_multiagent.py` defines bounded Pydantic contracts, reference checks, and decision
+  invariants with one-retry escalation.
+- `runs/gen-critic/summary.json` and `runs/gen-critic-neutral/summary.json` contain the adversarial and
+  stance-ablation measurements.
+- `GEN_CRITIC_REPORT.md` provides the Module 2 comparison and deployment verdict.
+
+## Lab 5.2 — Parallel panel
+
+- `agents/panel.py` runs correctness, security, and robustness reviewers concurrently and merges their
+  issues deterministically with provenance.
+- `evals/panel_distinctness.json` freezes thresholds and pairwise distinctness examples before runs.
+- `runs/panel/summary.json` contains overlap, unique-contribution, role-ablation, cost, and latency data.
+- `runs/module5-token-budget.json` compares four architectures by measured tokens rather than agents.
+- `PANEL_REPORT.md` records the echo-chamber result, formal keep/drop decisions, and recommendation.
+
+The cost-controlled experiment used three fixed items. All configurations scored 1.0, so the evidence
+supports a single combined critic rather than a permanent three-role panel. Actual new Anthropic spend
+was **$0.570675**, including the smoke test, versus the authorized **$3.00** ceiling.

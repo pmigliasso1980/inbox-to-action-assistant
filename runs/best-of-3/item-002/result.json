@@ -1,0 +1,23 @@
+{
+  "id": "item-002",
+  "selected_index": 1,
+  "selection_rationale": "All three identify the sole defect (mutable default on line 1). Candidate 1 states it most precisely, quoting the actual default `tags=[]` and explaining the concrete accumulation/corruption failure path, with high severity appropriate to a data-integrity bug and an honest unresolved note.",
+  "output": {
+    "defects": [
+      {
+        "category": "mutable_default",
+        "line": 1,
+        "severity": "high",
+        "rationale": "The default list `tags=[]` is created once and shared across calls, so tags accumulate across independent invocations and return corrupted state."
+      }
+    ]
+  },
+  "score": 1.0,
+  "usage": {
+    "calls": 4,
+    "input_tokens": 922,
+    "output_tokens": 633,
+    "cached_input_tokens": 9065,
+    "cost_usd": 0.020435000000000002
+  }
+}

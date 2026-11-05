@@ -1,0 +1,564 @@
+{
+  "name": "gen-critic-neutral",
+  "mode": "neutral",
+  "items": 3,
+  "max_iterations": 3,
+  "force_iterations": true,
+  "mean_score": 1.0,
+  "delta_vs_baseline": 0.12142857142857155,
+  "noise_floor": 0.06666666666666676,
+  "reflection_mean_score": 0.9452380952380952,
+  "reflection_accept_at_1": 1.0,
+  "reflection_mean_iterations": 1.0,
+  "accept_at_1_rate": 1.0,
+  "mean_iterations": 3.0,
+  "blocking_defects_per_item": 0.0,
+  "assumptions_per_item": 4.0,
+  "assumptions_rejected": 0,
+  "gate_failure_rate": 0.0,
+  "bound_events": 0,
+  "input_tokens": 13205,
+  "output_tokens": 3911,
+  "cached_tokens": 41586,
+  "cost_usd": 0.1638,
+  "wall_clock_seconds": 77.78476429200964,
+  "results": [
+    {
+      "id": "item-001",
+      "mode": "neutral",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "accepted_at_1": true,
+      "iterations": 3,
+      "blocking_defects": 0,
+      "assumptions_declared": 3,
+      "assumptions_rejected": 0,
+      "gate_events": [
+        {
+          "iteration": 1,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 1,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "critic",
+          "errors": []
+        }
+      ],
+      "bound_events": [],
+      "records": [
+        {
+          "iteration": 1,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "off_by_one",
+                  "line": 3,
+                  "severity": "high",
+                  "rationale": "range(n + 1) iterates n+1 times, reading values[n] which sums an extra element and raises IndexError when len(values) == n."
+                }
+              ]
+            },
+            "assumptions": [
+              "n is intended to mean the count of leading elements to sum, so indices 0..n-1 are correct."
+            ],
+            "unresolved": [
+              "Caller contract for n relative to len(values) is not visible in the snippet."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding is correct and well-aligned: line 3 contains range(n + 1), the off-by-one source, and the rationale explains both the extra-element sum and the IndexError path. No other material defects exist in this five-line snippet. Structure, taxonomy category, line range (1-5), severity, and finding count all satisfy the deterministic criteria. The declared assumption that n means a count of leading elements is reasonable given the function name total_first_n and is not an unsupported external dependency.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 2,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "off_by_one",
+                  "line": 3,
+                  "severity": "high",
+                  "rationale": "range(n + 1) iterates n+1 times, reading values[n] which sums an extra element and raises IndexError when len(values) == n."
+                }
+              ]
+            },
+            "assumptions": [
+              "n is intended to mean the count of leading elements to sum, so indices 0..n-1 are correct."
+            ],
+            "unresolved": [
+              "Caller contract for n relative to len(values) is not visible in the snippet."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding is correct and well-aligned: line 3 contains `range(n + 1)`, which over-iterates by one for a 'first n' sum and can raise IndexError at values[n]. Category off_by_one is in the taxonomy, line 3 is within the 5-line snippet, severity is allowed, and there are no duplicates or excess findings. No other material defect exists in the snippet (negative n simply yields 0; no security, resource, or concurrency surface). The declared assumption about n denoting a count is supported by the function name and is the only reasonable reading; the unresolved note is appropriately scoped rather than speculative.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 3,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "off_by_one",
+                  "line": 3,
+                  "severity": "high",
+                  "rationale": "range(n + 1) iterates n+1 times, reading values[n] which sums an extra element and raises IndexError when len(values) == n."
+                }
+              ]
+            },
+            "assumptions": [
+              "n is intended to mean the count of leading elements to sum, so indices 0..n-1 are correct."
+            ],
+            "unresolved": [
+              "Caller contract for n relative to len(values) is not visible in the snippet."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding is correct and well-placed: line 3's range(n + 1) is the off-by-one, causing an extra element to be summed or an IndexError when len(values) == n. Category is in the taxonomy, line is within the 5-line snippet, severity valid, rationale concrete. No other material defects exist in the snippet (no I/O, concurrency, or security surface). The declared assumption that n denotes a count of leading elements is supported by the function name total_first_n and is reasonable, not speculative.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-001/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 4409,
+        "output_tokens": 1299,
+        "cached_input_tokens": 12240,
+        "cache_write_tokens": 2433,
+        "cost_usd": 0.05452
+      },
+      "error": null
+    },
+    {
+      "id": "item-002",
+      "mode": "neutral",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "accepted_at_1": true,
+      "iterations": 3,
+      "blocking_defects": 0,
+      "assumptions_declared": 3,
+      "assumptions_rejected": 0,
+      "gate_events": [
+        {
+          "iteration": 1,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 1,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "critic",
+          "errors": []
+        }
+      ],
+      "bound_events": [],
+      "records": [
+        {
+          "iteration": 1,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "mutable_default",
+                  "line": 1,
+                  "severity": "medium",
+                  "rationale": "The default list is created once at function definition, so tags accumulate across calls and callers get unexpected prior values."
+                }
+              ]
+            },
+            "assumptions": [
+              "Callers may invoke add_tag without supplying tags, relying on a fresh list each time."
+            ],
+            "unresolved": [
+              "No caller code is supplied, so the practical impact of shared state cannot be measured."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding is the correct and only material defect: the mutable default argument on line 1 causes state to persist across calls. Category, line, severity, and rationale all align with the snippet and taxonomy. No duplicates, no out-of-range lines, under the finding limit. The declared assumption (callers may omit tags) is inherent to the signature itself and is supported by the code, so it is not rejected.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 2,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "mutable_default",
+                  "line": 1,
+                  "severity": "medium",
+                  "rationale": "The default list is created once at function definition, so appended tags persist across calls and callers that omit the argument receive previously accumulated values."
+                }
+              ]
+            },
+            "assumptions": [
+              "Callers may invoke add_tag without supplying tags, expecting a fresh list each call."
+            ],
+            "unresolved": [
+              "No caller code is supplied, so the practical blast radius of the shared default list cannot be measured."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding correctly identifies the classic mutable default argument defect at line 1, where `tags=[]` is evaluated once at definition time, causing state to leak across calls. Category is in the taxonomy, line is valid (1 of 3), severity is reasonable, and rationale explains the concrete failure path. No other material defects exist in this three-line snippet, so coverage is complete and precision is maintained (no speculative findings added). The declared assumption about callers omitting the argument is inherent to the defect class and acceptable.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 3,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "mutable_default",
+                  "line": 1,
+                  "severity": "medium",
+                  "rationale": "The default list is created once at function definition, so appended tags persist across calls and callers that omit the argument receive previously accumulated values."
+                }
+              ]
+            },
+            "assumptions": [
+              "Callers may invoke add_tag without supplying tags, expecting a fresh list each call."
+            ],
+            "unresolved": [
+              "No caller code is supplied, so the practical blast radius of the shared default list cannot be measured."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "Single finding is correct: mutable default argument on line 1 (the def line where the default is evaluated), medium severity is reasonable, and the rationale explains the concrete shared-state failure. No other material defects exist in the three-line snippet. Structure, taxonomy, line range, uniqueness, and count all satisfied. The declared assumption (callers may omit the tags argument) is inherent to having a default parameter and is supported by the snippet itself, so nothing is rejected.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-002/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 4250,
+        "output_tokens": 1215,
+        "cached_input_tokens": 14673,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.051625000000000004
+      },
+      "error": null
+    },
+    {
+      "id": "item-003",
+      "mode": "neutral",
+      "selected_iteration": 1,
+      "final_score": 1.0,
+      "accepted_at_1": true,
+      "iterations": 3,
+      "blocking_defects": 0,
+      "assumptions_declared": 6,
+      "assumptions_rejected": 0,
+      "gate_events": [
+        {
+          "iteration": 1,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 1,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 2,
+          "handoff": "critic",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "generator",
+          "errors": []
+        },
+        {
+          "iteration": 3,
+          "handoff": "critic",
+          "errors": []
+        }
+      ],
+      "bound_events": [],
+      "records": [
+        {
+          "iteration": 1,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "swallowed_exception",
+                  "line": 5,
+                  "severity": "medium",
+                  "rationale": "All errors including permission or decoding failures are silently caught and replaced with an empty config, so callers silently run with wrong defaults instead of seeing the real failure."
+                }
+              ]
+            },
+            "assumptions": [
+              "The returned '{}' is intended as an empty JSON config consumed by the caller.",
+              "No logging or error propagation exists elsewhere in the snippet."
+            ],
+            "unresolved": [
+              "Whether callers can distinguish a legitimately empty config file from a load failure."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding (swallowed_exception at line 5, the `except Exception:` clause) is valid, correctly located, and explains a concrete failure path: callers silently receive an empty config instead of the real error. No other material defects exist in this six-line snippet \u2014 path_traversal would require unstated caller assumptions, and the file handle is properly closed by the context manager. Structure, taxonomy, line range, uniqueness, and count all satisfy the deterministic criteria. Declared assumptions are reasonable and did not distort the finding.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 2,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "swallowed_exception",
+                  "line": 5,
+                  "severity": "medium",
+                  "rationale": "All errors including permission or decoding failures are silently caught and replaced with an empty config, so callers silently run with wrong defaults instead of seeing the real failure."
+                }
+              ]
+            },
+            "assumptions": [
+              "The returned '{}' is intended as an empty JSON config consumed by the caller.",
+              "No logging or error propagation exists elsewhere in the snippet."
+            ],
+            "unresolved": [
+              "Whether callers can distinguish a legitimately empty config file from a load failure."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding (swallowed_exception at line 5, the `except Exception:` clause) is the material defect in this 6-line snippet: all failures, including permission errors and path mistakes, are silently converted to an empty config, so callers proceed with wrong defaults. Line is in range, category is in the taxonomy, severity reasonable, no duplicates, under the limit. No other qualifying defect is visible; path_traversal would require unstated caller/input assumptions, and the file handle is properly closed by the context manager. Declared assumptions are benign and do not drive the finding.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        },
+        {
+          "iteration": 3,
+          "generator": {
+            "output": {
+              "defects": [
+                {
+                  "category": "swallowed_exception",
+                  "line": 5,
+                  "severity": "medium",
+                  "rationale": "All errors including permission or decoding failures are silently caught and replaced with an empty config, so callers silently run with wrong defaults instead of seeing the real failure."
+                }
+              ]
+            },
+            "assumptions": [
+              "The returned '{}' is intended as an empty JSON config consumed by the caller.",
+              "No logging or error propagation exists elsewhere in the snippet."
+            ],
+            "unresolved": [
+              "Whether callers can distinguish a legitimately empty config file from a load failure."
+            ],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "critic": {
+            "defects": [],
+            "decision": "accept",
+            "rationale": "The single finding (swallowed_exception at line 5, the bare `except Exception:` that masks all load failures and returns a fake empty config) is concrete, correctly located, and the only material defect in this six-line snippet. No path traversal claim is made, which is appropriate since the caller is not shown. Structure, taxonomy, line range, uniqueness, and count all satisfy the deterministic criteria. Declared assumptions are reasonable and non-load-bearing: the '{}' return is plainly a config-shaped fallback, and no logging appears in the snippet.",
+            "rejected_assumptions": [],
+            "trace_id": "runs/gen-critic-neutral/item-003/transcript.jsonl"
+          },
+          "score": {
+            "score": 1.0,
+            "detail": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "true_positive": 1,
+              "predicted": 1,
+              "expected": 1,
+              "missed": [],
+              "extra": []
+            }
+          }
+        }
+      ],
+      "usage": {
+        "calls": 6,
+        "input_tokens": 4546,
+        "output_tokens": 1397,
+        "cached_input_tokens": 14673,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.057655
+      },
+      "error": null
+    }
+  ]
+}
