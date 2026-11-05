@@ -1,0 +1,164 @@
+{
+  "id": "item-006",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "notify is declared async but calls client.post without await; with an async client this returns a coroutine, so response.status_code on line 3 operates on an un-awaited coroutine. Based on static source evidence only (runtime suites s3/s5 yielded no observations)."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "client.post('/notify', ...) is issued with no timeout argument, allowing the request to hang indefinitely. Evidence is source-only."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 3,
+        "severity": "medium",
+        "rationale": "The status code is returned verbatim without any check for non-2xx responses, so failed notifications propagate silently as normal results. Source-only evidence."
+      }
+    ]
+  },
+  "plans": 3,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 8,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "notify_source_lines",
+      "value": {
+        "file": "notify.py",
+        "code": "async def notify(client, user_id):\n    response = client.post('/notify', json={'user': user_id})\n    return response.status_code",
+        "line_count": 3
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "notify_lint_findings",
+      "value": {
+        "file": "notify.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s3",
+      "status": "failed",
+      "produced": "notify_test_results",
+      "value": {
+        "file": "notify.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test suite executes and records pass/fail plus any coroutine or status-related errors"
+    },
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "notify_source_lines",
+      "value": {
+        "file": "notify.py",
+        "code": "async def notify(client, user_id):\n    response = client.post('/notify', json={'user': user_id})\n    return response.status_code",
+        "line_count": 3
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "async_lint_findings",
+      "value": {
+        "file": "notify.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "http_robustness_assessment",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s5",
+      "status": "failed",
+      "produced": "notify_runtime_evidence",
+      "value": {
+        "file": "notify.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test suite executes and yields pass/fail output relevant to the notify call path"
+    }
+  ],
+  "step_successes": 5,
+  "criterion_caught_failures": 0,
+  "replans": 2,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1,
+    "run_tests": 2
+  },
+  "validation_log": [
+    [],
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [
+      "s1 (source retrieved on retry)",
+      "s2 (correctness lint, no findings)",
+      "s4 (HTTP robustness reasoning deferred to synthesis)"
+    ],
+    "failed": [
+      "s1 (initial read_code attempt)",
+      "s3 (static_smoke suite produced no observations)",
+      "s5 (runtime evidence suite produced no observations)"
+    ],
+    "blocked_by": [
+      "s3: no runtime/test observations for coroutine or status-code behavior",
+      "s5: no runtime evidence for the notify call path",
+      "s1: initial read failed; findings rest on the successful retry source only"
+    ]
+  },
+  "side_effect_count": 7,
+  "usage": {
+    "calls": 10,
+    "input_tokens": 17714,
+    "output_tokens": 4097,
+    "cached_input_tokens": 4963,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.19099499999999997
+  },
+  "latency_seconds": 71.39628029201413,
+  "error": null,
+  "score": 0.5,
+  "duplicated_steps": 1
+}

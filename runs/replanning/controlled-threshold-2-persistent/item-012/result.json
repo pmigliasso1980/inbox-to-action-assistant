@@ -1,0 +1,69 @@
+{
+  "id": "item-012",
+  "review": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "Non-atomic read-modify-write on module-global `counter`: `current = counter` (line 5) then `counter = current + 1` (line 6) can interleave across threads, losing increments. Based solely on the source inlined in the objective, since read_code artifacts s1/s1b failed and the file was not independently read."
+      }
+    ]
+  },
+  "plans": 2,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 2,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 1,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 2
+  },
+  "validation_log": [
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1",
+      "s1b"
+    ],
+    "blocked_by": [
+      "counter_source_lines from read_code (s1, s1b both failed; file contents unverified beyond inlined objective source)"
+    ]
+  },
+  "side_effect_count": 2,
+  "usage": {
+    "calls": 3,
+    "input_tokens": 636,
+    "output_tokens": 1362,
+    "cached_input_tokens": 3682,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.03723
+  },
+  "latency_seconds": 22.823502666025888,
+  "error": null,
+  "score": 0.0,
+  "duplicated_steps": 0
+}

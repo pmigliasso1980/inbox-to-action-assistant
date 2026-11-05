@@ -1,0 +1,136 @@
+{
+  "id": "item-018",
+  "review": {
+    "defects": [
+      {
+        "category": "incorrect_cache_key",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Cache key uses only product_id while the fetched value depends on both product_id and currency (line 6), so a price fetched for one currency is returned for requests in another currency."
+      }
+    ]
+  },
+  "plans": 3,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 9,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "cache_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1_retry",
+      "status": "success",
+      "produced": "cache_source_lines",
+      "value": {
+        "file": "cache.py",
+        "code": "cache = {}\n\ndef price(product_id, currency, fetch):\n    if product_id in cache:\n        return cache[product_id]\n    value = fetch(product_id, currency)\n    cache[product_id] = value\n    return value",
+        "line_count": 8
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "cache_linter_findings",
+      "value": {
+        "file": "cache.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "race_condition_assessment",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s5",
+      "status": "failed",
+      "produced": "cache_test_results",
+      "value": {
+        "file": "cache.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test suite executes and pass/fail results per test are returned."
+    },
+    {
+      "step_id": "s6",
+      "status": "success",
+      "produced": "incorrect_cache_key_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s7",
+      "status": "success",
+      "produced": "race_condition_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s8",
+      "status": "success",
+      "produced": "residual_category_scan",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s9",
+      "status": "success",
+      "produced": "final_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 7,
+  "criterion_caught_failures": 0,
+  "replans": 2,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1,
+    "run_tests": 1
+  },
+  "validation_log": [
+    [],
+    [],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 4,
+  "usage": {
+    "calls": 7,
+    "input_tokens": 10135,
+    "output_tokens": 3149,
+    "cached_input_tokens": 4707,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.12940000000000002
+  },
+  "latency_seconds": 51.71360945800552,
+  "error": null,
+  "score": 0.6666666666666666,
+  "duplicated_steps": 0
+}

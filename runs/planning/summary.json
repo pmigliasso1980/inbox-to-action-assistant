@@ -1,0 +1,2240 @@
+{
+  "name": "planning",
+  "items": 20,
+  "candidate_ids": [
+    "item-006",
+    "item-011",
+    "item-012",
+    "item-017",
+    "item-018"
+  ],
+  "candidate_items_run": 5,
+  "mean_score": 0.8435714285714285,
+  "candidate_mean_score": 0.5476190476190477,
+  "delta_vs_baseline": -0.03499999999999992,
+  "delta_vs_reflection": -0.10166666666666668,
+  "delta_vs_tools": -0.03976190476190489,
+  "noise_floor": 0.06666666666666676,
+  "first_attempt_plan_validity_rate": 0.95,
+  "validation_violations": {
+    "step_bound": 1
+  },
+  "mean_steps": 4.6,
+  "step_count_distribution": {
+    "3": 5,
+    "6": 5,
+    "5": 4,
+    "7": 1,
+    "4": 5
+  },
+  "step_success_rate": 0.967391304347826,
+  "criterion_caught_failures": 3,
+  "replan_rate": 0.15,
+  "escalation_rate": 0.0,
+  "abandoned_items": [],
+  "input_tokens": 125553,
+  "output_tokens": 25816,
+  "cached_tokens": 48024,
+  "cache_write_tokens": 0,
+  "cost_usd": 1.273165,
+  "cost_multiple_vs_baseline": 8.837741218936554,
+  "cost_per_score_point": null,
+  "mean_latency_seconds": 24.407531775152894,
+  "p95_latency_seconds": 40.06792691699229,
+  "wall_clock_seconds": 488.1698570830049,
+  "records": [
+    {
+      "id": "item-001",
+      "review": {
+        "defects": [
+          {
+            "category": "off_by_one",
+            "line": 3,
+            "severity": "high",
+            "rationale": "range(n + 1) iterates n+1 times, indexing values[n] which is out of bounds when n equals len(values); should be range(n) to sum the first n elements."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 3,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "source_lines",
+          "value": {
+            "file": "range_total.py",
+            "code": "def total_first_n(values, n):\n    total = 0\n    for i in range(n + 1):\n        total += values[i]\n    return total",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "loop_bound_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "final_review",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 3,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3282,
+        "output_tokens": 668,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03311
+      },
+      "latency_seconds": 13.104218958993442,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-002",
+      "review": {
+        "defects": [
+          {
+            "category": "mutable_default",
+            "line": 1,
+            "severity": "medium",
+            "rationale": "The default argument tags=[] is a mutable list evaluated once at function definition; appended tags persist across calls, so callers omitting tags accumulate prior values. Confirmed by linter correctness profile finding at line 1."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 3,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "tags_source_lines",
+          "value": {
+            "file": "tags.py",
+            "code": "def add_tag(tag, tags=[]):\n    tags.append(tag)\n    return tags",
+            "line_count": 3
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "tags_linter_findings",
+          "value": {
+            "file": "tags.py",
+            "profile": "correctness",
+            "findings": [
+              {
+                "line": 1,
+                "rule": "mutable_default",
+                "message": "mutable default persists across calls"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "tags_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 3,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6037,
+        "output_tokens": 884,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.052285
+      },
+      "latency_seconds": 18.20840479101753,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-003",
+      "review": {
+        "defects": [
+          {
+            "category": "swallowed_exception",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "The bare `except Exception:` catches all failures (missing file, permission errors, decode errors) and silently returns a default '{}' string, hiding operational faults from callers with no logging or re-raise."
+          },
+          {
+            "category": "path_traversal",
+            "line": 3,
+            "severity": "low",
+            "rationale": "`path` is passed directly to open() with no normalization or containment check against a base directory, so caller-supplied relative traversal input can read arbitrary files."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "config_source_lines",
+          "value": {
+            "file": "config.py",
+            "code": "def load_config(path):\n    try:\n        with open(path) as handle:\n            return handle.read()\n    except Exception:\n        return '{}'",
+            "line_count": 6
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "config_lint_findings",
+          "value": {
+            "file": "config.py",
+            "profile": "correctness",
+            "findings": [
+              {
+                "line": 5,
+                "rule": "broad_exception",
+                "message": "broad Exception handler can hide operational failures"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "config_test_evidence",
+          "value": {
+            "file": "config.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": [
+              {
+                "line": 5,
+                "rule": "broad_exception",
+                "message": "broad Exception handler can hide operational failures"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "candidate_defect_list",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "confirmed_defect_list",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_review_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 5,
+        "input_tokens": 9147,
+        "output_tokens": 1595,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.08561
+      },
+      "latency_seconds": 29.86819499998819,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 2,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "path_traversal",
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-004",
+      "review": {
+        "defects": [
+          {
+            "category": "sql_injection",
+            "line": 2,
+            "severity": "high",
+            "rationale": "The query string is built with an f-string interpolating the untrusted `name` parameter directly into SQL, confirmed by the security linter rule sql_interpolation at line 2; a parameterized query is required."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": false,
+      "validation_revisions": 1,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "users_source_lines",
+          "value": {
+            "file": "users.py",
+            "code": "def find_user(conn, name):\n    query = f\"SELECT * FROM users WHERE name = '{name}'\"\n    return conn.execute(query).fetchone()",
+            "line_count": 3
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "linter_security_findings",
+          "value": {
+            "file": "users.py",
+            "profile": "security",
+            "findings": [
+              {
+                "line": 2,
+                "rule": "sql_interpolation",
+                "message": "SQL appears to interpolate input"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "null_dereference_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "users_test_results",
+          "value": {
+            "file": "users.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": [
+              {
+                "line": 2,
+                "rule": "sql_interpolation",
+                "message": "SQL appears to interpolate input"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "sql_injection_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        [
+          "step_bound: plan has 7 steps; maximum is 6"
+        ],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 6,
+        "input_tokens": 9300,
+        "output_tokens": 2320,
+        "cached_input_tokens": 3426,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.1045
+      },
+      "latency_seconds": 39.23927329201251,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-005",
+      "review": {
+        "defects": [
+          {
+            "category": "path_traversal",
+            "line": 4,
+            "severity": "high",
+            "rationale": "filename is joined to root without normalization or confinement check; '../' or an absolute path escapes root and read_text on line 5 discloses arbitrary files."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 5,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "files_source_lines",
+          "value": {
+            "file": "files.py",
+            "code": "from pathlib import Path\n\ndef read_upload(root, filename):\n    path = Path(root) / filename\n    return path.read_text()",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "path_traversal_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "io_handling_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "files.py",
+            "profile": "security",
+            "findings": [
+              {
+                "line": 4,
+                "rule": "unconfined_path",
+                "message": "joined path needs confinement validation"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6250,
+        "output_tokens": 1191,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.061025
+      },
+      "latency_seconds": 22.527581833011936,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-006",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "In an async function, client.post is called without await; the coroutine is never awaited and response.status_code on line 3 would access an attribute of a coroutine object rather than a response."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 3,
+            "severity": "medium",
+            "rationale": "The status code is returned without any check for non-2xx responses, so notification failures propagate silently as ordinary return values."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "The outbound HTTP POST is issued with no timeout argument, allowing the call to hang indefinitely on a slow or unresponsive endpoint."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 7,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "notify_source_lines",
+          "value": {
+            "file": "notify.py",
+            "code": "async def notify(client, user_id):\n    response = client.post('/notify', json={'user': user_id})\n    return response.status_code",
+            "line_count": 3
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "notify_lint_findings",
+          "value": {
+            "file": "notify.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "failed",
+          "produced": "notify_test_results",
+          "value": {
+            "file": "notify.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": []
+          },
+          "summary": "success criterion failed: Test suite executes and reports pass/fail with any coroutine or status-related errors"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "notify_line_map",
+          "value": {
+            "file": "notify.py",
+            "code": "async def notify(client, user_id):\n    response = client.post('/notify', json={'user': user_id})\n    return response.status_code",
+            "line_count": 3
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "async_defect_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "status_defect_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s7",
+          "status": "success",
+          "produced": "notify_final_review",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "s3": 1
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 4,
+      "usage": {
+        "calls": 7,
+        "input_tokens": 12260,
+        "output_tokens": 2199,
+        "cached_input_tokens": 3426,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.11627499999999999
+      },
+      "latency_seconds": 40.763221583969425,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.5,
+        "detail": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 3,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "missing_timeout",
+              2
+            ],
+            [
+              "unchecked_status",
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-007",
+      "review": {
+        "defects": [
+          {
+            "category": "division_by_zero",
+            "line": 2,
+            "severity": "high",
+            "rationale": "len(values) is zero for an empty sequence, so sum(values) / len(values) raises ZeroDivisionError; no guard exists on line 2."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 3,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "average_source_lines",
+          "value": {
+            "file": "average.py",
+            "code": "def average(values):\n    return sum(values) / len(values)",
+            "line_count": 2
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "average_lint_findings",
+          "value": {
+            "file": "average.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "average_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 3,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 5868,
+        "output_tokens": 750,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.04809000000000001
+      },
+      "latency_seconds": 17.6842065420351,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-008",
+      "review": {
+        "defects": [
+          {
+            "category": "null_dereference",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "user.profile.name is dereferenced in a chain without any None checks; if user.profile is None or name is None, .strip() raises AttributeError."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "profile_source_lines",
+          "value": {
+            "file": "profile.py",
+            "code": "def display_name(user):\n    return user.profile.name.strip()",
+            "line_count": 2
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "linter_findings",
+          "value": {
+            "file": "profile.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "null_dereference_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6000,
+        "output_tokens": 971,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.054275000000000004
+      },
+      "latency_seconds": 17.73788508400321,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-009",
+      "review": {
+        "defects": [
+          {
+            "category": "resource_leak",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "File handle opened with open() is never closed and no context manager is used; on exception or normal return the handle leaks until GC."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 5,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "export_source_lines",
+          "value": {
+            "file": "export.py",
+            "code": "def export_rows(path, rows):\n    handle = open(path, 'w')\n    for row in rows:\n        handle.write(','.join(row) + '\\n')\n    return len(rows)",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "export_linter_findings",
+          "value": {
+            "file": "export.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "secondary_defect_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "failed",
+          "produced": "export_test_results",
+          "value": {
+            "file": "export.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": []
+          },
+          "summary": "success criterion failed: Test run completes with pass/fail status per test case recorded."
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "export_defect_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "s5": 1
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 6,
+        "input_tokens": 9558,
+        "output_tokens": 1858,
+        "cached_input_tokens": 3426,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.09424
+      },
+      "latency_seconds": 35.07113749999553,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-010",
+      "review": {
+        "defects": [
+          {
+            "category": "insecure_random",
+            "line": 4,
+            "severity": "high",
+            "rationale": "reset_token uses random.randint (Mersenne Twister, non-cryptographic PRNG) to generate a security-sensitive password reset token; the output is predictable and should use the secrets module."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 3,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "tokens_source_lines",
+          "value": {
+            "file": "tokens.py",
+            "code": "import random\n\ndef reset_token():\n    return ''.join(str(random.randint(0, 9)) for _ in range(24))",
+            "line_count": 4
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "insecure_random_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 3,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3291,
+        "output_tokens": 723,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03453
+      },
+      "latency_seconds": 16.9283812919748,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-011",
+      "review": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "high",
+            "rationale": "filename is interpolated into an f-string passed to os.system, which runs via the shell; a filename like 'a; rm -rf /' executes arbitrary commands."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "os.system's exit status is returned without being checked, so conversion failures are silently propagated as a nonzero int rather than handled."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 5,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "convert_source_lines",
+          "value": {
+            "file": "convert.py",
+            "code": "import os\n\ndef convert(filename):\n    return os.system(f\"convert {filename} output.png\")",
+            "line_count": 4
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "convert_lint_findings",
+          "value": {
+            "file": "convert.py",
+            "profile": "security",
+            "findings": [
+              {
+                "line": 4,
+                "rule": "shell_execution",
+                "message": "shell command construction requires injection review"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "command_injection_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "unchecked_status_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6192,
+        "output_tokens": 1224,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.06156
+      },
+      "latency_seconds": 22.642083667044062,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 2,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "unchecked_status",
+              4
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-012",
+      "review": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "Non-atomic read-modify-write of global counter: 'current = counter' (line 5) then 'counter = current + 1' (line 6) can interleave across threads, losing increments."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 3,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "counter_source_lines",
+          "value": {
+            "file": "counter.py",
+            "code": "counter = 0\n\ndef increment():\n    global counter\n    current = counter\n    counter = current + 1\n    return counter",
+            "line_count": 7
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "concurrency_defect_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 3,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3281,
+        "output_tokens": 702,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.033955
+      },
+      "latency_seconds": 14.161898709018715,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.0,
+        "detail": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "true_positive": 0,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [
+            [
+              "race_condition",
+              6
+            ]
+          ],
+          "extra": [
+            [
+              "race_condition",
+              5
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-013",
+      "review": {
+        "defects": [
+          {
+            "category": "identity_comparison",
+            "line": 2,
+            "severity": "high",
+            "rationale": "`user_role is 'admin'` compares object identity rather than value; interning is implementation-dependent so equal strings may fail, causing admin edit permission to be denied (or granted) unpredictably. Confirmed by linter rule string_identity at line 2."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "access_source_lines",
+          "value": {
+            "file": "access.py",
+            "code": "def can_edit(user_role):\n    if user_role is 'admin':\n        return True\n    return False",
+            "line_count": 4
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "linter_findings",
+          "value": {
+            "file": "access.py",
+            "profile": "correctness",
+            "findings": [
+              {
+                "line": 2,
+                "rule": "string_identity",
+                "message": "string identity comparison is not value equality"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "defect_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6094,
+        "output_tokens": 1003,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.055545
+      },
+      "latency_seconds": 23.68627991597168,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-014",
+      "review": {
+        "defects": [
+          {
+            "category": "infinite_loop",
+            "line": 3,
+            "severity": "high",
+            "rationale": "Condition `len(queue) >= 0` is always true, so the loop never terminates normally; it only exits via an IndexError from pop on an empty list."
+          },
+          {
+            "category": "off_by_one",
+            "line": 3,
+            "severity": "medium",
+            "rationale": "The guard should be `len(queue) > 0` (or `while queue`); the `>= 0` boundary causes one extra iteration past exhaustion."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "drain_source_lines",
+          "value": {
+            "file": "drain.py",
+            "code": "def drain(queue):\n    processed = []\n    while len(queue) >= 0:\n        processed.append(queue.pop(0))\n    return processed",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "loop_termination_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "drain.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s4",
+          "status": "failed",
+          "produced": "runtime_evidence",
+          "value": {
+            "file": "drain.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": []
+          },
+          "summary": "success criterion failed: Test run yields observable hang/timeout or IndexError traceback referencing line 4"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "loop_defect_analysis",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_review",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "s4": 1
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 6,
+        "input_tokens": 9508,
+        "output_tokens": 2039,
+        "cached_input_tokens": 3426,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.09851499999999999
+      },
+      "latency_seconds": 40.06792691699229,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 2,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "off_by_one",
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-015",
+      "review": {
+        "defects": [
+          {
+            "category": "auth_bypass",
+            "line": 3,
+            "severity": "high",
+            "rationale": "`if token or token == expected_token()` grants admin access whenever any non-empty token header is present; the comparison to the expected token is short-circuited, so an arbitrary attacker-supplied token passes. Should be `and`/direct equality."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 5,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "admin_py_source_lines",
+          "value": {
+            "file": "admin.py",
+            "code": "def admin_action(request):\n    token = request.headers.get('X-Admin-Token')\n    if token or token == expected_token():\n        return perform_admin_action()\n    raise PermissionError()",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "auth_bypass_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "null_handling_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "admin_py_lint_report",
+          "value": {
+            "file": "admin.py",
+            "profile": "security",
+            "findings": [
+              {
+                "line": 2,
+                "rule": "network_without_timeout",
+                "message": "network-style get call has no timeout keyword"
+              },
+              {
+                "line": 3,
+                "rule": "permissive_boolean",
+                "message": "OR condition may bypass validation"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6415,
+        "output_tokens": 1339,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.06555
+      },
+      "latency_seconds": 24.23867704201257,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-016",
+      "review": {
+        "defects": [
+          {
+            "category": "result_overwritten",
+            "line": 7,
+            "severity": "high",
+            "rationale": "The else branch resets `found = None` on every non-matching item, so a previously found match is discarded unless it is the last element; find returns None for valid matches."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "find_source_lines",
+          "value": {
+            "file": "lookup.py",
+            "code": "def find(items, target):\n    found = None\n    for item in items:\n        if item.id == target:\n            found = item\n        else:\n            found = None\n    return found",
+            "line_count": 8
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "result_overwritten_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "comparison_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3438,
+        "output_tokens": 980,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.041690000000000005
+      },
+      "latency_seconds": 18.07378775003599,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-017",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get(url) has no timeout, so the call can hang indefinitely on an unresponsive server."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "Response status is never checked; an error page body (4xx/5xx) is written to the destination as if it were valid content."
+          },
+          {
+            "category": "ssrf",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "Caller-supplied url is fetched with no scheme/host validation, allowing requests to internal addresses."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "destination is used directly in open() for writing without normalization or base-directory containment, allowing writes outside the intended directory."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "download_source_lines",
+          "value": {
+            "file": "download.py",
+            "code": "import requests\n\ndef download(url, destination):\n    response = requests.get(url)\n    with open(destination, 'wb') as output:\n        output.write(response.content)\n    return destination",
+            "line_count": 7
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "network_call_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "file_write_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3439,
+        "output_tokens": 1182,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.046744999999999995
+      },
+      "latency_seconds": 19.78483141696779,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.5714285714285715,
+        "detail": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "true_positive": 2,
+          "predicted": 4,
+          "expected": 3,
+          "missed": [
+            [
+              "unchecked_status",
+              6
+            ]
+          ],
+          "extra": [
+            [
+              "path_traversal",
+              5
+            ],
+            [
+              "unchecked_status",
+              4
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-018",
+      "review": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Cache key uses only product_id while the fetched value depends on currency, so a lookup in one currency returns prices cached for another."
+          },
+          {
+            "category": "race_condition",
+            "line": 7,
+            "severity": "low",
+            "rationale": "Module-level mutable `cache` dict is checked and written non-atomically across lines 4-7; concurrent callers can perform duplicate fetches and overwrite entries."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "cache_source_lines",
+          "value": {
+            "file": "cache.py",
+            "code": "cache = {}\n\ndef price(product_id, currency, fetch):\n    if product_id in cache:\n        return cache[product_id]\n    value = fetch(product_id, currency)\n    cache[product_id] = value\n    return value",
+            "line_count": 8
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "cache_key_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "fetch_handling_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "shared_state_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "cache.py",
+            "profile": "all",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6359,
+        "output_tokens": 1592,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.071595
+      },
+      "latency_seconds": 30.082358499988914,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 2,
+          "predicted": 2,
+          "expected": 2,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-019",
+      "review": {
+        "defects": [
+          {
+            "category": "timezone_naive",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "datetime.now() returns a naive local-time datetime; comparing it against expires_at (likely UTC/aware) on line 5 yields wrong expiry results or raises TypeError for aware inputs. Should use datetime.now(timezone.utc)."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "expiry_source_lines",
+          "value": {
+            "file": "expiry.py",
+            "code": "from datetime import datetime\n\ndef is_expired(expires_at):\n    now = datetime.now()\n    return now >= expires_at",
+            "line_count": 5
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "timezone_naive_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "comparison_defect_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3405,
+        "output_tokens": 934,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.040375
+      },
+      "latency_seconds": 16.110162125027273,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-020",
+      "review": {
+        "defects": [
+          {
+            "category": "non_atomic_transaction",
+            "line": 5,
+            "severity": "high",
+            "rationale": "Debit is saved separately from credit with no transaction; a failure after db.save(source) on line 5 loses funds permanently."
+          },
+          {
+            "category": "invalid_amount",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Only checks source.balance < amount; negative or zero amount passes, allowing a reverse transfer that credits the source by debiting the target."
+          },
+          {
+            "category": "race_condition",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Balance check on line 2 and mutation on line 4 are not atomic or row-locked; concurrent transfers can both pass the check and overdraw."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "transfer_source_lines",
+          "value": {
+            "file": "transfer.py",
+            "code": "def transfer(db, source, target, amount):\n    if source.balance < amount:\n        raise ValueError('insufficient funds')\n    source.balance -= amount\n    db.save(source)\n    target.balance += amount\n    db.save(target)\n    return True",
+            "line_count": 8
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "atomicity_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "amount_validation_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "concurrency_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "transfer.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6429,
+        "output_tokens": 1662,
+        "cached_input_tokens": 2145,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.073695
+      },
+      "latency_seconds": 28.170123582996894,
+      "error": null,
+      "candidate": false,
+      "score": {
+        "score": 0.8,
+        "detail": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "true_positive": 2,
+          "predicted": 3,
+          "expected": 2,
+          "missed": [],
+          "extra": [
+            [
+              "race_condition",
+              2
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

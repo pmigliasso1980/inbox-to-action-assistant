@@ -1,0 +1,69 @@
+{
+  "id": "item-011",
+  "review": {
+    "defects": [
+      {
+        "category": "command_injection",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Per the objective-provided source, filename is interpolated into an f-string passed to os.system, allowing shell metacharacters to execute arbitrary commands. Note: tool-based line verification is blocked (s1 failed twice), so the line number derives from the inline source in the objective only."
+      }
+    ]
+  },
+  "plans": 2,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 2,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "convert_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "convert_source_lines",
+      "value": null,
+      "summary": "model did not call required tool read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 1,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 2
+  },
+  "validation_log": [
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1: read_code on convert.py failed (injected failure)",
+      "s1 retry: required tool read_code was not called"
+    ],
+    "blocked_by": [
+      "s1 \u2014 convert_source_lines artifact unavailable; no tool-verified file content or line mapping"
+    ]
+  },
+  "side_effect_count": 2,
+  "usage": {
+    "calls": 4,
+    "input_tokens": 1863,
+    "output_tokens": 1669,
+    "cached_input_tokens": 3682,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.05104
+  },
+  "latency_seconds": 28.457875499967486,
+  "error": null,
+  "score": 1.0,
+  "duplicated_steps": 0
+}

@@ -1,0 +1,134 @@
+{
+  "id": "item-012",
+  "review": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "Non-atomic read-modify-write on the global `counter`: `current = counter` (line 4) then `counter = current + 1` (line 5). Concurrent threads can interleave between the read and the write, causing lost updates."
+      }
+    ]
+  },
+  "plans": 6,
+  "first_plan_valid": true,
+  "validation_revisions": 1,
+  "violations": [],
+  "steps_executed": 9,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s2",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "race_condition_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "counter_lint_report",
+      "value": {
+        "file": "counter.py",
+        "profile": "all",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s5",
+      "status": "failed",
+      "produced": "counter_test_results",
+      "value": {
+        "file": "counter.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test run returns pass/fail status per test case."
+    },
+    {
+      "step_id": "s6",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s7",
+      "status": "success",
+      "produced": "race_condition_evidence",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s8",
+      "status": "success",
+      "produced": "counter_final_review",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 4,
+  "criterion_caught_failures": 0,
+  "replans": 5,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 4,
+    "run_tests": 1
+  },
+  "validation_log": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "missing_required_input: reasoning step 's7' declares no prior artifact input"
+    ],
+    [],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 6,
+  "usage": {
+    "calls": 10,
+    "input_tokens": 8757,
+    "output_tokens": 5073,
+    "cached_input_tokens": 9831,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.17061
+  },
+  "latency_seconds": 81.20969333295943,
+  "error": null,
+  "score": 0.0,
+  "duplicated_steps": 0
+}

@@ -1,0 +1,83 @@
+{
+  "id": "item-010",
+  "review": {
+    "defects": [
+      {
+        "category": "insecure_random",
+        "line": 4,
+        "severity": "high",
+        "rationale": "reset_token uses random.randint (Mersenne Twister, non-cryptographic PRNG) to generate a security-sensitive password reset token; the output is predictable and should use the secrets module."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 3,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "tokens_source_lines",
+      "value": {
+        "file": "tokens.py",
+        "code": "import random\n\ndef reset_token():\n    return ''.join(str(random.randint(0, 9)) for _ in range(24))",
+        "line_count": 4
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "insecure_random_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "final_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 3,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {},
+  "validation_log": [
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 3,
+    "input_tokens": 3291,
+    "output_tokens": 723,
+    "cached_input_tokens": 2145,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.03453
+  },
+  "latency_seconds": 16.9283812919748,
+  "error": null,
+  "candidate": false,
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  }
+}

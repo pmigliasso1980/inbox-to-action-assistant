@@ -1,0 +1,153 @@
+{
+  "id": "item-017",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_timeout",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "requests.get(url) has no timeout, so the call can hang indefinitely; confirmed by linter rule network_without_timeout."
+      },
+      {
+        "category": "ssrf",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Caller-supplied url is fetched without scheme/host validation, allowing requests to internal addresses or file-like endpoints."
+      },
+      {
+        "category": "path_traversal",
+        "line": 5,
+        "severity": "high",
+        "rationale": "destination is passed directly to open() for writing with no normalization or base-directory check, allowing '../' escapes to overwrite arbitrary files."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "response.status_code / raise_for_status is never checked, so an error page body is written as if it were the downloaded file."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": false,
+  "validation_revisions": 1,
+  "violations": [],
+  "steps_executed": 6,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "download_source_lines",
+      "value": {
+        "file": "download.py",
+        "code": "import requests\n\ndef download(url, destination):\n    response = requests.get(url)\n    with open(destination, 'wb') as output:\n        output.write(response.content)\n    return destination",
+        "line_count": 7
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "http_call_findings",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "ssrf_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "path_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s5",
+      "status": "success",
+      "produced": "linter_report",
+      "value": {
+        "file": "download.py",
+        "profile": "all",
+        "findings": [
+          {
+            "line": 4,
+            "rule": "network_without_timeout",
+            "message": "network-style get call has no timeout keyword"
+          }
+        ]
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s6",
+      "status": "success",
+      "produced": "final_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 6,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {},
+  "validation_log": [
+    [
+      "step_bound: plan has 7 steps; maximum is 6"
+    ],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 2,
+  "usage": {
+    "calls": 5,
+    "input_tokens": 9944,
+    "output_tokens": 2337,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.10814499999999999
+  },
+  "latency_seconds": 37.502384667051956,
+  "error": null,
+  "candidate": true,
+  "score": {
+    "score": 0.5714285714285715,
+    "detail": {
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "true_positive": 2,
+      "predicted": 4,
+      "expected": 3,
+      "missed": [
+        [
+          "unchecked_status",
+          6
+        ]
+      ],
+      "extra": [
+        [
+          "path_traversal",
+          5
+        ],
+        [
+          "unchecked_status",
+          4
+        ]
+      ]
+    }
+  }
+}

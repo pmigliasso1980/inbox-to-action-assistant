@@ -1,0 +1,184 @@
+{
+  "part1": {
+    "naive": {
+      "items": 5,
+      "mean_score": 0.6142857142857143,
+      "total_cost": 0.47528,
+      "total_tokens": 48008,
+      "mean_steps": 5.6,
+      "duplicated_steps": 1,
+      "side_effect_count": 17,
+      "escalation_rate": 0.4,
+      "items_exceeding_bound": 0
+    },
+    "preserving": {
+      "items": 5,
+      "mean_score": 0.680952380952381,
+      "total_cost": 0.52094,
+      "total_tokens": 55104,
+      "mean_steps": 6.6,
+      "duplicated_steps": 0,
+      "side_effect_count": 18,
+      "escalation_rate": 0.0,
+      "items_exceeding_bound": 0
+    }
+  },
+  "part2": {
+    "thresholds": {
+      "1": {
+        "items": 5,
+        "mean_score": 0.5142857142857143,
+        "total_cost": 0.12829,
+        "total_tokens": 6838,
+        "mean_steps": 1.0,
+        "duplicated_steps": 0,
+        "side_effect_count": 5,
+        "escalation_rate": 1.0,
+        "items_exceeding_bound": 0,
+        "resolved_after_failure_count": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "2": {
+        "items": 5,
+        "mean_score": 0.4809523809523809,
+        "total_cost": 0.28633000000000003,
+        "total_tokens": 21458,
+        "mean_steps": 3.4,
+        "duplicated_steps": 0,
+        "side_effect_count": 11,
+        "escalation_rate": 0.6,
+        "items_exceeding_bound": 0,
+        "resolved_after_failure_count": {
+          "1": 2,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "3": {
+        "items": 5,
+        "mean_score": 0.5142857142857143,
+        "total_cost": 0.49398000000000003,
+        "total_tokens": 40232,
+        "mean_steps": 5.0,
+        "duplicated_steps": 0,
+        "side_effect_count": 17,
+        "escalation_rate": 0.6,
+        "items_exceeding_bound": 0,
+        "resolved_after_failure_count": {
+          "1": 2,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "5": {
+        "items": 5,
+        "mean_score": 0.4809523809523809,
+        "total_cost": 0.7224950000000001,
+        "total_tokens": 62147,
+        "mean_steps": 7.8,
+        "duplicated_steps": 0,
+        "side_effect_count": 25,
+        "escalation_rate": 0.2,
+        "items_exceeding_bound": 0,
+        "resolved_after_failure_count": {
+          "1": 2,
+          "2": 0,
+          "3": 1,
+          "4": 1,
+          "5": 0
+        }
+      }
+    }
+  },
+  "part3": {
+    "assessed_items": [
+      {
+        "id": "item-012",
+        "states_missing_work": true,
+        "avoids_hidden_dependency": true,
+        "human_next_step_is_visible": true,
+        "escalation_output": {
+          "completed": [],
+          "failed": [
+            "s1"
+          ],
+          "blocked_by": [
+            "s1: read_code on counter.py failed; no tool-verified source listing obtained. Findings below rest only on the inline source shown in the objective, not on retrieved file evidence."
+          ]
+        }
+      },
+      {
+        "id": "item-006",
+        "states_missing_work": true,
+        "avoids_hidden_dependency": true,
+        "human_next_step_is_visible": true,
+        "escalation_output": {
+          "completed": [],
+          "failed": [
+            "s1"
+          ],
+          "blocked_by": [
+            "s1: read_code failed, notify_source_lines artifact unavailable"
+          ]
+        }
+      },
+      {
+        "id": "item-011",
+        "states_missing_work": true,
+        "avoids_hidden_dependency": true,
+        "human_next_step_is_visible": true,
+        "escalation_output": {
+          "completed": [],
+          "failed": [
+            "s1"
+          ],
+          "blocked_by": [
+            "s1: read_code(convert.py) failed; no tool-produced source listing available"
+          ]
+        }
+      },
+      {
+        "id": "item-018",
+        "states_missing_work": true,
+        "avoids_hidden_dependency": true,
+        "human_next_step_is_visible": true,
+        "escalation_output": {
+          "completed": [],
+          "failed": [
+            "s1"
+          ],
+          "blocked_by": [
+            "s1: read_code(cache.py) failed; no tool-sourced line evidence available \u2014 findings below rely solely on the inlined source in the objective"
+          ]
+        }
+      },
+      {
+        "id": "item-017",
+        "states_missing_work": true,
+        "avoids_hidden_dependency": true,
+        "human_next_step_is_visible": true,
+        "escalation_output": {
+          "completed": [],
+          "failed": [
+            "s1"
+          ],
+          "blocked_by": [
+            "s1: read_code failed, no tool-verified source listing available; findings below rest solely on the inlined objective source"
+          ]
+        }
+      }
+    ],
+    "explicit_gap_rate": 1.0,
+    "avoids_hidden_dependency_rate": 1.0,
+    "human_next_step_visible_rate": 1.0
+  }
+}

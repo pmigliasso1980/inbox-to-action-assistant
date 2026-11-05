@@ -1,0 +1,240 @@
+{
+  "name": "controlled-threshold-2-persistent",
+  "items": 3,
+  "mean_score": 0.38888888888888884,
+  "total_tokens": 6678,
+  "total_cost": 0.12885000000000002,
+  "mean_steps": 2.0,
+  "duplicated_steps": 0,
+  "side_effect_count": 6,
+  "mean_latency": 25.01421277768289,
+  "items_exceeding_bound": 0,
+  "escalation_rate": 1.0,
+  "records": [
+    {
+      "id": "item-006",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "In an async function, client.post(...) is assigned without await; if the client is async this yields a coroutine rather than a response."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 3,
+            "severity": "medium",
+            "rationale": "status_code is returned unvalidated; non-2xx notification failures propagate silently as a plain value."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "Outbound HTTP POST issued with no timeout argument, allowing an indefinite hang."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 2,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "notify_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        },
+        {
+          "step_id": "s1b",
+          "status": "failed",
+          "produced": "notify_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 2
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1",
+          "s1b"
+        ],
+        "blocked_by": [
+          "read_code(notify.py) failed twice; no tool-verified source listing available \u2014 findings below rest solely on the inlined objective snippet, and no linter/test evidence was obtained"
+        ]
+      },
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 651,
+        "output_tokens": 1770,
+        "cached_input_tokens": 3682,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.047505
+      },
+      "latency_seconds": 27.11220333300298,
+      "error": null,
+      "score": 0.5,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-011",
+      "review": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "high",
+            "rationale": "os.system is invoked with an f-string interpolating the untrusted 'filename' argument directly into a shell command, so input such as 'a.png; rm -rf /' executes arbitrary commands. Note: read_code was blocked, so line 4 is taken from the inline source snippet."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "The os.system return code is returned without being checked against 0, so a failed conversion is indistinguishable from success at the call site. Based on inline snippet only; file read evidence unavailable."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 2,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "convert_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        },
+        {
+          "step_id": "s1b",
+          "status": "failed",
+          "produced": "convert_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 2
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1",
+          "s1b"
+        ],
+        "blocked_by": [
+          "read_code of convert.py failed twice (s1, s1b); no tool-sourced file content or line map available. Findings below rest solely on the inline source given in the objective, whose 1-based line numbering is assumed to match the file."
+        ]
+      },
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 618,
+        "output_tokens": 1641,
+        "cached_input_tokens": 3682,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.04411500000000001
+      },
+      "latency_seconds": 25.106932334019803,
+      "error": null,
+      "score": 0.6666666666666666,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-012",
+      "review": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "Non-atomic read-modify-write on module-global `counter`: `current = counter` (line 5) then `counter = current + 1` (line 6) can interleave across threads, losing increments. Based solely on the source inlined in the objective, since read_code artifacts s1/s1b failed and the file was not independently read."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 2,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "counter_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        },
+        {
+          "step_id": "s1b",
+          "status": "failed",
+          "produced": "counter_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 2
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1",
+          "s1b"
+        ],
+        "blocked_by": [
+          "counter_source_lines from read_code (s1, s1b both failed; file contents unverified beyond inlined objective source)"
+        ]
+      },
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 636,
+        "output_tokens": 1362,
+        "cached_input_tokens": 3682,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.03723
+      },
+      "latency_seconds": 22.823502666025888,
+      "error": null,
+      "score": 0.0,
+      "duplicated_steps": 0
+    }
+  ]
+}

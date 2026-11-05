@@ -1,0 +1,280 @@
+{
+  "name": "controlled-threshold-3-transient",
+  "items": 2,
+  "mean_score": 0.6190476190476191,
+  "total_tokens": 23432,
+  "total_cost": 0.24388000000000004,
+  "mean_steps": 7.5,
+  "duplicated_steps": 0,
+  "side_effect_count": 7,
+  "mean_latency": 50.368508875515545,
+  "items_exceeding_bound": 0,
+  "escalation_rate": 0.0,
+  "records": [
+    {
+      "id": "item-017",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get(url) has no timeout, confirmed by linter rule network_without_timeout; can hang indefinitely."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "Response status is never checked; error bodies (404/500) get written to the destination file as if successful."
+          },
+          {
+            "category": "ssrf",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Caller-supplied url is fetched directly with no scheme/host validation, allowing requests to internal endpoints."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "high",
+            "rationale": "Caller-supplied destination is opened for writing without normalization or base-directory containment, allowing writes outside intended directory."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 7,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "download_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        },
+        {
+          "step_id": "s1b",
+          "status": "success",
+          "produced": "download_source_lines",
+          "value": {
+            "file": "download.py",
+            "code": "import requests\n\ndef download(url, destination):\n    response = requests.get(url)\n    with open(destination, 'wb') as output:\n        output.write(response.content)\n    return destination",
+            "line_count": 7
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "request_call_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "status_check_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "destination_path_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "download_lint_report",
+          "value": {
+            "file": "download.py",
+            "profile": "all",
+            "findings": [
+              {
+                "line": 4,
+                "rule": "network_without_timeout",
+                "message": "network-style get call has no timeout keyword"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 5,
+        "input_tokens": 6625,
+        "output_tokens": 2300,
+        "cached_input_tokens": 3426,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.09062500000000001
+      },
+      "latency_seconds": 35.837796584004536,
+      "error": null,
+      "score": 0.5714285714285715,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-018",
+      "review": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Cache lookup keyed only on product_id while the fetched value depends on currency; a request for a different currency returns the previously cached price in the wrong currency."
+          }
+        ]
+      },
+      "plans": 3,
+      "first_plan_valid": false,
+      "validation_revisions": 1,
+      "violations": [],
+      "steps_executed": 8,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "cache_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        },
+        {
+          "step_id": "s1b",
+          "status": "success",
+          "produced": "cache_source_lines",
+          "value": {
+            "file": "cache.py",
+            "code": "cache = {}\n\ndef price(product_id, currency, fetch):\n    if product_id in cache:\n        return cache[product_id]\n    value = fetch(product_id, currency)\n    cache[product_id] = value\n    return value",
+            "line_count": 8
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "cache_key_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "cache_linter_report",
+          "value": {
+            "file": "cache.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s5",
+          "status": "failed",
+          "produced": "cache_test_results",
+          "value": {
+            "file": "cache.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": []
+          },
+          "summary": "success criterion failed: Test suite runs and reports pass/fail outcomes per test case."
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "cache_key_finding_final",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s7",
+          "status": "success",
+          "produced": "cache_secondary_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s8",
+          "status": "success",
+          "produced": "cache_final_review",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 2,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1,
+        "run_tests": 1
+      },
+      "validation_log": [
+        [
+          "step_bound: plan has 7 steps; maximum is 6"
+        ],
+        [],
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 4,
+      "usage": {
+        "calls": 8,
+        "input_tokens": 10471,
+        "output_tokens": 4036,
+        "cached_input_tokens": 5988,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.15325500000000003
+      },
+      "latency_seconds": 64.89922116702655,
+      "error": null,
+      "score": 0.6666666666666666,
+      "duplicated_steps": 0
+    }
+  ]
+}

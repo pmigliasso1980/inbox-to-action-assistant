@@ -1,0 +1,78 @@
+{
+  "id": "item-017",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_timeout",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "requests.get(url) is called with no timeout, so the request can hang indefinitely."
+      },
+      {
+        "category": "ssrf",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Caller-supplied url is fetched directly with no scheme/host validation, allowing requests to internal addresses."
+      },
+      {
+        "category": "path_traversal",
+        "line": 5,
+        "severity": "high",
+        "rationale": "destination is passed unvalidated to open() in write mode, allowing writes outside the intended directory."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "response.status_code / raise_for_status is never checked, so error page bodies are written as if successful content."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 1,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "download_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1
+  },
+  "validation_log": [
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1"
+    ],
+    "blocked_by": [
+      "s1: read_code failed, no tool-verified source listing available; findings below rest solely on the inlined objective source"
+    ]
+  },
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 2,
+    "input_tokens": 441,
+    "output_tokens": 995,
+    "cached_input_tokens": 2401,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.02708
+  },
+  "latency_seconds": 14.859595749992877,
+  "error": null,
+  "score": 0.5714285714285715,
+  "duplicated_steps": 0
+}

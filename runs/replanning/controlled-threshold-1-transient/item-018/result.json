@@ -1,0 +1,60 @@
+{
+  "id": "item-018",
+  "review": {
+    "defects": [
+      {
+        "category": "incorrect_cache_key",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Cache lookup keys on product_id alone while the fetched value depends on currency; a request for a different currency returns the previously cached value for another currency."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 1,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "cache_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1
+  },
+  "validation_log": [
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1"
+    ],
+    "blocked_by": [
+      "s1: read_code(cache.py) failed; no tool-sourced line evidence available \u2014 findings below rely solely on the inlined source in the objective"
+    ]
+  },
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 2,
+    "input_tokens": 476,
+    "output_tokens": 1086,
+    "cached_input_tokens": 2401,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.02953
+  },
+  "latency_seconds": 16.79191854200326,
+  "error": null,
+  "score": 0.6666666666666666,
+  "duplicated_steps": 0
+}

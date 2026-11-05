@@ -1,0 +1,131 @@
+{
+  "id": "item-014",
+  "review": {
+    "defects": [
+      {
+        "category": "infinite_loop",
+        "line": 3,
+        "severity": "high",
+        "rationale": "Condition `len(queue) >= 0` is always true, so the loop never terminates normally; it only exits via an IndexError from pop on an empty list."
+      },
+      {
+        "category": "off_by_one",
+        "line": 3,
+        "severity": "medium",
+        "rationale": "The guard should be `len(queue) > 0` (or `while queue`); the `>= 0` boundary causes one extra iteration past exhaustion."
+      }
+    ]
+  },
+  "plans": 2,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 6,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "drain_source_lines",
+      "value": {
+        "file": "drain.py",
+        "code": "def drain(queue):\n    processed = []\n    while len(queue) >= 0:\n        processed.append(queue.pop(0))\n    return processed",
+        "line_count": 5
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "loop_termination_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "linter_report",
+      "value": {
+        "file": "drain.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s4",
+      "status": "failed",
+      "produced": "runtime_evidence",
+      "value": {
+        "file": "drain.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test run yields observable hang/timeout or IndexError traceback referencing line 4"
+    },
+    {
+      "step_id": "s5",
+      "status": "success",
+      "produced": "loop_defect_analysis",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s6",
+      "status": "success",
+      "produced": "final_review",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 5,
+  "criterion_caught_failures": 0,
+  "replans": 1,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {
+    "s4": 1
+  },
+  "validation_log": [
+    [],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 3,
+  "usage": {
+    "calls": 6,
+    "input_tokens": 9508,
+    "output_tokens": 2039,
+    "cached_input_tokens": 3426,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.09851499999999999
+  },
+  "latency_seconds": 40.06792691699229,
+  "error": null,
+  "candidate": false,
+  "score": {
+    "score": 0.6666666666666666,
+    "detail": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 2,
+      "expected": 1,
+      "missed": [],
+      "extra": [
+        [
+          "off_by_one",
+          3
+        ]
+      ]
+    }
+  }
+}

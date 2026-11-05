@@ -1,0 +1,145 @@
+{
+  "id": "item-006",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "In an async function, client.post(...) is called without await; for an async client this returns a coroutine, so the HTTP request is never actually performed and response is a coroutine object."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 3,
+        "severity": "medium",
+        "rationale": "The function returns response.status_code without checking for non-2xx responses, so notification failures propagate silently as ordinary return values."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "The outbound POST to '/notify' is issued with no timeout argument, allowing the call to hang indefinitely on a stalled peer."
+      }
+    ]
+  },
+  "plans": 6,
+  "first_plan_valid": true,
+  "validation_revisions": 2,
+  "violations": [],
+  "steps_executed": 7,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1c",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "notify_linter_report",
+      "value": {
+        "file": "notify.py",
+        "profile": "all",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s4",
+      "status": "failed",
+      "produced": "notify_test_results",
+      "value": {
+        "file": "notify.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test run returns pass/fail results with any error traces referencing notify.py lines."
+    },
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "r1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 1,
+  "criterion_caught_failures": 0,
+  "replans": 5,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 5,
+    "run_tests": 1
+  },
+  "validation_log": [
+    [],
+    [],
+    [],
+    [
+      "missing_required_input: reasoning step 's2' declares no prior artifact input",
+      "missing_required_input: reasoning step 's3' declares no prior artifact input"
+    ],
+    [],
+    [
+      "missing_required_input: reasoning step 's3' declares no prior artifact input"
+    ],
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [
+      "s1 (linter): notify_linter_report produced with zero findings for notify.py profile=all"
+    ],
+    "failed": [
+      "s1 read_code: notify_source_lines unavailable (injected failure)",
+      "s1b read_code: notify_source_lines unavailable (injected failure)",
+      "s1c read_code: notify_source_lines unavailable (injected failure)",
+      "s4 run_tests: notify_test_results empty, success criterion not met",
+      "r1 read_code replan: notify_source_lines still unavailable"
+    ],
+    "blocked_by": [
+      "read_code(notify.py) repeatedly failed, so no tool-verified line map exists; line numbers below come only from the inlined objective source",
+      "run_tests(notify.py, static_smoke) produced no observations, so no runtime/dynamic confirmation is available"
+    ]
+  },
+  "side_effect_count": 7,
+  "usage": {
+    "calls": 11,
+    "input_tokens": 9064,
+    "output_tokens": 7114,
+    "cached_input_tokens": 11368,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.22317000000000004
+  },
+  "latency_seconds": 108.43453379202401,
+  "error": null,
+  "score": 0.5,
+  "duplicated_steps": 0
+}

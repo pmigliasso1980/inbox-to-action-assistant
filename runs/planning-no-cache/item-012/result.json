@@ -1,0 +1,92 @@
+{
+  "id": "item-012",
+  "review": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 6,
+        "severity": "medium",
+        "rationale": "increment() does a non-atomic read-modify-write on the global `counter` (read at line 5, write at line 6) with no lock; concurrent threads can interleave and lose updates."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 4,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "counter_source_lines",
+      "value": {
+        "file": "counter.py",
+        "code": "counter = 0\n\ndef increment():\n    global counter\n    current = counter\n    counter = current + 1\n    return counter",
+        "line_count": 7
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "race_condition_finding",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "excluded_category_list",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "final_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 4,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {},
+  "validation_log": [
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 3,
+    "input_tokens": 5532,
+    "output_tokens": 1064,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.054259999999999996
+  },
+  "latency_seconds": 18.868727417022455,
+  "error": null,
+  "candidate": true,
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  }
+}

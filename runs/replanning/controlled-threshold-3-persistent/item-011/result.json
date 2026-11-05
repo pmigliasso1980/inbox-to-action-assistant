@@ -1,0 +1,87 @@
+{
+  "id": "item-011",
+  "review": {
+    "defects": [
+      {
+        "category": "command_injection",
+        "line": 4,
+        "severity": "high",
+        "rationale": "os.system runs an f-string shell command with unsanitized `filename`; input like 'a.png; rm -rf /' executes arbitrary shell commands. Based on inlined source only, since read_code was blocked."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "The os.system return code is returned but never checked, so conversion failures are indistinguishable from success at the call boundary. Line number unverified due to blocked read_code."
+      }
+    ]
+  },
+  "plans": 3,
+  "first_plan_valid": false,
+  "validation_revisions": 1,
+  "violations": [],
+  "steps_executed": 3,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "convert_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "convert_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s2",
+      "status": "failed",
+      "produced": "convert_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 2,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 3
+  },
+  "validation_log": [
+    [
+      "step_bound: plan has 7 steps; maximum is 6"
+    ],
+    [],
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1",
+      "s1b",
+      "s2"
+    ],
+    "blocked_by": [
+      "read_code(convert.py) failed three times; convert_source_lines artifact unavailable, so no tool-verified line evidence exists. Findings below rest solely on the source text embedded in the objective."
+    ]
+  },
+  "side_effect_count": 3,
+  "usage": {
+    "calls": 5,
+    "input_tokens": 1068,
+    "output_tokens": 3067,
+    "cached_input_tokens": 6244,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.08201499999999999
+  },
+  "latency_seconds": 43.84958970802836,
+  "error": null,
+  "score": 0.6666666666666666,
+  "duplicated_steps": 0
+}

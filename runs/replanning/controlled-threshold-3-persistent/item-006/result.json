@@ -1,0 +1,107 @@
+{
+  "id": "item-006",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "In the async function notify, client.post is called without await on line 2, so response is a coroutine; the request is never awaited and line 3 reads status_code off a coroutine. Based only on the objective-provided source; file read (s1/s1b) and test execution (s2) evidence is blocked."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "The outbound HTTP POST on line 2 specifies no timeout, so the call can hang indefinitely. Asserted from the inline source; independent read_code/test evidence unavailable."
+      }
+    ]
+  },
+  "plans": 3,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 4,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "notify_lint_findings",
+      "value": {
+        "file": "notify.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "failed",
+      "produced": "notify_test_results",
+      "value": {
+        "file": "notify.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test suite executes and reports pass/fail outcomes for notify"
+    }
+  ],
+  "step_successes": 1,
+  "criterion_caught_failures": 0,
+  "replans": 2,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 2,
+    "run_tests": 1
+  },
+  "validation_log": [
+    [],
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [
+      "s1 (lint, correctness profile): notify_lint_findings \u2014 empty findings"
+    ],
+    "failed": [
+      "s1 read_code: notify_source_lines not produced",
+      "s1b read_code retry: notify_source_lines not produced",
+      "s2 run_tests static_smoke: notify_test_results failed success criterion"
+    ],
+    "blocked_by": [
+      "s1",
+      "s1b",
+      "s2"
+    ]
+  },
+  "side_effect_count": 4,
+  "usage": {
+    "calls": 6,
+    "input_tokens": 6511,
+    "output_tokens": 3007,
+    "cached_input_tokens": 4963,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.10772999999999999
+  },
+  "latency_seconds": 47.40033699997002,
+  "error": null,
+  "score": 0.6666666666666666,
+  "duplicated_steps": 0
+}

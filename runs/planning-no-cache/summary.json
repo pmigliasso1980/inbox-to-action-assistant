@@ -1,0 +1,685 @@
+{
+  "name": "planning-no-cache",
+  "items": 5,
+  "candidate_ids": [
+    "item-006",
+    "item-011",
+    "item-012",
+    "item-017",
+    "item-018"
+  ],
+  "candidate_items_run": 5,
+  "mean_score": 0.680952380952381,
+  "candidate_mean_score": 0.680952380952381,
+  "delta_vs_baseline": -0.19761904761904747,
+  "delta_vs_reflection": -0.26428571428571423,
+  "delta_vs_tools": -0.20238095238095244,
+  "noise_floor": 0.06666666666666676,
+  "first_attempt_plan_validity_rate": 0.4,
+  "validation_violations": {
+    "step_bound": 3
+  },
+  "mean_steps": 5.4,
+  "step_count_distribution": {
+    "5": 1,
+    "6": 3,
+    "4": 1
+  },
+  "step_success_rate": 0.9629629629629629,
+  "criterion_caught_failures": 0,
+  "replan_rate": 0.2,
+  "escalation_rate": 0.0,
+  "abandoned_items": [],
+  "input_tokens": 51148,
+  "output_tokens": 10000,
+  "cached_tokens": 0,
+  "cache_write_tokens": 0,
+  "cost_usd": 0.5057400000000001,
+  "cost_multiple_vs_baseline": 3.5106205747605164,
+  "cost_per_score_point": null,
+  "mean_latency_seconds": 34.06531940001296,
+  "p95_latency_seconds": 51.115206208021846,
+  "wall_clock_seconds": 170.33546262502205,
+  "records": [
+    {
+      "id": "item-006",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "In an async function, client.post is called without await; for an async HTTP client this returns a coroutine, so response.status_code on line 3 reads an attribute of an un-awaited coroutine rather than the real response."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "The outbound POST to '/notify' specifies no timeout, so the call can hang indefinitely on a stalled connection."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 3,
+            "severity": "medium",
+            "rationale": "The status code is returned verbatim without checking for failure responses, so 4xx/5xx errors propagate silently as a successful notification result."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 5,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "notify_source_lines",
+          "value": {
+            "file": "notify.py",
+            "code": "async def notify(client, user_id):\n    response = client.post('/notify', json={'user': user_id})\n    return response.status_code",
+            "line_count": 3
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "notify_lint_findings",
+          "value": {
+            "file": "notify.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "async_and_http_defect_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "null_dereference_assessment",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 8320,
+        "output_tokens": 1282,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.07365000000000001
+      },
+      "latency_seconds": 23.499241707962938,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.5,
+        "detail": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 3,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "missing_timeout",
+              2
+            ],
+            [
+              "unchecked_status",
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-011",
+      "review": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "high",
+            "rationale": "filename is interpolated directly into a shell command passed to os.system; a filename containing shell metacharacters (e.g. '; rm -rf /') executes arbitrary commands."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "low",
+            "rationale": "the os.system exit status is returned but never checked, so a failed conversion is indistinguishable from success at the call site."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": false,
+      "validation_revisions": 1,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "convert_source_lines",
+          "value": {
+            "file": "convert.py",
+            "code": "import os\n\ndef convert(filename):\n    return os.system(f\"convert {filename} output.png\")",
+            "line_count": 4
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "linter_security_findings",
+          "value": {
+            "file": "convert.py",
+            "profile": "security",
+            "findings": [
+              {
+                "line": 4,
+                "rule": "shell_execution",
+                "message": "shell command construction requires injection review"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "status_and_path_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "convert_test_results",
+          "value": {
+            "file": "convert.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": [
+              {
+                "line": 4,
+                "rule": "shell_execution",
+                "message": "shell command construction requires injection review"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "command_injection_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        [
+          "step_bound: plan has 7 steps; maximum is 6"
+        ],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 6,
+        "input_tokens": 12655,
+        "output_tokens": 2351,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.12204999999999999
+      },
+      "latency_seconds": 39.3410370000056,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 2,
+          "expected": 1,
+          "missed": [],
+          "extra": [
+            [
+              "unchecked_status",
+              4
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-012",
+      "review": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 6,
+            "severity": "medium",
+            "rationale": "increment() does a non-atomic read-modify-write on the global `counter` (read at line 5, write at line 6) with no lock; concurrent threads can interleave and lose updates."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 4,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "counter_source_lines",
+          "value": {
+            "file": "counter.py",
+            "code": "counter = 0\n\ndef increment():\n    global counter\n    current = counter\n    counter = current + 1\n    return counter",
+            "line_count": 7
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "race_condition_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "excluded_category_list",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 4,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 5532,
+        "output_tokens": 1064,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.054259999999999996
+      },
+      "latency_seconds": 18.868727417022455,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 1.0,
+        "detail": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 1,
+          "missed": [],
+          "extra": []
+        }
+      }
+    },
+    {
+      "id": "item-017",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get(url) has no timeout, so the call can hang indefinitely; confirmed by linter rule network_without_timeout."
+          },
+          {
+            "category": "ssrf",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Caller-supplied url is fetched without scheme/host validation, allowing requests to internal addresses or file-like endpoints."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "high",
+            "rationale": "destination is passed directly to open() for writing with no normalization or base-directory check, allowing '../' escapes to overwrite arbitrary files."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "response.status_code / raise_for_status is never checked, so an error page body is written as if it were the downloaded file."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": false,
+      "validation_revisions": 1,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "download_source_lines",
+          "value": {
+            "file": "download.py",
+            "code": "import requests\n\ndef download(url, destination):\n    response = requests.get(url)\n    with open(destination, 'wb') as output:\n        output.write(response.content)\n    return destination",
+            "line_count": 7
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "http_call_findings",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "ssrf_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "path_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s5",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "download.py",
+            "profile": "all",
+            "findings": [
+              {
+                "line": 4,
+                "rule": "network_without_timeout",
+                "message": "network-style get call has no timeout keyword"
+              }
+            ]
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 6,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {},
+      "validation_log": [
+        [
+          "step_bound: plan has 7 steps; maximum is 6"
+        ],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 2,
+      "usage": {
+        "calls": 5,
+        "input_tokens": 9944,
+        "output_tokens": 2337,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.10814499999999999
+      },
+      "latency_seconds": 37.502384667051956,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.5714285714285715,
+        "detail": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "true_positive": 2,
+          "predicted": 4,
+          "expected": 3,
+          "missed": [
+            [
+              "unchecked_status",
+              6
+            ]
+          ],
+          "extra": [
+            [
+              "path_traversal",
+              5
+            ],
+            [
+              "unchecked_status",
+              4
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "item-018",
+      "review": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Cache key uses only product_id while the fetched value depends on currency, so a lookup in one currency returns a price cached for a different currency."
+          }
+        ]
+      },
+      "plans": 2,
+      "first_plan_valid": false,
+      "validation_revisions": 1,
+      "violations": [],
+      "steps_executed": 6,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "success",
+          "produced": "cache_source_lines",
+          "value": {
+            "file": "cache.py",
+            "code": "cache = {}\n\ndef price(product_id, currency, fetch):\n    if product_id in cache:\n        return cache[product_id]\n    value = fetch(product_id, currency)\n    cache[product_id] = value\n    return value",
+            "line_count": 8
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s2",
+          "status": "success",
+          "produced": "cache_key_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s3",
+          "status": "success",
+          "produced": "concurrency_finding",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        },
+        {
+          "step_id": "s4",
+          "status": "success",
+          "produced": "linter_report",
+          "value": {
+            "file": "cache.py",
+            "profile": "correctness",
+            "findings": []
+          },
+          "summary": "type, emptiness, and relevance checks passed"
+        },
+        {
+          "step_id": "s5",
+          "status": "failed",
+          "produced": "test_results",
+          "value": {
+            "file": "cache.py",
+            "suite": "static_smoke",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": "",
+            "observations": []
+          },
+          "summary": "success criterion failed: Test suite executes and pass/fail outcomes per test are reported."
+        },
+        {
+          "step_id": "s6",
+          "status": "success",
+          "produced": "final_defect_report",
+          "value": {
+            "reasoning_deferred": true
+          },
+          "summary": "reasoning deferred to final synthesis"
+        }
+      ],
+      "step_successes": 5,
+      "criterion_caught_failures": 0,
+      "replans": 1,
+      "escalated": false,
+      "abandoned": false,
+      "strikes": {
+        "s5": 1
+      },
+      "validation_log": [
+        [
+          "step_bound: plan has 7 steps; maximum is 6"
+        ],
+        [],
+        []
+      ],
+      "escalation_output": null,
+      "side_effect_count": 3,
+      "usage": {
+        "calls": 7,
+        "input_tokens": 14697,
+        "output_tokens": 2966,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.14763500000000002
+      },
+      "latency_seconds": 51.115206208021846,
+      "error": null,
+      "candidate": true,
+      "score": {
+        "score": 0.6666666666666666,
+        "detail": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "true_positive": 1,
+          "predicted": 1,
+          "expected": 2,
+          "missed": [
+            [
+              "race_condition",
+              7
+            ]
+          ],
+          "extra": []
+        }
+      }
+    }
+  ]
+}

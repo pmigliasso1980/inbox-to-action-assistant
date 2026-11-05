@@ -1,0 +1,85 @@
+{
+  "id": "item-007",
+  "review": {
+    "defects": [
+      {
+        "category": "division_by_zero",
+        "line": 2,
+        "severity": "high",
+        "rationale": "len(values) is zero for an empty sequence, so sum(values) / len(values) raises ZeroDivisionError; no guard exists on line 2."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 3,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "average_source_lines",
+      "value": {
+        "file": "average.py",
+        "code": "def average(values):\n    return sum(values) / len(values)",
+        "line_count": 2
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "average_lint_findings",
+      "value": {
+        "file": "average.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "average_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 3,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {},
+  "validation_log": [
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 2,
+  "usage": {
+    "calls": 4,
+    "input_tokens": 5868,
+    "output_tokens": 750,
+    "cached_input_tokens": 2145,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.04809000000000001
+  },
+  "latency_seconds": 17.6842065420351,
+  "error": null,
+  "candidate": false,
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "item-012",
+  "review": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "increment() performs a non-atomic read-modify-write on the global 'counter': 'current = counter' (line 5) then 'counter = current + 1' (line 6). Concurrent threads can interleave between read and write, losing updates. Note: s1 (read_code) failed, so this is based on the inline snippet only, and line numbers may differ from the actual file."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 1,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1
+  },
+  "validation_log": [
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1"
+    ],
+    "blocked_by": [
+      "s1: read_code on counter.py failed; no tool-verified source listing obtained. Findings below rest only on the inline source shown in the objective, not on retrieved file evidence."
+    ]
+  },
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 2,
+    "input_tokens": 406,
+    "output_tokens": 841,
+    "cached_input_tokens": 2401,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.023055
+  },
+  "latency_seconds": 12.581754875020124,
+  "error": null,
+  "score": 0.0,
+  "duplicated_steps": 0
+}

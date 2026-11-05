@@ -1,0 +1,111 @@
+{
+  "id": "item-009",
+  "review": {
+    "defects": [
+      {
+        "category": "resource_leak",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "File handle opened with open() is never closed and no context manager is used; on exception or normal return the handle leaks until GC."
+      }
+    ]
+  },
+  "plans": 2,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 5,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "success",
+      "produced": "export_source_lines",
+      "value": {
+        "file": "export.py",
+        "code": "def export_rows(path, rows):\n    handle = open(path, 'w')\n    for row in rows:\n        handle.write(','.join(row) + '\\n')\n    return len(rows)",
+        "line_count": 5
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "export_linter_findings",
+      "value": {
+        "file": "export.py",
+        "profile": "correctness",
+        "findings": []
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "secondary_defect_assessment",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s5",
+      "status": "failed",
+      "produced": "export_test_results",
+      "value": {
+        "file": "export.py",
+        "suite": "static_smoke",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "observations": []
+      },
+      "summary": "success criterion failed: Test run completes with pass/fail status per test case recorded."
+    },
+    {
+      "step_id": "s6",
+      "status": "success",
+      "produced": "export_defect_findings",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 4,
+  "criterion_caught_failures": 0,
+  "replans": 1,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {
+    "s5": 1
+  },
+  "validation_log": [
+    [],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 3,
+  "usage": {
+    "calls": 6,
+    "input_tokens": 9558,
+    "output_tokens": 1858,
+    "cached_input_tokens": 3426,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.09424
+  },
+  "latency_seconds": 35.07113749999553,
+  "error": null,
+  "candidate": false,
+  "score": {
+    "score": 1.0,
+    "detail": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "predicted": 1,
+      "expected": 1,
+      "missed": [],
+      "extra": []
+    }
+  }
+}

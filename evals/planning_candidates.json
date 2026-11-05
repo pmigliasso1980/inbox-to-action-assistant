@@ -1,0 +1,13 @@
+{
+  "frozen_before_planning_runs": true,
+  "dataset_version": "1.1.0",
+  "candidate_ids": ["item-006", "item-011", "item-012", "item-017", "item-018"],
+  "rationale": {
+    "item-006": "The best pipelines alternated between the grounded missing-await defect and a speculative extra; separating async-contract and precision checks may help.",
+    "item-011": "The baseline mixed command-injection analysis with an out-of-scope status concern; separate security and precision passes may preserve coherence.",
+    "item-012": "The defect was found but exact evidence attribution was unstable; an explicit evidence-location step may help.",
+    "item-017": "This is a hard multi-defect network/filesystem helper where the model repeatedly combined checks and misplaced evidence.",
+    "item-018": "This hard item requires both cache-key and shared-state/concurrency passes; the second concern was consistently missed."
+  },
+  "non_candidates": "The other 15 items are short, mostly single-defect snippets already scoring well; planning is expected to add cost rather than useful decomposition."
+}

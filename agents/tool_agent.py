@@ -74,6 +74,7 @@ class ToolAgent:
                 try:
                     outcome = self.executor(block.name, block.input)
                     record.update({"result_summary": json.dumps(outcome.value)[:500],
+                                   "result": outcome.value,
                                    "confirmation": outcome.confirmation, "confirmed": outcome.confirmed,
                                    "latency_ms": outcome.latency_ms})
                     if not outcome.confirmed:

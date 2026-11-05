@@ -1,0 +1,207 @@
+{
+  "name": "controlled-threshold-1-persistent",
+  "items": 3,
+  "mean_score": 0.4444444444444444,
+  "total_tokens": 3840,
+  "total_cost": 0.07168,
+  "mean_steps": 1.0,
+  "duplicated_steps": 0,
+  "side_effect_count": 3,
+  "mean_latency": 22.229764500012,
+  "items_exceeding_bound": 0,
+  "escalation_rate": 1.0,
+  "records": [
+    {
+      "id": "item-006",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_await",
+            "line": 2,
+            "severity": "high",
+            "rationale": "In the async function notify, client.post(...) is called without await; response is a coroutine, so response.status_code on line 3 does not reflect a completed HTTP call. Based on the inline source shown in the objective, not on the blocked s1 artifact."
+          },
+          {
+            "category": "missing_timeout",
+            "line": 2,
+            "severity": "medium",
+            "rationale": "The outbound POST to '/notify' specifies no timeout, so the call can hang indefinitely. Based on the inline source; full-file confirmation blocked by failed s1."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 1,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "notify_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1"
+        ],
+        "blocked_by": [
+          "s1: read_code failed, notify_source_lines artifact unavailable"
+        ]
+      },
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 416,
+        "output_tokens": 898,
+        "cached_input_tokens": 1281,
+        "cache_write_tokens": 1120,
+        "cost_usd": 0.024530000000000003
+      },
+      "latency_seconds": 13.80289333302062,
+      "error": null,
+      "score": 0.6666666666666666,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-011",
+      "review": {
+        "defects": [
+          {
+            "category": "command_injection",
+            "line": 4,
+            "severity": "high",
+            "rationale": "os.system is invoked with an f-string interpolating the untrusted `filename` argument directly into a shell command, allowing shell metacharacters (e.g. '; rm -rf /') to execute arbitrary commands. Based on the objective-provided source only; the read_code artifact s1 failed, so line numbering is taken from the inline snippet."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "The return value of os.system (the exit status) is returned to the caller without any check, so a nonzero/failed conversion is indistinguishable from success at the call site. Evidence limited to the inline snippet; s1 is blocked."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 1,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "convert_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1"
+        ],
+        "blocked_by": [
+          "s1: read_code(convert.py) failed; no tool-produced source listing available"
+        ]
+      },
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 394,
+        "output_tokens": 885,
+        "cached_input_tokens": 2401,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.024095
+      },
+      "latency_seconds": 40.30464529199526,
+      "error": null,
+      "score": 0.6666666666666666,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-012",
+      "review": {
+        "defects": [
+          {
+            "category": "race_condition",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "increment() performs a non-atomic read-modify-write on the global 'counter': 'current = counter' (line 5) then 'counter = current + 1' (line 6). Concurrent threads can interleave between read and write, losing updates. Note: s1 (read_code) failed, so this is based on the inline snippet only, and line numbers may differ from the actual file."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 1,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "counter_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1"
+        ],
+        "blocked_by": [
+          "s1: read_code on counter.py failed; no tool-verified source listing obtained. Findings below rest only on the inline source shown in the objective, not on retrieved file evidence."
+        ]
+      },
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 406,
+        "output_tokens": 841,
+        "cached_input_tokens": 2401,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.023055
+      },
+      "latency_seconds": 12.581754875020124,
+      "error": null,
+      "score": 0.0,
+      "duplicated_steps": 0
+    }
+  ]
+}

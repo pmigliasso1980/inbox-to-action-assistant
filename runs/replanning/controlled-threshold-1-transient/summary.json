@@ -1,0 +1,153 @@
+{
+  "name": "controlled-threshold-1-transient",
+  "items": 2,
+  "mean_score": 0.6190476190476191,
+  "total_tokens": 2998,
+  "total_cost": 0.05661,
+  "mean_steps": 1.0,
+  "duplicated_steps": 0,
+  "side_effect_count": 2,
+  "mean_latency": 15.825757145998068,
+  "items_exceeding_bound": 0,
+  "escalation_rate": 1.0,
+  "records": [
+    {
+      "id": "item-017",
+      "review": {
+        "defects": [
+          {
+            "category": "missing_timeout",
+            "line": 4,
+            "severity": "medium",
+            "rationale": "requests.get(url) is called with no timeout, so the request can hang indefinitely."
+          },
+          {
+            "category": "ssrf",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Caller-supplied url is fetched directly with no scheme/host validation, allowing requests to internal addresses."
+          },
+          {
+            "category": "path_traversal",
+            "line": 5,
+            "severity": "high",
+            "rationale": "destination is passed unvalidated to open() in write mode, allowing writes outside the intended directory."
+          },
+          {
+            "category": "unchecked_status",
+            "line": 5,
+            "severity": "medium",
+            "rationale": "response.status_code / raise_for_status is never checked, so error page bodies are written as if successful content."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 1,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "download_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1"
+        ],
+        "blocked_by": [
+          "s1: read_code failed, no tool-verified source listing available; findings below rest solely on the inlined objective source"
+        ]
+      },
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 441,
+        "output_tokens": 995,
+        "cached_input_tokens": 2401,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.02708
+      },
+      "latency_seconds": 14.859595749992877,
+      "error": null,
+      "score": 0.5714285714285715,
+      "duplicated_steps": 0
+    },
+    {
+      "id": "item-018",
+      "review": {
+        "defects": [
+          {
+            "category": "incorrect_cache_key",
+            "line": 4,
+            "severity": "high",
+            "rationale": "Cache lookup keys on product_id alone while the fetched value depends on currency; a request for a different currency returns the previously cached value for another currency."
+          }
+        ]
+      },
+      "plans": 1,
+      "first_plan_valid": true,
+      "validation_revisions": 0,
+      "violations": [],
+      "steps_executed": 1,
+      "step_artifacts": [
+        {
+          "step_id": "s1",
+          "status": "failed",
+          "produced": "cache_source_lines",
+          "value": null,
+          "summary": "injected failure for read_code"
+        }
+      ],
+      "step_successes": 0,
+      "criterion_caught_failures": 0,
+      "replans": 0,
+      "escalated": true,
+      "abandoned": false,
+      "strikes": {
+        "read_code": 1
+      },
+      "validation_log": [
+        []
+      ],
+      "escalation_output": {
+        "completed": [],
+        "failed": [
+          "s1"
+        ],
+        "blocked_by": [
+          "s1: read_code(cache.py) failed; no tool-sourced line evidence available \u2014 findings below rely solely on the inlined source in the objective"
+        ]
+      },
+      "side_effect_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 476,
+        "output_tokens": 1086,
+        "cached_input_tokens": 2401,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.02953
+      },
+      "latency_seconds": 16.79191854200326,
+      "error": null,
+      "score": 0.6666666666666666,
+      "duplicated_steps": 0
+    }
+  ]
+}

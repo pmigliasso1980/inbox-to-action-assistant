@@ -1,0 +1,135 @@
+{
+  "id": "item-017",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_timeout",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "requests.get(url) has no timeout, confirmed by linter rule network_without_timeout; can hang indefinitely."
+      },
+      {
+        "category": "unchecked_status",
+        "line": 4,
+        "severity": "medium",
+        "rationale": "Response status is never checked; error bodies (404/500) get written to the destination file as if successful."
+      },
+      {
+        "category": "ssrf",
+        "line": 4,
+        "severity": "high",
+        "rationale": "Caller-supplied url is fetched directly with no scheme/host validation, allowing requests to internal endpoints."
+      },
+      {
+        "category": "path_traversal",
+        "line": 5,
+        "severity": "high",
+        "rationale": "Caller-supplied destination is opened for writing without normalization or base-directory containment, allowing writes outside intended directory."
+      }
+    ]
+  },
+  "plans": 2,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 7,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "download_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "success",
+      "produced": "download_source_lines",
+      "value": {
+        "file": "download.py",
+        "code": "import requests\n\ndef download(url, destination):\n    response = requests.get(url)\n    with open(destination, 'wb') as output:\n        output.write(response.content)\n    return destination",
+        "line_count": 7
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s2",
+      "status": "success",
+      "produced": "request_call_findings",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s3",
+      "status": "success",
+      "produced": "status_check_findings",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s4",
+      "status": "success",
+      "produced": "destination_path_findings",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    },
+    {
+      "step_id": "s5",
+      "status": "success",
+      "produced": "download_lint_report",
+      "value": {
+        "file": "download.py",
+        "profile": "all",
+        "findings": [
+          {
+            "line": 4,
+            "rule": "network_without_timeout",
+            "message": "network-style get call has no timeout keyword"
+          }
+        ]
+      },
+      "summary": "type, emptiness, and relevance checks passed"
+    },
+    {
+      "step_id": "s6",
+      "status": "success",
+      "produced": "final_defect_report",
+      "value": {
+        "reasoning_deferred": true
+      },
+      "summary": "reasoning deferred to final synthesis"
+    }
+  ],
+  "step_successes": 6,
+  "criterion_caught_failures": 0,
+  "replans": 1,
+  "escalated": false,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1
+  },
+  "validation_log": [
+    [],
+    []
+  ],
+  "escalation_output": null,
+  "side_effect_count": 3,
+  "usage": {
+    "calls": 5,
+    "input_tokens": 6625,
+    "output_tokens": 2300,
+    "cached_input_tokens": 3426,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.09062500000000001
+  },
+  "latency_seconds": 35.837796584004536,
+  "error": null,
+  "score": 0.5714285714285715,
+  "duplicated_steps": 0
+}

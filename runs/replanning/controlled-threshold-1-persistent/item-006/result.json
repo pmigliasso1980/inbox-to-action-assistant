@@ -1,0 +1,66 @@
+{
+  "id": "item-006",
+  "review": {
+    "defects": [
+      {
+        "category": "missing_await",
+        "line": 2,
+        "severity": "high",
+        "rationale": "In the async function notify, client.post(...) is called without await; response is a coroutine, so response.status_code on line 3 does not reflect a completed HTTP call. Based on the inline source shown in the objective, not on the blocked s1 artifact."
+      },
+      {
+        "category": "missing_timeout",
+        "line": 2,
+        "severity": "medium",
+        "rationale": "The outbound POST to '/notify' specifies no timeout, so the call can hang indefinitely. Based on the inline source; full-file confirmation blocked by failed s1."
+      }
+    ]
+  },
+  "plans": 1,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 1,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "notify_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 0,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 1
+  },
+  "validation_log": [
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1"
+    ],
+    "blocked_by": [
+      "s1: read_code failed, notify_source_lines artifact unavailable"
+    ]
+  },
+  "side_effect_count": 1,
+  "usage": {
+    "calls": 2,
+    "input_tokens": 416,
+    "output_tokens": 898,
+    "cached_input_tokens": 1281,
+    "cache_write_tokens": 1120,
+    "cost_usd": 0.024530000000000003
+  },
+  "latency_seconds": 13.80289333302062,
+  "error": null,
+  "score": 0.6666666666666666,
+  "duplicated_steps": 0
+}

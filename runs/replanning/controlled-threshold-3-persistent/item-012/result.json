@@ -1,0 +1,78 @@
+{
+  "id": "item-012",
+  "review": {
+    "defects": [
+      {
+        "category": "race_condition",
+        "line": 5,
+        "severity": "medium",
+        "rationale": "Non-atomic read-modify-write on module-global counter: 'current = counter' (line 5) then 'counter = current + 1' (line 6) can interleave across threads, losing increments. Based solely on the inlined objective source, since read_code artifacts s1, s1b, and s2 all failed and line numbering is unverified by tooling."
+      }
+    ]
+  },
+  "plans": 3,
+  "first_plan_valid": true,
+  "validation_revisions": 0,
+  "violations": [],
+  "steps_executed": 3,
+  "step_artifacts": [
+    {
+      "step_id": "s1",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s1b",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    },
+    {
+      "step_id": "s2",
+      "status": "failed",
+      "produced": "counter_source_lines",
+      "value": null,
+      "summary": "injected failure for read_code"
+    }
+  ],
+  "step_successes": 0,
+  "criterion_caught_failures": 0,
+  "replans": 2,
+  "escalated": true,
+  "abandoned": false,
+  "strikes": {
+    "read_code": 3
+  },
+  "validation_log": [
+    [],
+    [],
+    []
+  ],
+  "escalation_output": {
+    "completed": [],
+    "failed": [
+      "s1",
+      "s1b",
+      "s2"
+    ],
+    "blocked_by": [
+      "read_code(counter.py) failed on all three attempts; no tool-sourced file content or line map available"
+    ]
+  },
+  "side_effect_count": 3,
+  "usage": {
+    "calls": 4,
+    "input_tokens": 916,
+    "output_tokens": 2231,
+    "cached_input_tokens": 4963,
+    "cache_write_tokens": 0,
+    "cost_usd": 0.060355
+  },
+  "latency_seconds": 33.87068004196044,
+  "error": null,
+  "score": 0.0,
+  "duplicated_steps": 0
+}
