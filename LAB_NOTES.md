@@ -98,3 +98,9 @@ no API calls and costs **$0.00**.
 
 The graph is a course exercise and future foundation, not a reversal of ADR-001’s production decision.
 All extraction and graph work is local and deterministic; **new API spend was $0.00**.
+
+## Production graph backend
+
+`ADR-002-graph-backend.md` records PostgreSQL as the production target if graph-backed functionality is
+promoted. SQLite remains the reproducible local/test backend. The ADR defines portability constraints,
+migration steps, operational triggers, and the evidence required to reconsider Neo4j.

@@ -2,10 +2,14 @@
 
 ## Backend and scope
 
-The backend is **SQLite**: zero service setup, inspectable with standard tools, transactional, and fully
+The exercise backend is **SQLite**: zero service setup, inspectable with standard tools, transactional, and fully
 adequate for the course’s five-node/five-edge schema. This is a technical exercise rather than a
 reversal of ADR-001: production remains on an append-only state file until graph criteria bind, but the
 store is available for Modules 9–10.
+
+For a future shared production deployment, `ADR-002-graph-backend.md` selects **PostgreSQL** while
+retaining SQLite for local development and contract tests. This report evaluates the schema guarantees,
+which must remain identical across both adapters.
 
 Schema definitions in `graph/store.py` are executable data. Nodes are `Entity`, `Claim`, `Source`,
 `Artifact`, and `Run`; edges are `mentions`, `supports`, `contradicts`, `derived_from`, and
@@ -84,4 +88,3 @@ Tests fail if canonical ids diverge, aliases disappear, a claim lacks provenance
 [0,1], endpoints are illegal, node/edge types are unknown, supersession mutates history, or a cycle is
 created. The seeded database is `graph/knowledge.db`; regeneration is deterministic with
 `PYTHONPATH=. python3 graph/seed.py`. New API cost: **$0.00**.
-

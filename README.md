@@ -285,3 +285,8 @@ queries. A ten-document deterministic extraction audit measured 0.90 claim preci
 one unsupported claim whose span nevertheless passed the verbatim gate. See
 [`GRAPH_STORE_REPORT.md`](GRAPH_STORE_REPORT.md) and
 [`GRAPH_EXTRACTION_REPORT.md`](GRAPH_EXTRACTION_REPORT.md). New API spend was $0.
+
+Backend lifecycle is recorded separately in
+[`ADR-002-graph-backend.md`](ADR-002-graph-backend.md): SQLite remains the local/test backend, while
+PostgreSQL is the accepted target for the first graph-backed production deployment. Neo4j remains an
+evidence-triggered option if graph-native traversal becomes the dominant workload.
