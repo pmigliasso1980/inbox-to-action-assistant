@@ -1,0 +1,243 @@
+{
+  "backend": "SQLite",
+  "node_counts": {
+    "Entity": 30,
+    "Claim": 63,
+    "Source": 15,
+    "Artifact": 15,
+    "Run": 1
+  },
+  "edge_counts": {
+    "mentions": 123,
+    "supports": 63,
+    "contradicts": 1,
+    "derived_from": 15,
+    "supersedes": 2
+  },
+  "claims_with_no_provenance": [],
+  "schema_violations_during_seeding": 0,
+  "entities_with_multiple_aliases": [
+    {
+      "id": "ent_ad2b3ac9a5c370dfeea7",
+      "aliases": [
+        "range_total.py",
+        "src/range_total.py",
+        "RANGE TOTAL.PY"
+      ]
+    }
+  ],
+  "current_claims": 61,
+  "total_claims": 63,
+  "is_current_traversal_disagreements": 0,
+  "contradiction_pairs": 1,
+  "query_outputs": {
+    "current_claims_about": [
+      {
+        "id": "clm_000543df1f29386a11fc",
+        "node_type": "Claim",
+        "properties": {
+          "claim_kind": "observation",
+          "confidence": 0.95,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_000543df1f29386a11fc",
+          "object": "3",
+          "predicate": "supported_at_line",
+          "statement": "The supporting span for off_by_one is line 3 of range_total.py.",
+          "subject": "ent_ad2b3ac9a5c370dfeea7"
+        }
+      },
+      {
+        "id": "clm_7d290d5ce728fe0abb66",
+        "node_type": "Claim",
+        "properties": {
+          "confidence": 0.99,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_7d290d5ce728fe0abb66",
+          "object": "off_by_one",
+          "predicate": "has_defect",
+          "statement": "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+          "subject": "ent_ad2b3ac9a5c370dfeea7"
+        }
+      },
+      {
+        "id": "clm_b642806a2803eef13e60",
+        "node_type": "Claim",
+        "properties": {
+          "confidence": 0.55,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_b642806a2803eef13e60",
+          "object": "none",
+          "predicate": "has_defect",
+          "statement": "range_total.py has no off-by-one defect.",
+          "subject": "ent_ad2b3ac9a5c370dfeea7"
+        }
+      }
+    ],
+    "provenance_of": {
+      "claim": {
+        "id": "clm_7d290d5ce728fe0abb66",
+        "node_type": "Claim",
+        "properties": {
+          "confidence": 0.99,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_7d290d5ce728fe0abb66",
+          "object": "off_by_one",
+          "predicate": "has_defect",
+          "statement": "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+          "subject": "ent_ad2b3ac9a5c370dfeea7"
+        }
+      },
+      "sources": [
+        {
+          "id": "source-001",
+          "node_type": "Source",
+          "properties": {
+            "content": "def total_first_n(values, n):\n    total = 0\n    for i in range(n + 1):\n        total += values[i]\n    return total",
+            "content_hash": "16e44271107a926744bb9249d5de4a4aded27354aba4195533f5a14dec28afbb",
+            "id": "source-001",
+            "kind": "python",
+            "locator": "range_total.py"
+          }
+        }
+      ],
+      "support_edges": [
+        {
+          "id": 199,
+          "edge_type": "supports",
+          "source_id": "clm_7d290d5ce728fe0abb66",
+          "target_id": "source-001",
+          "properties": {
+            "span": "    for i in range(n + 1):"
+          }
+        }
+      ]
+    },
+    "contradictions": [
+      [
+        "clm_7d290d5ce728fe0abb66",
+        "clm_b642806a2803eef13e60"
+      ]
+    ],
+    "history_of": [
+      "range_total.py contains off_by_one at line 3.",
+      "range_total.py contains an off-by-one loop boundary at line 3.",
+      "range_total.py iterates through n inclusive, an off-by-one defect on line 3."
+    ],
+    "changed_findings": [
+      {
+        "claim_id": "clm_000543df1f29386a11fc",
+        "statement": "The supporting span for off_by_one is line 3 of range_total.py.",
+        "run_id": "run-seed-v1",
+        "prompt_version": "graph-seed-v1"
+      },
+      {
+        "claim_id": "clm_656ef0c591926776080a",
+        "statement": "range_total.py contains off_by_one at line 3.",
+        "run_id": "run-seed-v1",
+        "prompt_version": "graph-seed-v1"
+      },
+      {
+        "claim_id": "clm_7d290d5ce728fe0abb66",
+        "statement": "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+        "run_id": "run-seed-v1",
+        "prompt_version": "graph-seed-v1"
+      },
+      {
+        "claim_id": "clm_b642806a2803eef13e60",
+        "statement": "range_total.py has no off-by-one defect.",
+        "run_id": "run-seed-v1",
+        "prompt_version": "graph-seed-v1"
+      }
+    ],
+    "decision_provenance": {
+      "claim": {
+        "id": "clm_7d290d5ce728fe0abb66",
+        "node_type": "Claim",
+        "properties": {
+          "confidence": 0.99,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_7d290d5ce728fe0abb66",
+          "object": "off_by_one",
+          "predicate": "has_defect",
+          "statement": "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+          "subject": "ent_ad2b3ac9a5c370dfeea7"
+        }
+      },
+      "entities": [
+        {
+          "id": "ent_ad2b3ac9a5c370dfeea7",
+          "node_type": "Entity",
+          "properties": {
+            "aliases": [
+              "range_total.py",
+              "src/range_total.py",
+              "RANGE TOTAL.PY"
+            ],
+            "canonical_name": "range total py",
+            "id": "ent_ad2b3ac9a5c370dfeea7",
+            "type": "file"
+          }
+        }
+      ],
+      "provenance": {
+        "claim": {
+          "id": "clm_7d290d5ce728fe0abb66",
+          "node_type": "Claim",
+          "properties": {
+            "confidence": 0.99,
+            "created_by_run": "run-seed-v1",
+            "id": "clm_7d290d5ce728fe0abb66",
+            "object": "off_by_one",
+            "predicate": "has_defect",
+            "statement": "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+            "subject": "ent_ad2b3ac9a5c370dfeea7"
+          }
+        },
+        "sources": [
+          {
+            "id": "source-001",
+            "node_type": "Source",
+            "properties": {
+              "content": "def total_first_n(values, n):\n    total = 0\n    for i in range(n + 1):\n        total += values[i]\n    return total",
+              "content_hash": "16e44271107a926744bb9249d5de4a4aded27354aba4195533f5a14dec28afbb",
+              "id": "source-001",
+              "kind": "python",
+              "locator": "range_total.py"
+            }
+          }
+        ],
+        "support_edges": [
+          {
+            "id": 199,
+            "edge_type": "supports",
+            "source_id": "clm_7d290d5ce728fe0abb66",
+            "target_id": "source-001",
+            "properties": {
+              "span": "    for i in range(n + 1):"
+            }
+          }
+        ]
+      },
+      "supersedes": [
+        "clm_f33b097a72b2034be497"
+      ]
+    },
+    "rejected_assumptions": [
+      {
+        "id": "clm_760d9a8cb5ca3301a72b",
+        "node_type": "Claim",
+        "properties": {
+          "claim_kind": "rejected_assumption",
+          "confidence": 0.95,
+          "created_by_run": "run-seed-v1",
+          "id": "clm_760d9a8cb5ca3301a72b",
+          "object": "5",
+          "predicate": "supported_at_line",
+          "statement": "The supporting span for swallowed_exception is line 5 of config.py.",
+          "subject": "ent_c35ed713c5d5195fd66b"
+        }
+      }
+    ]
+  },
+  "version_chain_tip": "clm_7d290d5ce728fe0abb66"
+}

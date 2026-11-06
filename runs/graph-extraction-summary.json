@@ -1,0 +1,131 @@
+{
+  "documents": 10,
+  "ground_truth_entities": 20,
+  "ground_truth_claims": 10,
+  "entity_quality": {
+    "precision": 0.9047619047619048,
+    "recall": 0.95,
+    "missed": [
+      [
+        "defect_category",
+        "resource leak"
+      ]
+    ],
+    "spurious": [
+      [
+        "defect_category",
+        "path traversal"
+      ],
+      [
+        "file",
+        "configs py"
+      ]
+    ]
+  },
+  "claim_quality": {
+    "precision": 0.9,
+    "recall": 0.9,
+    "missed": [
+      [
+        "export.py",
+        "has_defect",
+        "resource_leak",
+        "    handle = open(path, 'w')"
+      ]
+    ],
+    "spurious": [
+      [
+        "config.py",
+        "has_defect",
+        "path_traversal",
+        "def load_config(path):"
+      ]
+    ],
+    "span_gate_failures": 0,
+    "span_passed_but_unsupported": 1,
+    "hand_checked_claims": 10
+  },
+  "resolution_quality": {
+    "incorrect_merges": 0,
+    "incorrect_splits": 0,
+    "flagged_pairs": [
+      {
+        "existing": "ent_50562947ed8a4a1f477a",
+        "candidate": "ent_344bb5e1fd3a9f90de68",
+        "similarity": 0.9473684210526315,
+        "genuine_duplicate": false
+      }
+    ],
+    "genuine_duplicates_among_flags": 0
+  },
+  "contradictions_written": 1,
+  "confidence_calibration": {
+    "0.5-0.7": {
+      "n": 3,
+      "actual_correctness": 0.6666666666666666
+    },
+    "0.7-0.8": {
+      "n": 3,
+      "actual_correctness": 1
+    },
+    "0.8-0.9": {
+      "n": 2,
+      "actual_correctness": 1
+    },
+    "0.9-1.0": {
+      "n": 2,
+      "actual_correctness": 1
+    }
+  },
+  "recommended_reliance_threshold": 0.7,
+  "audit": {
+    "schema_conformance": {
+      "checked": 41,
+      "errors": []
+    },
+    "claims_with_no_provenance": [],
+    "stale_source_hashes": [],
+    "high_similarity_entity_pairs": [
+      {
+        "left": "ent_50562947ed8a4a1f477a",
+        "right": "ent_344bb5e1fd3a9f90de68",
+        "similarity": 0.9473684210526315
+      }
+    ],
+    "sampled_hand_verification": {
+      "sample_size": 10,
+      "correct": 9,
+      "claim_ids": [
+        "clm_6e09fd54b51c5907ac02",
+        "clm_cf08696655ac45f43a0a",
+        "clm_87e7db68ee57ae72fb33",
+        "clm_f52fe249a891f93912b0",
+        "clm_c25774b58ebef5c188c9",
+        "clm_6a15006bb48ce33250cf",
+        "clm_354663dd7b65567be26e",
+        "clm_34b54672bc46b6ef3959",
+        "clm_cb0d560d18d738439d29",
+        "clm_0eec65b9ca649dd37782"
+      ]
+    },
+    "confidence_calibration": {
+      "0.5-0.7": {
+        "n": 3,
+        "actual_correctness": 0.6666666666666666
+      },
+      "0.7-0.8": {
+        "n": 3,
+        "actual_correctness": 1
+      },
+      "0.8-0.9": {
+        "n": 2,
+        "actual_correctness": 1
+      },
+      "0.9-1.0": {
+        "n": 2,
+        "actual_correctness": 1
+      }
+    }
+  },
+  "new_api_cost_usd": 0.0
+}

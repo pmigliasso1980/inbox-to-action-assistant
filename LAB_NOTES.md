@@ -84,3 +84,17 @@ fixtures. All new measurements are reproducible offline; **new API spend was $0.
 Decision: **use a gated direct reviewer with an append-only state file; do not build a graph yet**.
 Traceability binds, but session persistence and current cross-agent coordination do not. The audit adds
 no API calls and costs **$0.00**.
+
+# Module 8 submission: Knowledge graph foundations
+
+- `graph/store.py`, `graph/queries.py`, and `graph/test_store.py` implement the typed SQLite graph,
+  provenance-only Claim path, additive supersession, canonical aliases, validators, and seven queries.
+- `graph/seed.py` creates `graph/knowledge.db`; `runs/graph-store-verification.json` contains counts and
+  full query output; `GRAPH_STORE_REPORT.md` documents the guarantees.
+- `evals/graph_ground_truth.jsonl` labels ten documents before extraction evaluation.
+- `agents/extractor.py` and `graph/extraction_pipeline.py` implement typed extraction and four gates.
+- `graph/audit.py`, `runs/graph-extraction-summary.json`, and `GRAPH_EXTRACTION_REPORT.md` record the
+  quality and amplification audit.
+
+The graph is a course exercise and future foundation, not a reversal of ADR-001’s production decision.
+All extraction and graph work is local and deterministic; **new API spend was $0.00**.

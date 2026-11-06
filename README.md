@@ -278,3 +278,10 @@ The Module 7 architecture audit is captured in
 [`ADR-001-architecture.md`](ADR-001-architecture.md). Based on the frozen evidence, the system should
 ship as one constrained reviewer with deterministic gates and an append-only state file. A graph and
 permanent agent team are deferred until persistence or shared-state queries demonstrably require them.
+
+Module 8 implements the graph as a technical foundation while preserving that production decision.
+The SQLite store enforces provenance, canonical aliases, additive history, contradictions, and typed
+queries. A ten-document deterministic extraction audit measured 0.90 claim precision/recall and exposed
+one unsupported claim whose span nevertheless passed the verbatim gate. See
+[`GRAPH_STORE_REPORT.md`](GRAPH_STORE_REPORT.md) and
+[`GRAPH_EXTRACTION_REPORT.md`](GRAPH_EXTRACTION_REPORT.md). New API spend was $0.
