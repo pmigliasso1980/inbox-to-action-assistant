@@ -1,5 +1,10 @@
 # Inbox-to-Action Assistant
 
+> Module 9 evidence: [MODULE_9_REPORT.md](MODULE_9_REPORT.md) documents the
+> graph-grounded evaluator, scoped multi-agent orchestration, context scaling,
+> Rule 5 audit, and persistent-world-model experiment. All Module 9 experiments
+> are reproducible locally with `python3 evals/run_module9.py` and make no API calls.
+
 ## Current graded submission — Module 4: Planning
 
 The current submission is available directly from the repository root:

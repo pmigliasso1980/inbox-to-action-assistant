@@ -1,0 +1,150 @@
+{
+  "method": "frozen Module 2 outputs + deterministic graph verification; no new model calls",
+  "ordering": [
+    "deterministic_gates",
+    "graph_verification",
+    "rubric_evaluation_for_survivors"
+  ],
+  "confidence_threshold": 0.7,
+  "noise_floor": 0.06666666666666676,
+  "comparison": [
+    {
+      "configuration": "rubric-only",
+      "mean_score": 0.8785714285714284,
+      "delta": 0.0,
+      "claim_coverage": null,
+      "findings_per_item": 1.3,
+      "source_spans": 0,
+      "verdicts": null,
+      "hand_checked_finding_precision_n20": 0.8076923076923077,
+      "mean_iterations": 1.0,
+      "tokens_per_item": 1048.6,
+      "cost_per_item": 0.007203000000000001
+    },
+    {
+      "configuration": "graph-only",
+      "mean_score": 0.8785714285714284,
+      "delta": 0.0,
+      "claim_coverage": 1.0,
+      "findings_per_item": 1.3,
+      "source_spans": 17,
+      "verdicts": {
+        "supported": 15,
+        "contradicted": 2,
+        "unsupported": 9
+      },
+      "hand_checked_finding_precision_n20": 1.0,
+      "mean_iterations": 1.0,
+      "tokens_per_item": 0.0,
+      "cost_per_item": 0.0
+    },
+    {
+      "configuration": "composite",
+      "mean_score": 0.9452380952380952,
+      "delta": 0.06666666666666676,
+      "claim_coverage": 1.0,
+      "findings_per_item": 1.3,
+      "source_spans": 17,
+      "verdicts": {
+        "supported": 15,
+        "contradicted": 2,
+        "unsupported": 9
+      },
+      "hand_checked_finding_precision_n20": 1.0,
+      "mean_iterations": 1.0,
+      "tokens_per_item": 3018.0,
+      "cost_per_item": 0.017588999999999997
+    }
+  ],
+  "unmappable_predicates": 0,
+  "coverage": 1.0,
+  "disagreement_audit": {
+    "observed_contradictions": 2,
+    "observed_graph_right_draft_wrong": 2,
+    "controlled_low_confidence_case": {
+      "graph_right_draft_wrong": 0,
+      "draft_right_graph_wrong": 1,
+      "both_wrong": 0,
+      "ambiguous": 0,
+      "graph_writes_from_draft_right": 1,
+      "wrong_corrections_prevented": 1,
+      "initial_action": "investigate",
+      "correction_claim_id": "clm_c2d03280b25588d5aa4d",
+      "contradicts_edge_id": 210,
+      "note": "A low-confidence conflicting claim was replayed; investigate prevented removal, then a provenance-backed correction was appended."
+    }
+  },
+  "verifiability_demonstration": [
+    {
+      "claim": {
+        "claim_text": "range_total.py contains off_by_one at line 3: range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n.",
+        "subject": "ent_ad2b3ac9a5c370dfeea7",
+        "predicate": "has_defect",
+        "object": "ent_df0728d23b3c34d8073b",
+        "location_in_draft": "defects[1]",
+        "subject_surface": "range_total.py",
+        "object_surface": "off_by_one"
+      },
+      "verdict": "supported",
+      "graph_evidence": [
+        "range_total.py iterates through n inclusive, an off-by-one defect on line 3.",
+        "range_total.py has no off-by-one defect."
+      ],
+      "conflicting_statement": null,
+      "source_locator": "range_total.py",
+      "source_span": "    for i in range(n + 1):",
+      "recommended_action": "cite",
+      "deciding_claim_id": "clm_7d290d5ce728fe0abb66",
+      "confidence": 0.99,
+      "evidence_quality": "primary_document_with_span",
+      "stale": false
+    },
+    {
+      "claim": {
+        "claim_text": "tags.py contains mutable_default at line 1: The default list is shared across calls, so tags accumulate between invocations instead of starting empty.",
+        "subject": "ent_3cb0ae92d34424674442",
+        "predicate": "has_defect",
+        "object": "ent_d7f912474de230b254ee",
+        "location_in_draft": "defects[1]",
+        "subject_surface": "tags.py",
+        "object_surface": "mutable_default"
+      },
+      "verdict": "supported",
+      "graph_evidence": [
+        "tags.py contains mutable_default at line 1."
+      ],
+      "conflicting_statement": null,
+      "source_locator": "tags.py",
+      "source_span": "def add_tag(tag, tags=[]):",
+      "recommended_action": "cite",
+      "deciding_claim_id": "clm_a1466650f4b74aacee56",
+      "confidence": 0.95,
+      "evidence_quality": "primary_document_with_span",
+      "stale": false
+    },
+    {
+      "claim": {
+        "claim_text": "config.py contains swallowed_exception at line 5: All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults.",
+        "subject": "ent_c35ed713c5d5195fd66b",
+        "predicate": "has_defect",
+        "object": "ent_dbd069bbc4461f61b2c5",
+        "location_in_draft": "defects[1]",
+        "subject_surface": "config.py",
+        "object_surface": "swallowed_exception"
+      },
+      "verdict": "supported",
+      "graph_evidence": [
+        "config.py contains swallowed_exception at line 5."
+      ],
+      "conflicting_statement": null,
+      "source_locator": "config.py",
+      "source_span": "    except Exception:",
+      "recommended_action": "cite",
+      "deciding_claim_id": "clm_27435e3732ff6d6f8c35",
+      "confidence": 0.95,
+      "evidence_quality": "primary_document_with_span",
+      "stale": false
+    }
+  ],
+  "new_api_cost_usd": 0.0
+}

@@ -1,0 +1,269 @@
+{
+  "method": "local SQLite graph replay; concurrent independent reads; zero model calls",
+  "role_trace": [
+    {
+      "role": "architect",
+      "query": "architect_read",
+      "result_size": 5,
+      "writes": [
+        "artifact-m9-session-1-architect"
+      ],
+      "tokens": 0,
+      "cost_usd": 0.0,
+      "latency_ms": 3.685
+    },
+    {
+      "role": "developer",
+      "query": "developer_read",
+      "result_size": 3,
+      "writes": [
+        "artifact-m9-session-1-developer"
+      ],
+      "tokens": 0,
+      "cost_usd": 0.0,
+      "latency_ms": 4.153
+    },
+    {
+      "role": "historian",
+      "query": "historian_read",
+      "result_size": 7,
+      "writes": [],
+      "tokens": 0,
+      "cost_usd": 0.0,
+      "latency_ms": 2.804
+    },
+    {
+      "role": "tech_lead",
+      "query": "tech_lead_read",
+      "result_size": 2,
+      "writes": [
+        "clm_60c77ffc4b3254eece5d"
+      ],
+      "tokens": 0,
+      "cost_usd": 0.0,
+      "latency_ms": 4.119
+    }
+  ],
+  "handoff_completions": [
+    {
+      "run_id": "m9-session-1",
+      "role": "architect",
+      "status": "complete",
+      "graph_write_ids": [
+        "artifact-m9-session-1-architect"
+      ]
+    },
+    {
+      "run_id": "m9-session-1",
+      "role": "tech_lead",
+      "status": "complete",
+      "graph_write_ids": [
+        "clm_60c77ffc4b3254eece5d"
+      ]
+    },
+    {
+      "run_id": "m9-session-1",
+      "role": "developer",
+      "status": "complete",
+      "graph_write_ids": [
+        "artifact-m9-session-1-developer"
+      ]
+    },
+    {
+      "run_id": "m9-session-1",
+      "role": "historian",
+      "status": "complete",
+      "graph_write_ids": []
+    }
+  ],
+  "synthesis": {
+    "query": "tech_lead_read(limit=3)",
+    "finding_ids": [
+      "clm_7d290d5ce728fe0abb66",
+      "clm_b642806a2803eef13e60"
+    ]
+  },
+  "scaling": [
+    {
+      "team_size": 3,
+      "transcript_tokens": 2308,
+      "artifact_tokens": 202,
+      "graph_tokens": 86
+    },
+    {
+      "team_size": 5,
+      "transcript_tokens": 3841,
+      "artifact_tokens": 328,
+      "graph_tokens": 87
+    },
+    {
+      "team_size": 10,
+      "transcript_tokens": 7672,
+      "artifact_tokens": 646,
+      "graph_tokens": 88
+    },
+    {
+      "team_size": 20,
+      "transcript_tokens": 15337,
+      "artifact_tokens": 1291,
+      "graph_tokens": 89
+    }
+  ],
+  "token_slopes_per_worker": {
+    "transcript": 766.4046242774566,
+    "artifact": 64.10115606936417,
+    "graph": 0.16184971098265896
+  },
+  "seed_survival": [
+    {
+      "team_size": 3,
+      "transcript_survival": 1.0,
+      "artifact_survival": 1.0,
+      "graph_survival": 1.0,
+      "runs_per_cell": 3
+    },
+    {
+      "team_size": 5,
+      "transcript_survival": 1.0,
+      "artifact_survival": 1.0,
+      "graph_survival": 1.0,
+      "runs_per_cell": 3
+    },
+    {
+      "team_size": 10,
+      "transcript_survival": 0.0,
+      "artifact_survival": 1.0,
+      "graph_survival": 1.0,
+      "runs_per_cell": 3
+    },
+    {
+      "team_size": 20,
+      "transcript_survival": 0.0,
+      "artifact_survival": 1.0,
+      "graph_survival": 1.0,
+      "runs_per_cell": 3
+    }
+  ],
+  "rule5": [
+    {
+      "type": "Entity",
+      "writes": 30,
+      "reads": 96,
+      "read_write_ratio": 3.2,
+      "distinct_reader_roles": 4,
+      "cross_session_read_rate": 0.67,
+      "verdict": "keep"
+    },
+    {
+      "type": "Claim (finding)",
+      "writes": 24,
+      "reads": 81,
+      "read_write_ratio": 3.38,
+      "distinct_reader_roles": 3,
+      "cross_session_read_rate": 0.62,
+      "verdict": "keep"
+    },
+    {
+      "type": "Claim (extracted)",
+      "writes": 63,
+      "reads": 132,
+      "read_write_ratio": 2.1,
+      "distinct_reader_roles": 4,
+      "cross_session_read_rate": 0.58,
+      "verdict": "keep"
+    },
+    {
+      "type": "Source",
+      "writes": 15,
+      "reads": 48,
+      "read_write_ratio": 3.2,
+      "distinct_reader_roles": 3,
+      "cross_session_read_rate": 0.54,
+      "verdict": "keep"
+    },
+    {
+      "type": "Artifact",
+      "writes": 15,
+      "reads": 1,
+      "read_write_ratio": 0.07,
+      "distinct_reader_roles": 1,
+      "cross_session_read_rate": 0.0,
+      "verdict": "remove from graph; keep content refs in PostgreSQL relational storage"
+    },
+    {
+      "type": "Run",
+      "writes": 3,
+      "reads": 14,
+      "read_write_ratio": 4.67,
+      "distinct_reader_roles": 2,
+      "cross_session_read_rate": 0.71,
+      "verdict": "keep for audit"
+    }
+  ],
+  "persistent_world_model": [
+    {
+      "subset": "first-encounter",
+      "without_graph": 0.8785714285714284,
+      "with_graph": 0.8785714285714284,
+      "delta": 0.0
+    },
+    {
+      "subset": "repeat-pattern",
+      "without_graph": 0.8785714285714284,
+      "with_graph": 1.0,
+      "delta": 0.12142857142857155
+    },
+    {
+      "subset": "all-items",
+      "without_graph": 0.8785714285714284,
+      "with_graph": 0.9392857142857143,
+      "delta": 0.060714285714285776
+    }
+  ],
+  "full_stack": [
+    {
+      "stage": "Zero-shot baseline",
+      "mean_score": 0.8785714285714284,
+      "cost_per_item": 0.007203000000000001,
+      "p95_latency_seconds": 3.455758114234778,
+      "scope": "20 live items"
+    },
+    {
+      "stage": "+ reflection",
+      "mean_score": 0.9452380952380952,
+      "cost_per_item": 0.017588999999999997,
+      "p95_latency_seconds": null,
+      "scope": "20 live items; only mean latency retained"
+    },
+    {
+      "stage": "+ tool use",
+      "mean_score": 0.8833333333333334,
+      "cost_per_item": 0.033454250000000005,
+      "p95_latency_seconds": 7.155839375645161,
+      "scope": "20 live items"
+    },
+    {
+      "stage": "+ planning",
+      "mean_score": 0.8435714285714285,
+      "cost_per_item": 0.06365825,
+      "p95_latency_seconds": 40.10269165034115,
+      "scope": "20 live items"
+    },
+    {
+      "stage": "+ multi-agent",
+      "mean_score": 1.0,
+      "cost_per_item": 0.05351999999999999,
+      "p95_latency_seconds": null,
+      "scope": "3 live items; forced three passes"
+    },
+    {
+      "stage": "+ graph",
+      "mean_score": 0.9392857142857143,
+      "cost_per_item": 0.0,
+      "p95_latency_seconds": 0.01,
+      "scope": "deterministic two-pass replay; not directly comparable to live subsets"
+    }
+  ],
+  "concurrency_policy": "Idempotent entity upserts; append worker claims; tech lead serializes supersedes after current-id comparison.",
+  "new_api_cost_usd": 0.0
+}
