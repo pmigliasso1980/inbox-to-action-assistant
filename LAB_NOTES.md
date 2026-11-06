@@ -74,3 +74,13 @@ was **$0.570675**, including the smoke test, versus the authorized **$3.00** cei
 
 Module 6 deliberately replays already-paid model artifacts and uses deterministic fault/context
 fixtures. All new measurements are reproducible offline; **new API spend was $0.00**.
+
+# Module 7 submission: Architecture decision audit
+
+- `evals/summarize_architecture.py` consolidates Modules 1–6 without rerunning a model.
+- `runs/architecture-audit.json` records score, deltas, tokens, cost, latency, scope, and significance.
+- `ADR-001-architecture.md` applies all five rules, three graph criteria, and seven anti-pattern checks.
+
+Decision: **use a gated direct reviewer with an append-only state file; do not build a graph yet**.
+Traceability binds, but session persistence and current cross-agent coordination do not. The audit adds
+no API calls and costs **$0.00**.

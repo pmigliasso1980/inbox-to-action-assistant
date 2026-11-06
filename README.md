@@ -273,3 +273,8 @@ an orchestrator context-pressure harness. To avoid repurchasing equivalent model
 the immutable artifacts from Modules 1–5 and runs new fault/context experiments deterministically. See
 [`WORKFLOW_PATTERNS_REPORT.md`](WORKFLOW_PATTERNS_REPORT.md) and
 [`PARALLEL_ORCHESTRATOR_REPORT.md`](PARALLEL_ORCHESTRATOR_REPORT.md). New API spend was $0.
+
+The Module 7 architecture audit is captured in
+[`ADR-001-architecture.md`](ADR-001-architecture.md). Based on the frozen evidence, the system should
+ship as one constrained reviewer with deterministic gates and an append-only state file. A graph and
+permanent agent team are deferred until persistence or shared-state queries demonstrably require them.

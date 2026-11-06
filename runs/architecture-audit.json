@@ -1,0 +1,133 @@
+{
+  "noise_floor": 0.06666666666666676,
+  "rows": [
+    {
+      "stage": "Zero-shot baseline",
+      "mean_score": 0.8785714285714284,
+      "tokens_per_item": 1048.6,
+      "cost_per_item": 0.007203000000000001,
+      "p50_latency_seconds": 2.637657416489674,
+      "p95_latency_seconds": 3.455758114234778,
+      "cost_per_score_point": 0.008198536585365856,
+      "scope": "20 live items",
+      "delta_vs_previous": null,
+      "delta_exceeds_noise_floor": null
+    },
+    {
+      "stage": "Reflection (M2)",
+      "mean_score": 0.9452380952380952,
+      "tokens_per_item": 3018.0,
+      "cost_per_item": 0.017588999999999997,
+      "p50_latency_seconds": null,
+      "p95_latency_seconds": null,
+      "cost_per_score_point": 0.01860801007556675,
+      "scope": "20 live items; only mean latency retained",
+      "delta_vs_previous": 0.06666666666666676,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Tool use (M3)",
+      "mean_score": 0.8833333333333334,
+      "tokens_per_item": 5800.45,
+      "cost_per_item": 0.033454250000000005,
+      "p50_latency_seconds": 5.0248521244793665,
+      "p95_latency_seconds": 7.155839375645161,
+      "cost_per_score_point": 0.03787273584905661,
+      "scope": "20 live items",
+      "delta_vs_previous": -0.061904761904761796,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Planning (M4)",
+      "mean_score": 0.8435714285714285,
+      "tokens_per_item": 7568.45,
+      "cost_per_item": 0.06365825,
+      "p50_latency_seconds": 22.584832750028,
+      "p95_latency_seconds": 40.10269165034115,
+      "cost_per_score_point": 0.07546278577476714,
+      "scope": "20 live items",
+      "delta_vs_previous": -0.03976190476190489,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Generator\u2013critic (M5)",
+      "mean_score": 1.0,
+      "tokens_per_item": 5625.333333333333,
+      "cost_per_item": 0.05351999999999999,
+      "p50_latency_seconds": null,
+      "p95_latency_seconds": null,
+      "cost_per_score_point": 0.05351999999999999,
+      "scope": "3 live items; forced three passes",
+      "delta_vs_previous": 0.15642857142857147,
+      "delta_exceeds_noise_floor": true
+    },
+    {
+      "stage": "Review panel (M5)",
+      "mean_score": 1.0,
+      "tokens_per_item": 2651.6666666666665,
+      "cost_per_item": 0.034425000000000004,
+      "p50_latency_seconds": 7.243420040991623,
+      "p95_latency_seconds": 7.550009578769095,
+      "cost_per_score_point": 0.034425000000000004,
+      "scope": "3 live items; reviewer-phase latency",
+      "delta_vs_previous": 0.0,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Gated chain (M6)",
+      "mean_score": 0.8785714285714286,
+      "tokens_per_item": 0,
+      "cost_per_item": 0,
+      "p50_latency_seconds": 0.0,
+      "p95_latency_seconds": 0.0,
+      "cost_per_score_point": 0.0,
+      "scope": "20-item offline replay; incremental tokens/cost",
+      "delta_vs_previous": -0.12142857142857144,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Routed (M6)",
+      "mean_score": 0.8685714285714285,
+      "tokens_per_item": 4815.25,
+      "cost_per_item": 0.03874425,
+      "p50_latency_seconds": 15.136030417022994,
+      "p95_latency_seconds": 35.32097697084537,
+      "cost_per_score_point": 0.04460686677631579,
+      "scope": "20 frozen live route outputs",
+      "delta_vs_previous": -0.010000000000000009,
+      "delta_exceeds_noise_floor": false
+    },
+    {
+      "stage": "Orchestrator (M6)",
+      "mean_score": 1.0,
+      "tokens_per_item": 2651.6666666666665,
+      "cost_per_item": 0.034425000000000004,
+      "p50_latency_seconds": 7.243420040991623,
+      "p95_latency_seconds": 7.550009578769095,
+      "cost_per_score_point": 0.034425000000000004,
+      "scope": "3 frozen panel items",
+      "delta_vs_previous": 0.13142857142857145,
+      "delta_exceeds_noise_floor": true
+    }
+  ],
+  "compound_progression_measured": [
+    0.8785714285714284,
+    0.9452380952380952,
+    0.8833333333333334,
+    0.8435714285714285,
+    1.0,
+    1.0,
+    0.8785714285714286,
+    0.8685714285714285,
+    1.0
+  ],
+  "comparable_full_set_progression": [
+    0.8785714285714284,
+    0.9452380952380952,
+    0.8833333333333334,
+    0.8435714285714285,
+    0.8785714285714286,
+    0.8685714285714285
+  ],
+  "new_api_cost_usd": 0.0
+}
