@@ -1,0 +1,67 @@
+{
+  "id": "item-005",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-005",
+      "file": "files.py",
+      "lines": [
+        "from pathlib import Path",
+        "",
+        "def read_upload(root, filename):",
+        "    path = Path(root) / filename",
+        "    return path.read_text()"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-005",
+      "candidates": [
+        {
+          "category": "path_traversal",
+          "line": 4,
+          "severity": "high",
+          "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-005",
+      "defects": [
+        {
+          "category": "path_traversal",
+          "line": 4,
+          "severity": "high",
+          "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

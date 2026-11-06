@@ -1,0 +1,67 @@
+{
+  "id": "item-015",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-015",
+      "file": "admin.py",
+      "lines": [
+        "def admin_action(request):",
+        "    token = request.headers.get('X-Admin-Token')",
+        "    if token or token == expected_token():",
+        "        return perform_admin_action()",
+        "    raise PermissionError()"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-015",
+      "candidates": [
+        {
+          "category": "auth_bypass",
+          "line": 3,
+          "severity": "critical",
+          "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-015",
+      "defects": [
+        {
+          "category": "auth_bypass",
+          "line": 3,
+          "severity": "critical",
+          "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

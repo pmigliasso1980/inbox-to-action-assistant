@@ -1,0 +1,77 @@
+{
+  "id": "item-006",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-006",
+      "file": "notify.py",
+      "lines": [
+        "async def notify(client, user_id):",
+        "    response = client.post('/notify', json={'user': user_id})",
+        "    return response.status_code"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-006",
+      "candidates": [
+        {
+          "category": "missing_await",
+          "line": 2,
+          "severity": "high",
+          "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+        },
+        {
+          "category": "missing_timeout",
+          "line": 2,
+          "severity": "low",
+          "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-006",
+      "defects": [
+        {
+          "category": "missing_await",
+          "line": 2,
+          "severity": "high",
+          "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+        },
+        {
+          "category": "missing_timeout",
+          "line": 2,
+          "severity": "low",
+          "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.6666666666666666,
+  "cost_usd": 0.0
+}

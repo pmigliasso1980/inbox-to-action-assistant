@@ -1,0 +1,66 @@
+{
+  "id": "item-007",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-007",
+      "file": "average.py",
+      "lines": [
+        "def average(values):",
+        "    return sum(values) / len(values)"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-007",
+      "candidates": [
+        {
+          "category": "arithmetic_problem",
+          "line": 2,
+          "severity": "medium",
+          "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-007",
+      "defects": [
+        {
+          "category": "arithmetic_problem",
+          "line": 2,
+          "severity": "medium",
+          "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": false,
+      "violations": [
+        "enum: candidate 0 has unknown category arithmetic_problem"
+      ],
+      "fallback": "escalate_expert"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": true,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.0,
+  "cost_usd": 0.0
+}

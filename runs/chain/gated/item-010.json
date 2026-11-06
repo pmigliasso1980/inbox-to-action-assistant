@@ -1,0 +1,66 @@
+{
+  "id": "item-010",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-010",
+      "file": "tokens.py",
+      "lines": [
+        "import random",
+        "",
+        "def reset_token():",
+        "    return ''.join(str(random.randint(0, 9)) for _ in range(24))"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-010",
+      "candidates": [
+        {
+          "category": "insecure_random",
+          "line": 4,
+          "severity": "high",
+          "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-010",
+      "defects": [
+        {
+          "category": "insecure_random",
+          "line": 4,
+          "severity": "high",
+          "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

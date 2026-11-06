@@ -1,0 +1,67 @@
+{
+  "id": "item-009",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-009",
+      "file": "export.py",
+      "lines": [
+        "def export_rows(path, rows):",
+        "    handle = open(path, 'w')",
+        "    for row in rows:",
+        "        handle.write(','.join(row) + '\\n')",
+        "    return len(rows)"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-009",
+      "candidates": [
+        {
+          "category": "resource_leak",
+          "line": 2,
+          "severity": "medium",
+          "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-009",
+      "defects": [
+        {
+          "category": "resource_leak",
+          "line": 2,
+          "severity": "medium",
+          "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

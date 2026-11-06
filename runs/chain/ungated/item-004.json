@@ -1,0 +1,69 @@
+{
+  "id": "item-004",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-004",
+      "file": "users.py",
+      "lines": [
+        "def find_user(conn, name):",
+        "    query = f\"SELECT * FROM users WHERE name = '{name}'\"",
+        "    return conn.execute(query).fetchone()"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-004",
+      "candidates": [
+        {
+          "category": "sql_injection",
+          "line": 99,
+          "severity": "critical",
+          "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-004",
+      "defects": [
+        {
+          "category": "sql_injection",
+          "line": 99,
+          "severity": "critical",
+          "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": false,
+      "violations": [
+        "referential: candidate 0 line 99 does not exist"
+      ],
+      "fallback": "escalate_expert"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": false,
+      "violations": [
+        "referential: ranked output contains an invalid line"
+      ],
+      "fallback": "explicit_fail"
+    }
+  ],
+  "gate_would_fire": true,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.0,
+  "cost_usd": 0.0
+}

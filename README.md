@@ -267,3 +267,9 @@ reviewers and repeated passes produced no score lift; the panel roles each contr
 defects. The recommended default is therefore one combined adversarial critic with conditional
 specialist routing. See [`GEN_CRITIC_REPORT.md`](GEN_CRITIC_REPORT.md) and
 [`PANEL_REPORT.md`](PANEL_REPORT.md) for metrics, limitations, costs, and reproducibility paths.
+
+Module 6 adds programmatic semantic gates, calibrated routing, sectioning and voting comparisons, and
+an orchestrator context-pressure harness. To avoid repurchasing equivalent model output, it replays
+the immutable artifacts from Modules 1–5 and runs new fault/context experiments deterministically. See
+[`WORKFLOW_PATTERNS_REPORT.md`](WORKFLOW_PATTERNS_REPORT.md) and
+[`PARALLEL_ORCHESTRATOR_REPORT.md`](PARALLEL_ORCHESTRATOR_REPORT.md). New API spend was $0.

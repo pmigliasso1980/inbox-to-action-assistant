@@ -1,0 +1,70 @@
+{
+  "id": "item-018",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-018",
+      "file": "cache.py",
+      "lines": [
+        "cache = {}",
+        "",
+        "def price(product_id, currency, fetch):",
+        "    if product_id in cache:",
+        "        return cache[product_id]",
+        "    value = fetch(product_id, currency)",
+        "    cache[product_id] = value",
+        "    return value"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-018",
+      "candidates": [
+        {
+          "category": "incorrect_cache_key",
+          "line": 4,
+          "severity": "high",
+          "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-018",
+      "defects": [
+        {
+          "category": "incorrect_cache_key",
+          "line": 4,
+          "severity": "high",
+          "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.6666666666666666,
+  "cost_usd": 0.0
+}

@@ -1,0 +1,13 @@
+{
+  "worker_role": "risk-area-1",
+  "status": "complete",
+  "findings": [
+    {
+      "category": "seeded_finding",
+      "line": 1,
+      "evidence": "SENTINEL-ZEBRA-7319"
+    }
+  ],
+  "summary": "Worker 1 completed its assigned section. Critical evidence: SENTINEL-ZEBRA-7319.",
+  "trace_id": "runs/orchestrator/team-3/artifact/worker-1.json"
+}

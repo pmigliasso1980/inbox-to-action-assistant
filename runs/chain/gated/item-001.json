@@ -1,0 +1,67 @@
+{
+  "id": "item-001",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-001",
+      "file": "range_total.py",
+      "lines": [
+        "def total_first_n(values, n):",
+        "    total = 0",
+        "    for i in range(n + 1):",
+        "        total += values[i]",
+        "    return total"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-001",
+      "candidates": [
+        {
+          "category": "off_by_one",
+          "line": 3,
+          "severity": "high",
+          "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-001",
+      "defects": [
+        {
+          "category": "off_by_one",
+          "line": 3,
+          "severity": "high",
+          "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

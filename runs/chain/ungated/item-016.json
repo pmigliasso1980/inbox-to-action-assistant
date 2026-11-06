@@ -1,0 +1,70 @@
+{
+  "id": "item-016",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-016",
+      "file": "lookup.py",
+      "lines": [
+        "def find(items, target):",
+        "    found = None",
+        "    for item in items:",
+        "        if item.id == target:",
+        "            found = item",
+        "        else:",
+        "            found = None",
+        "    return found"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-016",
+      "candidates": [
+        {
+          "category": "result_overwritten",
+          "line": 7,
+          "severity": "high",
+          "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-016",
+      "defects": [
+        {
+          "category": "result_overwritten",
+          "line": 7,
+          "severity": "high",
+          "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

@@ -1,0 +1,69 @@
+{
+  "id": "item-012",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-012",
+      "file": "counter.py",
+      "lines": [
+        "counter = 0",
+        "",
+        "def increment():",
+        "    global counter",
+        "    current = counter",
+        "    counter = current + 1",
+        "    return counter"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-012",
+      "candidates": [
+        {
+          "category": "race_condition",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-012",
+      "defects": [
+        {
+          "category": "race_condition",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.0,
+  "cost_usd": 0.0
+}

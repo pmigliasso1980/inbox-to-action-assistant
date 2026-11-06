@@ -1,0 +1,66 @@
+{
+  "id": "item-007",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-007",
+      "file": "average.py",
+      "lines": [
+        "def average(values):",
+        "    return sum(values) / len(values)"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-007",
+      "candidates": [
+        {
+          "category": "division_by_zero",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Verified fallback finding for division_by_zero."
+        }
+      ],
+      "confidence": 0.9
+    },
+    "rank": {
+      "item_id": "item-007",
+      "defects": [
+        {
+          "category": "division_by_zero",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Verified fallback finding for division_by_zero."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": false,
+      "violations": [
+        "enum: candidate 0 has unknown category arithmetic_problem"
+      ],
+      "fallback": "escalate_expert"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": true,
+  "confident_wrong": false,
+  "rescued": true,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

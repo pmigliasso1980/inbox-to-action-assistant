@@ -1,0 +1,66 @@
+{
+  "id": "item-013",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-013",
+      "file": "access.py",
+      "lines": [
+        "def can_edit(user_role):",
+        "    if user_role is 'admin':",
+        "        return True",
+        "    return False"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-013",
+      "candidates": [
+        {
+          "category": "identity_comparison",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-013",
+      "defects": [
+        {
+          "category": "identity_comparison",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

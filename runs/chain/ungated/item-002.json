@@ -1,0 +1,65 @@
+{
+  "id": "item-002",
+  "mode": "ungated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-002",
+      "file": "tags.py",
+      "lines": [
+        "def add_tag(tag, tags=[]):",
+        "    tags.append(tag)",
+        "    return tags"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-002",
+      "candidates": [
+        {
+          "category": "mutable_default",
+          "line": 1,
+          "severity": "high",
+          "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-002",
+      "defects": [
+        {
+          "category": "mutable_default",
+          "line": 1,
+          "severity": "high",
+          "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

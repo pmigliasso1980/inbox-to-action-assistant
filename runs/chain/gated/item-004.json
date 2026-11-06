@@ -1,0 +1,67 @@
+{
+  "id": "item-004",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-004",
+      "file": "users.py",
+      "lines": [
+        "def find_user(conn, name):",
+        "    query = f\"SELECT * FROM users WHERE name = '{name}'\"",
+        "    return conn.execute(query).fetchone()"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-004",
+      "candidates": [
+        {
+          "category": "sql_injection",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Verified fallback finding for sql_injection."
+        }
+      ],
+      "confidence": 0.9
+    },
+    "rank": {
+      "item_id": "item-004",
+      "defects": [
+        {
+          "category": "sql_injection",
+          "line": 2,
+          "severity": "high",
+          "rationale": "Verified fallback finding for sql_injection."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": false,
+      "violations": [
+        "referential: candidate 0 line 99 does not exist"
+      ],
+      "fallback": "escalate_expert"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": true,
+  "confident_wrong": false,
+  "rescued": true,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

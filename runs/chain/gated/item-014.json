@@ -1,0 +1,69 @@
+{
+  "id": "item-014",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-014",
+      "file": "drain.py",
+      "lines": [
+        "def drain(queue):",
+        "    processed = []",
+        "    while len(queue) >= 0:",
+        "        processed.append(queue.pop(0))",
+        "    return processed"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-014",
+      "candidates": [
+        {
+          "category": "infinite_loop",
+          "line": 3,
+          "severity": "high",
+          "rationale": "Verified fallback finding for infinite_loop."
+        }
+      ],
+      "confidence": 0.9
+    },
+    "rank": {
+      "item_id": "item-014",
+      "defects": [
+        {
+          "category": "infinite_loop",
+          "line": 3,
+          "severity": "high",
+          "rationale": "Verified fallback finding for infinite_loop."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": false,
+      "violations": [
+        "required: no candidate findings"
+      ],
+      "fallback": "escalate_expert"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": true,
+  "confident_wrong": false,
+  "rescued": true,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

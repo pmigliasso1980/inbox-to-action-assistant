@@ -58,3 +58,19 @@ Earlier modules remain available in `BASELINE_REPORT.md`, `REFLECTION_REPORT.md`
 The cost-controlled experiment used three fixed items. All configurations scored 1.0, so the evidence
 supports a single combined critic rather than a permanent three-role panel. Actual new Anthropic spend
 was **$0.570675**, including the smoke test, versus the authorized **$3.00** ceiling.
+
+# Module 6 submission: Workflow patterns
+
+- `agents/workflow_patterns.py` — typed three-stage chain, semantic gates, three fallback strategies,
+  constrained four-route classifier, asymmetric thresholds, and frozen-route evaluation.
+- `runs/chain/summary.json` — 20-item gated/ungated comparison and full per-item traces.
+- `runs/router/summary.json` — 10-item calibration table plus 20-item score/cost/latency comparison.
+- `WORKFLOW_PATTERNS_REPORT.md` — silent-late failure example, caching observation, and router verdict.
+- `agents/orchestrator_patterns.py` — dynamic worker planning, sectioning/voting utilities, both handoff
+  modes, hierarchical synthesis, and file-backed shared store.
+- `runs/orchestrator/summary.json` — sectioning, three voting configurations, aggregation rules,
+  3/5/10/20-worker scaling, and three-run seed survival.
+- `PARALLEL_ORCHESTRATOR_REPORT.md` — measured bottleneck and graph-transition argument.
+
+Module 6 deliberately replays already-paid model artifacts and uses deterministic fault/context
+fixtures. All new measurements are reproducible offline; **new API spend was $0.00**.

@@ -1,0 +1,311 @@
+{
+  "method": "deterministic router over frozen paid route outputs; no new calls",
+  "global_threshold": 0.8,
+  "per_route_thresholds": {
+    "simple": 0.8,
+    "standard": 0.85,
+    "complex": 0.9
+  },
+  "asymmetry": "Under-routing security or multi-defect items is costlier than over-routing, so standard and complex require higher confidence.",
+  "calibration_first_10": {
+    "0.5-0.7": {
+      "n": 0,
+      "actual_accuracy": null
+    },
+    "0.7-0.8": {
+      "n": 0,
+      "actual_accuracy": null
+    },
+    "0.8-0.9": {
+      "n": 6,
+      "actual_accuracy": 0
+    },
+    "0.9-1.0": {
+      "n": 4,
+      "actual_accuracy": 0.75
+    }
+  },
+  "routing_errors": {
+    "over-routing": 15,
+    "under-routing": 1
+  },
+  "comparison": {
+    "all_cheapest": {
+      "mean_score": 0.8785714285714286,
+      "cost_usd": 0.14406000000000002,
+      "mean_latency_seconds": 2.778392429093947
+    },
+    "all_expensive": {
+      "mean_score": 0.8435714285714285,
+      "cost_usd": 1.273165,
+      "mean_latency_seconds": 24.407531775152894
+    },
+    "routed": {
+      "mean_score": 0.8685714285714285,
+      "cost_usd": 0.774885,
+      "mean_latency_seconds": 13.636964823000017
+    }
+  },
+  "records": [
+    {
+      "id": "item-001",
+      "route": "simple",
+      "confidence": 0.92,
+      "rationale": "Single local defect matches the direct route.",
+      "destination": "simple",
+      "correct_cheapest_route": "simple",
+      "routing_correct": true,
+      "error_type": null,
+      "score": 1.0,
+      "cost_usd": 0.00662,
+      "latency_seconds": 3.387493791989982
+    },
+    {
+      "id": "item-002",
+      "route": "simple",
+      "confidence": 0.92,
+      "rationale": "Single local defect matches the direct route.",
+      "destination": "simple",
+      "correct_cheapest_route": "simple",
+      "routing_correct": true,
+      "error_type": null,
+      "score": 1.0,
+      "cost_usd": 0.00636,
+      "latency_seconds": 2.2258317089872435
+    },
+    {
+      "id": "item-003",
+      "route": "simple",
+      "confidence": 0.92,
+      "rationale": "Single local defect matches the direct route.",
+      "destination": "simple",
+      "correct_cheapest_route": "simple",
+      "routing_correct": true,
+      "error_type": null,
+      "score": 1.0,
+      "cost_usd": 0.0071,
+      "latency_seconds": 3.0866219580057077
+    },
+    {
+      "id": "item-004",
+      "route": "standard",
+      "confidence": 0.88,
+      "rationale": "Security-sensitive defect merits gated review.",
+      "destination": "standard",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.01736,
+      "latency_seconds": 0.0
+    },
+    {
+      "id": "item-005",
+      "route": "standard",
+      "confidence": 0.88,
+      "rationale": "Security-sensitive defect merits gated review.",
+      "destination": "standard",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.01721,
+      "latency_seconds": 0.0
+    },
+    {
+      "id": "item-006",
+      "route": "simple",
+      "confidence": 0.92,
+      "rationale": "Single local defect matches the direct route.",
+      "destination": "simple",
+      "correct_cheapest_route": "standard",
+      "routing_correct": false,
+      "error_type": "under-routing",
+      "score": 0.6666666666666666,
+      "cost_usd": 0.008385,
+      "latency_seconds": 3.4087509579840116
+    },
+    {
+      "id": "item-007",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.04809000000000001,
+      "latency_seconds": 17.6842065420351
+    },
+    {
+      "id": "item-008",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.054275000000000004,
+      "latency_seconds": 17.73788508400321
+    },
+    {
+      "id": "item-009",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.09424,
+      "latency_seconds": 35.07113749999553
+    },
+    {
+      "id": "item-010",
+      "route": "standard",
+      "confidence": 0.88,
+      "rationale": "Security-sensitive defect merits gated review.",
+      "destination": "standard",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.017259999999999998,
+      "latency_seconds": 0.0
+    },
+    {
+      "id": "item-011",
+      "route": "standard",
+      "confidence": 0.88,
+      "rationale": "Security-sensitive defect merits gated review.",
+      "destination": "standard",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 0.6666666666666666,
+      "cost_usd": 0.018840000000000003,
+      "latency_seconds": 0.0
+    },
+    {
+      "id": "item-012",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "standard",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 0.0,
+      "cost_usd": 0.033955,
+      "latency_seconds": 14.161898709018715
+    },
+    {
+      "id": "item-013",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.055545,
+      "latency_seconds": 23.68627991597168
+    },
+    {
+      "id": "item-014",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 0.6666666666666666,
+      "cost_usd": 0.09851499999999999,
+      "latency_seconds": 40.06792691699229
+    },
+    {
+      "id": "item-015",
+      "route": "standard",
+      "confidence": 0.88,
+      "rationale": "Security-sensitive defect merits gated review.",
+      "destination": "standard",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.01703,
+      "latency_seconds": 0.0
+    },
+    {
+      "id": "item-016",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.041690000000000005,
+      "latency_seconds": 18.07378775003599
+    },
+    {
+      "id": "item-017",
+      "route": "complex",
+      "confidence": 0.93,
+      "rationale": "Multiple interacting defects require planning.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 0.5714285714285715,
+      "cost_usd": 0.046744999999999995,
+      "latency_seconds": 19.78483141696779
+    },
+    {
+      "id": "item-018",
+      "route": "complex",
+      "confidence": 0.93,
+      "rationale": "Multiple interacting defects require planning.",
+      "destination": "complex",
+      "correct_cheapest_route": "complex",
+      "routing_correct": true,
+      "error_type": null,
+      "score": 1.0,
+      "cost_usd": 0.071595,
+      "latency_seconds": 30.082358499988914
+    },
+    {
+      "id": "item-019",
+      "route": "other",
+      "confidence": 0.81,
+      "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 1.0,
+      "cost_usd": 0.040375,
+      "latency_seconds": 16.110162125027273
+    },
+    {
+      "id": "item-020",
+      "route": "complex",
+      "confidence": 0.93,
+      "rationale": "Multiple interacting defects require planning.",
+      "destination": "complex",
+      "correct_cheapest_route": "simple",
+      "routing_correct": false,
+      "error_type": "over-routing",
+      "score": 0.8,
+      "cost_usd": 0.073695,
+      "latency_seconds": 28.170123582996894
+    }
+  ]
+}

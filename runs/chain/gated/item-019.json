@@ -1,0 +1,67 @@
+{
+  "id": "item-019",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-019",
+      "file": "expiry.py",
+      "lines": [
+        "from datetime import datetime",
+        "",
+        "def is_expired(expires_at):",
+        "    now = datetime.now()",
+        "    return now >= expires_at"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-019",
+      "candidates": [
+        {
+          "category": "timezone_naive",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-019",
+      "defects": [
+        {
+          "category": "timezone_naive",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

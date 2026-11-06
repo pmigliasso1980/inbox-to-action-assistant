@@ -1,0 +1,13 @@
+{
+  "worker_role": "risk-area-17",
+  "status": "complete",
+  "findings": [
+    {
+      "category": "observation",
+      "line": 17,
+      "evidence": "evidence-16"
+    }
+  ],
+  "summary": "Worker 17 completed its assigned section.",
+  "trace_id": "runs/orchestrator/team-20/artifact/worker-17.json"
+}

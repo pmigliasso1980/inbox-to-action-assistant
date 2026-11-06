@@ -1,0 +1,105 @@
+{
+  "id": "item-017",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-017",
+      "file": "download.py",
+      "lines": [
+        "import requests",
+        "",
+        "def download(url, destination):",
+        "    response = requests.get(url)",
+        "    with open(destination, 'wb') as output:",
+        "        output.write(response.content)",
+        "    return destination"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-017",
+      "candidates": [
+        {
+          "category": "missing_timeout",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+        },
+        {
+          "category": "unchecked_status",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+        },
+        {
+          "category": "ssrf",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+        },
+        {
+          "category": "path_traversal",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-017",
+      "defects": [
+        {
+          "category": "missing_timeout",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+        },
+        {
+          "category": "unchecked_status",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+        },
+        {
+          "category": "ssrf",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+        },
+        {
+          "category": "path_traversal",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.5714285714285715,
+  "cost_usd": 0.0
+}

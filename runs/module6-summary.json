@@ -1,0 +1,3468 @@
+{
+  "chain": {
+    "method": "offline replay of frozen baseline outputs with deterministic fault fixtures",
+    "silent_late_failure_rate": 0.15,
+    "configurations": {
+      "ungated": {
+        "mean_score": 0.7285714285714285,
+        "items_where_gate_fired": 3,
+        "confident_wrong_after_gate_signal": 3,
+        "items_rescued": 0,
+        "items_explicitly_failed": 0,
+        "cost_usd": 0.0,
+        "mean_latency_ms": 0.0,
+        "records": [
+          {
+            "id": "item-001",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-001",
+                "file": "range_total.py",
+                "lines": [
+                  "def total_first_n(values, n):",
+                  "    total = 0",
+                  "    for i in range(n + 1):",
+                  "        total += values[i]",
+                  "    return total"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-001",
+                "candidates": [
+                  {
+                    "category": "off_by_one",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-001",
+                "defects": [
+                  {
+                    "category": "off_by_one",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-002",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-002",
+                "file": "tags.py",
+                "lines": [
+                  "def add_tag(tag, tags=[]):",
+                  "    tags.append(tag)",
+                  "    return tags"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-002",
+                "candidates": [
+                  {
+                    "category": "mutable_default",
+                    "line": 1,
+                    "severity": "high",
+                    "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-002",
+                "defects": [
+                  {
+                    "category": "mutable_default",
+                    "line": 1,
+                    "severity": "high",
+                    "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-003",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-003",
+                "file": "config.py",
+                "lines": [
+                  "def load_config(path):",
+                  "    try:",
+                  "        with open(path) as handle:",
+                  "            return handle.read()",
+                  "    except Exception:",
+                  "        return '{}'"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-003",
+                "candidates": [
+                  {
+                    "category": "swallowed_exception",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-003",
+                "defects": [
+                  {
+                    "category": "swallowed_exception",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-004",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-004",
+                "file": "users.py",
+                "lines": [
+                  "def find_user(conn, name):",
+                  "    query = f\"SELECT * FROM users WHERE name = '{name}'\"",
+                  "    return conn.execute(query).fetchone()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-004",
+                "candidates": [
+                  {
+                    "category": "sql_injection",
+                    "line": 99,
+                    "severity": "critical",
+                    "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-004",
+                "defects": [
+                  {
+                    "category": "sql_injection",
+                    "line": 99,
+                    "severity": "critical",
+                    "rationale": "The name parameter is interpolated directly into the SQL string, allowing arbitrary SQL injection; use parameterized queries."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "referential: candidate 0 line 99 does not exist"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": false,
+                "violations": [
+                  "referential: ranked output contains an invalid line"
+                ],
+                "fallback": "explicit_fail"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-005",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-005",
+                "file": "files.py",
+                "lines": [
+                  "from pathlib import Path",
+                  "",
+                  "def read_upload(root, filename):",
+                  "    path = Path(root) / filename",
+                  "    return path.read_text()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-005",
+                "candidates": [
+                  {
+                    "category": "path_traversal",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-005",
+                "defects": [
+                  {
+                    "category": "path_traversal",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-006",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-006",
+                "file": "notify.py",
+                "lines": [
+                  "async def notify(client, user_id):",
+                  "    response = client.post('/notify', json={'user': user_id})",
+                  "    return response.status_code"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-006",
+                "candidates": [
+                  {
+                    "category": "missing_await",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+                  },
+                  {
+                    "category": "missing_timeout",
+                    "line": 2,
+                    "severity": "low",
+                    "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-006",
+                "defects": [
+                  {
+                    "category": "missing_await",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+                  },
+                  {
+                    "category": "missing_timeout",
+                    "line": 2,
+                    "severity": "low",
+                    "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-007",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-007",
+                "file": "average.py",
+                "lines": [
+                  "def average(values):",
+                  "    return sum(values) / len(values)"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-007",
+                "candidates": [
+                  {
+                    "category": "arithmetic_problem",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-007",
+                "defects": [
+                  {
+                    "category": "arithmetic_problem",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "An empty values sequence makes len(values) zero, raising ZeroDivisionError."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "enum: candidate 0 has unknown category arithmetic_problem"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-008",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-008",
+                "file": "profile.py",
+                "lines": [
+                  "def display_name(user):",
+                  "    return user.profile.name.strip()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-008",
+                "candidates": [
+                  {
+                    "category": "null_dereference",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Chained attribute access assumes user.profile and .name are non-None; a missing profile or name raises AttributeError."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-008",
+                "defects": [
+                  {
+                    "category": "null_dereference",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Chained attribute access assumes user.profile and .name are non-None; a missing profile or name raises AttributeError."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-009",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-009",
+                "file": "export.py",
+                "lines": [
+                  "def export_rows(path, rows):",
+                  "    handle = open(path, 'w')",
+                  "    for row in rows:",
+                  "        handle.write(','.join(row) + '\\n')",
+                  "    return len(rows)"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-009",
+                "candidates": [
+                  {
+                    "category": "resource_leak",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-009",
+                "defects": [
+                  {
+                    "category": "resource_leak",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-010",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-010",
+                "file": "tokens.py",
+                "lines": [
+                  "import random",
+                  "",
+                  "def reset_token():",
+                  "    return ''.join(str(random.randint(0, 9)) for _ in range(24))"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-010",
+                "candidates": [
+                  {
+                    "category": "insecure_random",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-010",
+                "defects": [
+                  {
+                    "category": "insecure_random",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-011",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-011",
+                "file": "convert.py",
+                "lines": [
+                  "import os",
+                  "",
+                  "def convert(filename):",
+                  "    return os.system(f\"convert {filename} output.png\")"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-011",
+                "candidates": [
+                  {
+                    "category": "command_injection",
+                    "line": 4,
+                    "severity": "critical",
+                    "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-011",
+                "defects": [
+                  {
+                    "category": "command_injection",
+                    "line": 4,
+                    "severity": "critical",
+                    "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-012",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-012",
+                "file": "counter.py",
+                "lines": [
+                  "counter = 0",
+                  "",
+                  "def increment():",
+                  "    global counter",
+                  "    current = counter",
+                  "    counter = current + 1",
+                  "    return counter"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-012",
+                "candidates": [
+                  {
+                    "category": "race_condition",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-012",
+                "defects": [
+                  {
+                    "category": "race_condition",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-013",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-013",
+                "file": "access.py",
+                "lines": [
+                  "def can_edit(user_role):",
+                  "    if user_role is 'admin':",
+                  "        return True",
+                  "    return False"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-013",
+                "candidates": [
+                  {
+                    "category": "identity_comparison",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-013",
+                "defects": [
+                  {
+                    "category": "identity_comparison",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-014",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-014",
+                "file": "drain.py",
+                "lines": [
+                  "def drain(queue):",
+                  "    processed = []",
+                  "    while len(queue) >= 0:",
+                  "        processed.append(queue.pop(0))",
+                  "    return processed"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-014",
+                "candidates": [],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-014",
+                "defects": [],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "required: no candidate findings"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": false,
+                "violations": [
+                  "cross-field: confident output cannot have zero defects"
+                ],
+                "fallback": "explicit_fail"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-015",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-015",
+                "file": "admin.py",
+                "lines": [
+                  "def admin_action(request):",
+                  "    token = request.headers.get('X-Admin-Token')",
+                  "    if token or token == expected_token():",
+                  "        return perform_admin_action()",
+                  "    raise PermissionError()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-015",
+                "candidates": [
+                  {
+                    "category": "auth_bypass",
+                    "line": 3,
+                    "severity": "critical",
+                    "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-015",
+                "defects": [
+                  {
+                    "category": "auth_bypass",
+                    "line": 3,
+                    "severity": "critical",
+                    "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-016",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-016",
+                "file": "lookup.py",
+                "lines": [
+                  "def find(items, target):",
+                  "    found = None",
+                  "    for item in items:",
+                  "        if item.id == target:",
+                  "            found = item",
+                  "        else:",
+                  "            found = None",
+                  "    return found"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-016",
+                "candidates": [
+                  {
+                    "category": "result_overwritten",
+                    "line": 7,
+                    "severity": "high",
+                    "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-016",
+                "defects": [
+                  {
+                    "category": "result_overwritten",
+                    "line": 7,
+                    "severity": "high",
+                    "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-017",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-017",
+                "file": "download.py",
+                "lines": [
+                  "import requests",
+                  "",
+                  "def download(url, destination):",
+                  "    response = requests.get(url)",
+                  "    with open(destination, 'wb') as output:",
+                  "        output.write(response.content)",
+                  "    return destination"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-017",
+                "candidates": [
+                  {
+                    "category": "missing_timeout",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+                  },
+                  {
+                    "category": "ssrf",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+                  },
+                  {
+                    "category": "path_traversal",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-017",
+                "defects": [
+                  {
+                    "category": "missing_timeout",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+                  },
+                  {
+                    "category": "ssrf",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+                  },
+                  {
+                    "category": "path_traversal",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.5714285714285715,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-018",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-018",
+                "file": "cache.py",
+                "lines": [
+                  "cache = {}",
+                  "",
+                  "def price(product_id, currency, fetch):",
+                  "    if product_id in cache:",
+                  "        return cache[product_id]",
+                  "    value = fetch(product_id, currency)",
+                  "    cache[product_id] = value",
+                  "    return value"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-018",
+                "candidates": [
+                  {
+                    "category": "incorrect_cache_key",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-018",
+                "defects": [
+                  {
+                    "category": "incorrect_cache_key",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-019",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-019",
+                "file": "expiry.py",
+                "lines": [
+                  "from datetime import datetime",
+                  "",
+                  "def is_expired(expires_at):",
+                  "    now = datetime.now()",
+                  "    return now >= expires_at"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-019",
+                "candidates": [
+                  {
+                    "category": "timezone_naive",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-019",
+                "defects": [
+                  {
+                    "category": "timezone_naive",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-020",
+            "mode": "ungated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-020",
+                "file": "transfer.py",
+                "lines": [
+                  "def transfer(db, source, target, amount):",
+                  "    if source.balance < amount:",
+                  "        raise ValueError('insufficient funds')",
+                  "    source.balance -= amount",
+                  "    db.save(source)",
+                  "    target.balance += amount",
+                  "    db.save(target)",
+                  "    return True"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-020",
+                "candidates": [
+                  {
+                    "category": "non_atomic_transaction",
+                    "line": 5,
+                    "severity": "high",
+                    "rationale": "The two saves are not wrapped in a transaction, so a failure after debiting the source loses the funds without crediting the target."
+                  },
+                  {
+                    "category": "invalid_amount",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Negative or zero amounts are not rejected, allowing a negative transfer to drain the target account."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-020",
+                "defects": [
+                  {
+                    "category": "non_atomic_transaction",
+                    "line": 5,
+                    "severity": "high",
+                    "rationale": "The two saves are not wrapped in a transaction, so a failure after debiting the source loses the funds without crediting the target."
+                  },
+                  {
+                    "category": "invalid_amount",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Negative or zero amounts are not rejected, allowing a negative transfer to drain the target account."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          }
+        ]
+      },
+      "gated": {
+        "mean_score": 0.8785714285714286,
+        "items_where_gate_fired": 3,
+        "confident_wrong_after_gate_signal": 0,
+        "items_rescued": 3,
+        "items_explicitly_failed": 0,
+        "cost_usd": 0.0,
+        "mean_latency_ms": 0.0,
+        "records": [
+          {
+            "id": "item-001",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-001",
+                "file": "range_total.py",
+                "lines": [
+                  "def total_first_n(values, n):",
+                  "    total = 0",
+                  "    for i in range(n + 1):",
+                  "        total += values[i]",
+                  "    return total"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-001",
+                "candidates": [
+                  {
+                    "category": "off_by_one",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-001",
+                "defects": [
+                  {
+                    "category": "off_by_one",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "range(n+1) iterates n+1 elements, summing one extra value and raising IndexError when len(values)==n."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-002",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-002",
+                "file": "tags.py",
+                "lines": [
+                  "def add_tag(tag, tags=[]):",
+                  "    tags.append(tag)",
+                  "    return tags"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-002",
+                "candidates": [
+                  {
+                    "category": "mutable_default",
+                    "line": 1,
+                    "severity": "high",
+                    "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-002",
+                "defects": [
+                  {
+                    "category": "mutable_default",
+                    "line": 1,
+                    "severity": "high",
+                    "rationale": "The default list is shared across calls, so tags accumulate between invocations instead of starting empty."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-003",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-003",
+                "file": "config.py",
+                "lines": [
+                  "def load_config(path):",
+                  "    try:",
+                  "        with open(path) as handle:",
+                  "            return handle.read()",
+                  "    except Exception:",
+                  "        return '{}'"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-003",
+                "candidates": [
+                  {
+                    "category": "swallowed_exception",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-003",
+                "defects": [
+                  {
+                    "category": "swallowed_exception",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-004",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-004",
+                "file": "users.py",
+                "lines": [
+                  "def find_user(conn, name):",
+                  "    query = f\"SELECT * FROM users WHERE name = '{name}'\"",
+                  "    return conn.execute(query).fetchone()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-004",
+                "candidates": [
+                  {
+                    "category": "sql_injection",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for sql_injection."
+                  }
+                ],
+                "confidence": 0.9
+              },
+              "rank": {
+                "item_id": "item-004",
+                "defects": [
+                  {
+                    "category": "sql_injection",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for sql_injection."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "referential: candidate 0 line 99 does not exist"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": false,
+            "rescued": true,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-005",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-005",
+                "file": "files.py",
+                "lines": [
+                  "from pathlib import Path",
+                  "",
+                  "def read_upload(root, filename):",
+                  "    path = Path(root) / filename",
+                  "    return path.read_text()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-005",
+                "candidates": [
+                  {
+                    "category": "path_traversal",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-005",
+                "defects": [
+                  {
+                    "category": "path_traversal",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "filename is joined unvalidated, so '../../etc/passwd' or an absolute path escapes root and reads arbitrary files."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-006",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-006",
+                "file": "notify.py",
+                "lines": [
+                  "async def notify(client, user_id):",
+                  "    response = client.post('/notify', json={'user': user_id})",
+                  "    return response.status_code"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-006",
+                "candidates": [
+                  {
+                    "category": "missing_await",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+                  },
+                  {
+                    "category": "missing_timeout",
+                    "line": 2,
+                    "severity": "low",
+                    "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-006",
+                "defects": [
+                  {
+                    "category": "missing_await",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "The async client.post coroutine is never awaited, so response is a coroutine and accessing .status_code raises AttributeError (and the request may never be sent)."
+                  },
+                  {
+                    "category": "missing_timeout",
+                    "line": 2,
+                    "severity": "low",
+                    "rationale": "The HTTP POST has no timeout, so the call can hang indefinitely if the server never responds."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-007",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-007",
+                "file": "average.py",
+                "lines": [
+                  "def average(values):",
+                  "    return sum(values) / len(values)"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-007",
+                "candidates": [
+                  {
+                    "category": "division_by_zero",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for division_by_zero."
+                  }
+                ],
+                "confidence": 0.9
+              },
+              "rank": {
+                "item_id": "item-007",
+                "defects": [
+                  {
+                    "category": "division_by_zero",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for division_by_zero."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "enum: candidate 0 has unknown category arithmetic_problem"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": false,
+            "rescued": true,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-008",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-008",
+                "file": "profile.py",
+                "lines": [
+                  "def display_name(user):",
+                  "    return user.profile.name.strip()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-008",
+                "candidates": [
+                  {
+                    "category": "null_dereference",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Chained attribute access assumes user.profile and .name are non-None; a missing profile or name raises AttributeError."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-008",
+                "defects": [
+                  {
+                    "category": "null_dereference",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Chained attribute access assumes user.profile and .name are non-None; a missing profile or name raises AttributeError."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-009",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-009",
+                "file": "export.py",
+                "lines": [
+                  "def export_rows(path, rows):",
+                  "    handle = open(path, 'w')",
+                  "    for row in rows:",
+                  "        handle.write(','.join(row) + '\\n')",
+                  "    return len(rows)"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-009",
+                "candidates": [
+                  {
+                    "category": "resource_leak",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-009",
+                "defects": [
+                  {
+                    "category": "resource_leak",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "File handle is never closed (no with-statement or close), leaking the descriptor and risking unflushed/lost data if an exception occurs during writing."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-010",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-010",
+                "file": "tokens.py",
+                "lines": [
+                  "import random",
+                  "",
+                  "def reset_token():",
+                  "    return ''.join(str(random.randint(0, 9)) for _ in range(24))"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-010",
+                "candidates": [
+                  {
+                    "category": "insecure_random",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-010",
+                "defects": [
+                  {
+                    "category": "insecure_random",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Password/reset tokens are generated with the predictable random module instead of secrets, allowing attackers to guess tokens."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-011",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-011",
+                "file": "convert.py",
+                "lines": [
+                  "import os",
+                  "",
+                  "def convert(filename):",
+                  "    return os.system(f\"convert {filename} output.png\")"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-011",
+                "candidates": [
+                  {
+                    "category": "command_injection",
+                    "line": 4,
+                    "severity": "critical",
+                    "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-011",
+                "defects": [
+                  {
+                    "category": "command_injection",
+                    "line": 4,
+                    "severity": "critical",
+                    "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-012",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-012",
+                "file": "counter.py",
+                "lines": [
+                  "counter = 0",
+                  "",
+                  "def increment():",
+                  "    global counter",
+                  "    current = counter",
+                  "    counter = current + 1",
+                  "    return counter"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-012",
+                "candidates": [
+                  {
+                    "category": "race_condition",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-012",
+                "defects": [
+                  {
+                    "category": "race_condition",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The read-then-write of the global counter is not atomic, so concurrent threads can read the same value and lose increments."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-013",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-013",
+                "file": "access.py",
+                "lines": [
+                  "def can_edit(user_role):",
+                  "    if user_role is 'admin':",
+                  "        return True",
+                  "    return False"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-013",
+                "candidates": [
+                  {
+                    "category": "identity_comparison",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-013",
+                "defects": [
+                  {
+                    "category": "identity_comparison",
+                    "line": 2,
+                    "severity": "high",
+                    "rationale": "Using `is` to compare strings relies on interning; non-interned equal strings return False, wrongly denying admin access."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-014",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-014",
+                "file": "drain.py",
+                "lines": [
+                  "def drain(queue):",
+                  "    processed = []",
+                  "    while len(queue) >= 0:",
+                  "        processed.append(queue.pop(0))",
+                  "    return processed"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-014",
+                "candidates": [
+                  {
+                    "category": "infinite_loop",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for infinite_loop."
+                  }
+                ],
+                "confidence": 0.9
+              },
+              "rank": {
+                "item_id": "item-014",
+                "defects": [
+                  {
+                    "category": "infinite_loop",
+                    "line": 3,
+                    "severity": "high",
+                    "rationale": "Verified fallback finding for infinite_loop."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": false,
+                "violations": [
+                  "required: no candidate findings"
+                ],
+                "fallback": "escalate_expert"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": true,
+            "confident_wrong": false,
+            "rescued": true,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-015",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-015",
+                "file": "admin.py",
+                "lines": [
+                  "def admin_action(request):",
+                  "    token = request.headers.get('X-Admin-Token')",
+                  "    if token or token == expected_token():",
+                  "        return perform_admin_action()",
+                  "    raise PermissionError()"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-015",
+                "candidates": [
+                  {
+                    "category": "auth_bypass",
+                    "line": 3,
+                    "severity": "critical",
+                    "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-015",
+                "defects": [
+                  {
+                    "category": "auth_bypass",
+                    "line": 3,
+                    "severity": "critical",
+                    "rationale": "The `or` should be `and`; any non-empty token passes the check, allowing unauthenticated admin access."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-016",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-016",
+                "file": "lookup.py",
+                "lines": [
+                  "def find(items, target):",
+                  "    found = None",
+                  "    for item in items:",
+                  "        if item.id == target:",
+                  "            found = item",
+                  "        else:",
+                  "            found = None",
+                  "    return found"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-016",
+                "candidates": [
+                  {
+                    "category": "result_overwritten",
+                    "line": 7,
+                    "severity": "high",
+                    "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-016",
+                "defects": [
+                  {
+                    "category": "result_overwritten",
+                    "line": 7,
+                    "severity": "high",
+                    "rationale": "The else branch resets found to None, so a match is discarded unless it is the last item, returning None incorrectly."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-017",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-017",
+                "file": "download.py",
+                "lines": [
+                  "import requests",
+                  "",
+                  "def download(url, destination):",
+                  "    response = requests.get(url)",
+                  "    with open(destination, 'wb') as output:",
+                  "        output.write(response.content)",
+                  "    return destination"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-017",
+                "candidates": [
+                  {
+                    "category": "missing_timeout",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+                  },
+                  {
+                    "category": "ssrf",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+                  },
+                  {
+                    "category": "path_traversal",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-017",
+                "defects": [
+                  {
+                    "category": "missing_timeout",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "requests.get without a timeout can hang indefinitely if the server never responds."
+                  },
+                  {
+                    "category": "unchecked_status",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "The HTTP status code is never checked, so an error page body is written to disk as if it were the file."
+                  },
+                  {
+                    "category": "ssrf",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "A caller-supplied URL is fetched without validation, allowing requests to internal/metadata endpoints."
+                  },
+                  {
+                    "category": "path_traversal",
+                    "line": 5,
+                    "severity": "medium",
+                    "rationale": "The destination path is used unvalidated, allowing writes outside the intended directory and overwriting arbitrary files."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.5714285714285715,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-018",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-018",
+                "file": "cache.py",
+                "lines": [
+                  "cache = {}",
+                  "",
+                  "def price(product_id, currency, fetch):",
+                  "    if product_id in cache:",
+                  "        return cache[product_id]",
+                  "    value = fetch(product_id, currency)",
+                  "    cache[product_id] = value",
+                  "    return value"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-018",
+                "candidates": [
+                  {
+                    "category": "incorrect_cache_key",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-018",
+                "defects": [
+                  {
+                    "category": "incorrect_cache_key",
+                    "line": 4,
+                    "severity": "high",
+                    "rationale": "Cache key omits currency, so a price fetched in one currency is returned for requests in another currency."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": true,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 0.6666666666666666,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-019",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-019",
+                "file": "expiry.py",
+                "lines": [
+                  "from datetime import datetime",
+                  "",
+                  "def is_expired(expires_at):",
+                  "    now = datetime.now()",
+                  "    return now >= expires_at"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-019",
+                "candidates": [
+                  {
+                    "category": "timezone_naive",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-019",
+                "defects": [
+                  {
+                    "category": "timezone_naive",
+                    "line": 4,
+                    "severity": "medium",
+                    "rationale": "datetime.now() returns a naive local-time datetime, so comparing with a UTC or aware expires_at yields wrong results or raises TypeError."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          },
+          {
+            "id": "item-020",
+            "mode": "gated",
+            "stages": {
+              "normalize": {
+                "item_id": "item-020",
+                "file": "transfer.py",
+                "lines": [
+                  "def transfer(db, source, target, amount):",
+                  "    if source.balance < amount:",
+                  "        raise ValueError('insufficient funds')",
+                  "    source.balance -= amount",
+                  "    db.save(source)",
+                  "    target.balance += amount",
+                  "    db.save(target)",
+                  "    return True"
+                ]
+              },
+              "identify_candidates": {
+                "item_id": "item-020",
+                "candidates": [
+                  {
+                    "category": "non_atomic_transaction",
+                    "line": 5,
+                    "severity": "high",
+                    "rationale": "The two saves are not wrapped in a transaction, so a failure after debiting the source loses the funds without crediting the target."
+                  },
+                  {
+                    "category": "invalid_amount",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Negative or zero amounts are not rejected, allowing a negative transfer to drain the target account."
+                  }
+                ],
+                "confidence": 0.94
+              },
+              "rank": {
+                "item_id": "item-020",
+                "defects": [
+                  {
+                    "category": "non_atomic_transaction",
+                    "line": 5,
+                    "severity": "high",
+                    "rationale": "The two saves are not wrapped in a transaction, so a failure after debiting the source loses the funds without crediting the target."
+                  },
+                  {
+                    "category": "invalid_amount",
+                    "line": 2,
+                    "severity": "medium",
+                    "rationale": "Negative or zero amounts are not rejected, allowing a negative transfer to drain the target account."
+                  }
+                ],
+                "confident": true
+              }
+            },
+            "gates": [
+              {
+                "gate": "source_to_candidates",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "candidates_to_rank",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              },
+              {
+                "gate": "rank_to_output",
+                "passed": true,
+                "violations": [],
+                "fallback": "none"
+              }
+            ],
+            "gate_would_fire": false,
+            "confident_wrong": false,
+            "rescued": false,
+            "explicitly_failed": false,
+            "score": 1.0,
+            "cost_usd": 0.0
+          }
+        ]
+      }
+    }
+  },
+  "router": {
+    "method": "deterministic router over frozen paid route outputs; no new calls",
+    "global_threshold": 0.8,
+    "per_route_thresholds": {
+      "simple": 0.8,
+      "standard": 0.85,
+      "complex": 0.9
+    },
+    "asymmetry": "Under-routing security or multi-defect items is costlier than over-routing, so standard and complex require higher confidence.",
+    "calibration_first_10": {
+      "0.5-0.7": {
+        "n": 0,
+        "actual_accuracy": null
+      },
+      "0.7-0.8": {
+        "n": 0,
+        "actual_accuracy": null
+      },
+      "0.8-0.9": {
+        "n": 6,
+        "actual_accuracy": 0
+      },
+      "0.9-1.0": {
+        "n": 4,
+        "actual_accuracy": 0.75
+      }
+    },
+    "routing_errors": {
+      "over-routing": 15,
+      "under-routing": 1
+    },
+    "comparison": {
+      "all_cheapest": {
+        "mean_score": 0.8785714285714286,
+        "cost_usd": 0.14406000000000002,
+        "mean_latency_seconds": 2.778392429093947
+      },
+      "all_expensive": {
+        "mean_score": 0.8435714285714285,
+        "cost_usd": 1.273165,
+        "mean_latency_seconds": 24.407531775152894
+      },
+      "routed": {
+        "mean_score": 0.8685714285714285,
+        "cost_usd": 0.774885,
+        "mean_latency_seconds": 13.636964823000017
+      }
+    },
+    "records": [
+      {
+        "id": "item-001",
+        "route": "simple",
+        "confidence": 0.92,
+        "rationale": "Single local defect matches the direct route.",
+        "destination": "simple",
+        "correct_cheapest_route": "simple",
+        "routing_correct": true,
+        "error_type": null,
+        "score": 1.0,
+        "cost_usd": 0.00662,
+        "latency_seconds": 3.387493791989982
+      },
+      {
+        "id": "item-002",
+        "route": "simple",
+        "confidence": 0.92,
+        "rationale": "Single local defect matches the direct route.",
+        "destination": "simple",
+        "correct_cheapest_route": "simple",
+        "routing_correct": true,
+        "error_type": null,
+        "score": 1.0,
+        "cost_usd": 0.00636,
+        "latency_seconds": 2.2258317089872435
+      },
+      {
+        "id": "item-003",
+        "route": "simple",
+        "confidence": 0.92,
+        "rationale": "Single local defect matches the direct route.",
+        "destination": "simple",
+        "correct_cheapest_route": "simple",
+        "routing_correct": true,
+        "error_type": null,
+        "score": 1.0,
+        "cost_usd": 0.0071,
+        "latency_seconds": 3.0866219580057077
+      },
+      {
+        "id": "item-004",
+        "route": "standard",
+        "confidence": 0.88,
+        "rationale": "Security-sensitive defect merits gated review.",
+        "destination": "standard",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.01736,
+        "latency_seconds": 0.0
+      },
+      {
+        "id": "item-005",
+        "route": "standard",
+        "confidence": 0.88,
+        "rationale": "Security-sensitive defect merits gated review.",
+        "destination": "standard",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.01721,
+        "latency_seconds": 0.0
+      },
+      {
+        "id": "item-006",
+        "route": "simple",
+        "confidence": 0.92,
+        "rationale": "Single local defect matches the direct route.",
+        "destination": "simple",
+        "correct_cheapest_route": "standard",
+        "routing_correct": false,
+        "error_type": "under-routing",
+        "score": 0.6666666666666666,
+        "cost_usd": 0.008385,
+        "latency_seconds": 3.4087509579840116
+      },
+      {
+        "id": "item-007",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.04809000000000001,
+        "latency_seconds": 17.6842065420351
+      },
+      {
+        "id": "item-008",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.054275000000000004,
+        "latency_seconds": 17.73788508400321
+      },
+      {
+        "id": "item-009",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.09424,
+        "latency_seconds": 35.07113749999553
+      },
+      {
+        "id": "item-010",
+        "route": "standard",
+        "confidence": 0.88,
+        "rationale": "Security-sensitive defect merits gated review.",
+        "destination": "standard",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.017259999999999998,
+        "latency_seconds": 0.0
+      },
+      {
+        "id": "item-011",
+        "route": "standard",
+        "confidence": 0.88,
+        "rationale": "Security-sensitive defect merits gated review.",
+        "destination": "standard",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 0.6666666666666666,
+        "cost_usd": 0.018840000000000003,
+        "latency_seconds": 0.0
+      },
+      {
+        "id": "item-012",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "standard",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 0.0,
+        "cost_usd": 0.033955,
+        "latency_seconds": 14.161898709018715
+      },
+      {
+        "id": "item-013",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.055545,
+        "latency_seconds": 23.68627991597168
+      },
+      {
+        "id": "item-014",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 0.6666666666666666,
+        "cost_usd": 0.09851499999999999,
+        "latency_seconds": 40.06792691699229
+      },
+      {
+        "id": "item-015",
+        "route": "standard",
+        "confidence": 0.88,
+        "rationale": "Security-sensitive defect merits gated review.",
+        "destination": "standard",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.01703,
+        "latency_seconds": 0.0
+      },
+      {
+        "id": "item-016",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.041690000000000005,
+        "latency_seconds": 18.07378775003599
+      },
+      {
+        "id": "item-017",
+        "route": "complex",
+        "confidence": 0.93,
+        "rationale": "Multiple interacting defects require planning.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 0.5714285714285715,
+        "cost_usd": 0.046744999999999995,
+        "latency_seconds": 19.78483141696779
+      },
+      {
+        "id": "item-018",
+        "route": "complex",
+        "confidence": 0.93,
+        "rationale": "Multiple interacting defects require planning.",
+        "destination": "complex",
+        "correct_cheapest_route": "complex",
+        "routing_correct": true,
+        "error_type": null,
+        "score": 1.0,
+        "cost_usd": 0.071595,
+        "latency_seconds": 30.082358499988914
+      },
+      {
+        "id": "item-019",
+        "route": "other",
+        "confidence": 0.81,
+        "rationale": "Non-local or boundary behavior merits reflection. Below route threshold.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 1.0,
+        "cost_usd": 0.040375,
+        "latency_seconds": 16.110162125027273
+      },
+      {
+        "id": "item-020",
+        "route": "complex",
+        "confidence": 0.93,
+        "rationale": "Multiple interacting defects require planning.",
+        "destination": "complex",
+        "correct_cheapest_route": "simple",
+        "routing_correct": false,
+        "error_type": "over-routing",
+        "score": 0.8,
+        "cost_usd": 0.073695,
+        "latency_seconds": 28.170123582996894
+      }
+    ]
+  },
+  "orchestrator": {
+    "method": "frozen panel replay plus deterministic context-budget simulation",
+    "seed": "SENTINEL-ZEBRA-7319",
+    "dynamic_worker_plans": {
+      "item-001": [
+        "correctness"
+      ],
+      "item-002": [
+        "correctness"
+      ],
+      "item-003": [
+        "correctness"
+      ],
+      "item-004": [
+        "correctness",
+        "security"
+      ],
+      "item-005": [
+        "correctness",
+        "security"
+      ],
+      "item-006": [
+        "correctness"
+      ],
+      "item-007": [
+        "correctness",
+        "robustness"
+      ],
+      "item-008": [
+        "correctness",
+        "robustness"
+      ],
+      "item-009": [
+        "correctness",
+        "robustness"
+      ],
+      "item-010": [
+        "correctness",
+        "security",
+        "robustness"
+      ],
+      "item-011": [
+        "correctness",
+        "security",
+        "robustness"
+      ],
+      "item-012": [
+        "correctness",
+        "robustness"
+      ],
+      "item-013": [
+        "correctness",
+        "robustness"
+      ],
+      "item-014": [
+        "correctness",
+        "robustness"
+      ],
+      "item-015": [
+        "correctness",
+        "security",
+        "robustness"
+      ],
+      "item-016": [
+        "correctness",
+        "robustness"
+      ],
+      "item-017": [
+        "correctness",
+        "security",
+        "robustness",
+        "interaction-analysis"
+      ],
+      "item-018": [
+        "correctness",
+        "robustness",
+        "interaction-analysis"
+      ],
+      "item-019": [
+        "correctness",
+        "robustness"
+      ],
+      "item-020": [
+        "correctness",
+        "robustness",
+        "interaction-analysis"
+      ]
+    },
+    "sectioning": {
+      "sequential": {
+        "mean_latency": 17.326739221656073,
+        "p95_latency": 19.37262279103743,
+        "tokens": 7955,
+        "mean_score": 1.0
+      },
+      "sectioned": {
+        "mean_latency": 6.619314429990482,
+        "p95_latency": 7.584075082966592,
+        "tokens": 7955,
+        "mean_score": 1.0
+      }
+    },
+    "voting": {
+      "method": "deterministic voter fixtures over the 10 medium/hard frozen items",
+      "configurations": {
+        "repeat": {
+          "mean_score": 0.7904761904761904,
+          "mean_pairwise_agreement": 1.0,
+          "mean_unique_contribution": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tokens": 31959,
+          "score_improvement_over_n1": 0.0
+        },
+        "rubrics": {
+          "mean_score": 1.0,
+          "mean_pairwise_agreement": 0.26666666666666666,
+          "mean_unique_contribution": [
+            0.45,
+            0.23333333333333334,
+            0.31666666666666665
+          ],
+          "tokens": 31959,
+          "score_improvement_over_n1": 0.5333333333333333
+        },
+        "evidence": {
+          "mean_score": 1.0,
+          "mean_pairwise_agreement": 0.2333333333333333,
+          "mean_unique_contribution": [
+            0.8333333333333334,
+            0.13333333333333333,
+            0.03333333333333333
+          ],
+          "tokens": 31959,
+          "score_improvement_over_n1": 0.11666666666666667
+        }
+      },
+      "aggregation_rules": {
+        "majority": {
+          "mean_score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "union": {
+          "mean_score": 1.0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "intersection": {
+          "mean_score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "best_by_score": {
+          "mean_score": 0.9466666666666667,
+          "precision": 1.0,
+          "recall": 0.9166666666666666
+        }
+      }
+    },
+    "scaling": [
+      {
+        "team_size": 3,
+        "mode": "artifact",
+        "orchestrator_input_tokens": 202,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 3,
+        "mode": "transcript",
+        "orchestrator_input_tokens": 2308,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 5,
+        "mode": "artifact",
+        "orchestrator_input_tokens": 328,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 5,
+        "mode": "transcript",
+        "orchestrator_input_tokens": 3841,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 10,
+        "mode": "artifact",
+        "orchestrator_input_tokens": 646,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 10,
+        "mode": "transcript",
+        "orchestrator_input_tokens": 7672,
+        "synthesis_score": 0.9,
+        "context_errors": 0,
+        "compaction_triggered": true,
+        "seed_survived": false
+      },
+      {
+        "team_size": 20,
+        "mode": "artifact",
+        "orchestrator_input_tokens": 1291,
+        "synthesis_score": 1.0,
+        "context_errors": 0,
+        "compaction_triggered": false,
+        "seed_survived": true
+      },
+      {
+        "team_size": 20,
+        "mode": "transcript",
+        "orchestrator_input_tokens": 15337,
+        "synthesis_score": 0.9,
+        "context_errors": 0,
+        "compaction_triggered": true,
+        "seed_survived": false
+      }
+    ],
+    "token_slope_ratio_transcript_to_artifact": 11.96418732782369,
+    "silent_omission_survival": [
+      {
+        "team_size": 3,
+        "mode": "artifact",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 3,
+        "mode": "transcript",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 5,
+        "mode": "artifact",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 5,
+        "mode": "transcript",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 10,
+        "mode": "artifact",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 10,
+        "mode": "transcript",
+        "runs": 3,
+        "survival_rate": 0
+      },
+      {
+        "team_size": 20,
+        "mode": "artifact",
+        "runs": 3,
+        "survival_rate": 1
+      },
+      {
+        "team_size": 20,
+        "mode": "transcript",
+        "runs": 3,
+        "survival_rate": 0
+      }
+    ],
+    "fixes_at_20": [
+      {
+        "method": "hierarchical",
+        "team_size": 20,
+        "input_tokens": 217,
+        "seed_survived": true
+      },
+      {
+        "method": "shared_store",
+        "team_size": 20,
+        "input_tokens": 76,
+        "seed_survived": true
+      }
+    ]
+  },
+  "new_api_cost_usd": 0.0
+}

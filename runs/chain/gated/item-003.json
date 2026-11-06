@@ -1,0 +1,68 @@
+{
+  "id": "item-003",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-003",
+      "file": "config.py",
+      "lines": [
+        "def load_config(path):",
+        "    try:",
+        "        with open(path) as handle:",
+        "            return handle.read()",
+        "    except Exception:",
+        "        return '{}'"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-003",
+      "candidates": [
+        {
+          "category": "swallowed_exception",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-003",
+      "defects": [
+        {
+          "category": "swallowed_exception",
+          "line": 5,
+          "severity": "medium",
+          "rationale": "All exceptions (missing file, permission errors, decode errors) are silently caught and replaced with an empty config, hiding real failures and silently applying wrong defaults."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": false,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 1.0,
+  "cost_usd": 0.0
+}

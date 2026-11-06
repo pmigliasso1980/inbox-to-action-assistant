@@ -1,0 +1,302 @@
+{
+  "method": "frozen panel replay plus deterministic context-budget simulation",
+  "seed": "SENTINEL-ZEBRA-7319",
+  "dynamic_worker_plans": {
+    "item-001": [
+      "correctness"
+    ],
+    "item-002": [
+      "correctness"
+    ],
+    "item-003": [
+      "correctness"
+    ],
+    "item-004": [
+      "correctness",
+      "security"
+    ],
+    "item-005": [
+      "correctness",
+      "security"
+    ],
+    "item-006": [
+      "correctness"
+    ],
+    "item-007": [
+      "correctness",
+      "robustness"
+    ],
+    "item-008": [
+      "correctness",
+      "robustness"
+    ],
+    "item-009": [
+      "correctness",
+      "robustness"
+    ],
+    "item-010": [
+      "correctness",
+      "security",
+      "robustness"
+    ],
+    "item-011": [
+      "correctness",
+      "security",
+      "robustness"
+    ],
+    "item-012": [
+      "correctness",
+      "robustness"
+    ],
+    "item-013": [
+      "correctness",
+      "robustness"
+    ],
+    "item-014": [
+      "correctness",
+      "robustness"
+    ],
+    "item-015": [
+      "correctness",
+      "security",
+      "robustness"
+    ],
+    "item-016": [
+      "correctness",
+      "robustness"
+    ],
+    "item-017": [
+      "correctness",
+      "security",
+      "robustness",
+      "interaction-analysis"
+    ],
+    "item-018": [
+      "correctness",
+      "robustness",
+      "interaction-analysis"
+    ],
+    "item-019": [
+      "correctness",
+      "robustness"
+    ],
+    "item-020": [
+      "correctness",
+      "robustness",
+      "interaction-analysis"
+    ]
+  },
+  "sectioning": {
+    "sequential": {
+      "mean_latency": 17.326739221656073,
+      "p95_latency": 19.37262279103743,
+      "tokens": 7955,
+      "mean_score": 1.0
+    },
+    "sectioned": {
+      "mean_latency": 6.619314429990482,
+      "p95_latency": 7.584075082966592,
+      "tokens": 7955,
+      "mean_score": 1.0
+    }
+  },
+  "voting": {
+    "method": "deterministic voter fixtures over the 10 medium/hard frozen items",
+    "configurations": {
+      "repeat": {
+        "mean_score": 0.7904761904761904,
+        "mean_pairwise_agreement": 1.0,
+        "mean_unique_contribution": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tokens": 31959,
+        "score_improvement_over_n1": 0.0
+      },
+      "rubrics": {
+        "mean_score": 1.0,
+        "mean_pairwise_agreement": 0.26666666666666666,
+        "mean_unique_contribution": [
+          0.45,
+          0.23333333333333334,
+          0.31666666666666665
+        ],
+        "tokens": 31959,
+        "score_improvement_over_n1": 0.5333333333333333
+      },
+      "evidence": {
+        "mean_score": 1.0,
+        "mean_pairwise_agreement": 0.2333333333333333,
+        "mean_unique_contribution": [
+          0.8333333333333334,
+          0.13333333333333333,
+          0.03333333333333333
+        ],
+        "tokens": 31959,
+        "score_improvement_over_n1": 0.11666666666666667
+      }
+    },
+    "aggregation_rules": {
+      "majority": {
+        "mean_score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "union": {
+        "mean_score": 1.0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "intersection": {
+        "mean_score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "best_by_score": {
+        "mean_score": 0.9466666666666667,
+        "precision": 1.0,
+        "recall": 0.9166666666666666
+      }
+    }
+  },
+  "scaling": [
+    {
+      "team_size": 3,
+      "mode": "artifact",
+      "orchestrator_input_tokens": 202,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 3,
+      "mode": "transcript",
+      "orchestrator_input_tokens": 2308,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 5,
+      "mode": "artifact",
+      "orchestrator_input_tokens": 328,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 5,
+      "mode": "transcript",
+      "orchestrator_input_tokens": 3841,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 10,
+      "mode": "artifact",
+      "orchestrator_input_tokens": 646,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 10,
+      "mode": "transcript",
+      "orchestrator_input_tokens": 7672,
+      "synthesis_score": 0.9,
+      "context_errors": 0,
+      "compaction_triggered": true,
+      "seed_survived": false
+    },
+    {
+      "team_size": 20,
+      "mode": "artifact",
+      "orchestrator_input_tokens": 1291,
+      "synthesis_score": 1.0,
+      "context_errors": 0,
+      "compaction_triggered": false,
+      "seed_survived": true
+    },
+    {
+      "team_size": 20,
+      "mode": "transcript",
+      "orchestrator_input_tokens": 15337,
+      "synthesis_score": 0.9,
+      "context_errors": 0,
+      "compaction_triggered": true,
+      "seed_survived": false
+    }
+  ],
+  "token_slope_ratio_transcript_to_artifact": 11.96418732782369,
+  "silent_omission_survival": [
+    {
+      "team_size": 3,
+      "mode": "artifact",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 3,
+      "mode": "transcript",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 5,
+      "mode": "artifact",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 5,
+      "mode": "transcript",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 10,
+      "mode": "artifact",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 10,
+      "mode": "transcript",
+      "runs": 3,
+      "survival_rate": 0
+    },
+    {
+      "team_size": 20,
+      "mode": "artifact",
+      "runs": 3,
+      "survival_rate": 1
+    },
+    {
+      "team_size": 20,
+      "mode": "transcript",
+      "runs": 3,
+      "survival_rate": 0
+    }
+  ],
+  "fixes_at_20": [
+    {
+      "method": "hierarchical",
+      "team_size": 20,
+      "input_tokens": 217,
+      "seed_survived": true
+    },
+    {
+      "method": "shared_store",
+      "team_size": 20,
+      "input_tokens": 76,
+      "seed_survived": true
+    }
+  ]
+}

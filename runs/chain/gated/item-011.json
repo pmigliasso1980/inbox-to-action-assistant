@@ -1,0 +1,78 @@
+{
+  "id": "item-011",
+  "mode": "gated",
+  "stages": {
+    "normalize": {
+      "item_id": "item-011",
+      "file": "convert.py",
+      "lines": [
+        "import os",
+        "",
+        "def convert(filename):",
+        "    return os.system(f\"convert {filename} output.png\")"
+      ]
+    },
+    "identify_candidates": {
+      "item_id": "item-011",
+      "candidates": [
+        {
+          "category": "command_injection",
+          "line": 4,
+          "severity": "critical",
+          "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+        },
+        {
+          "category": "unchecked_status",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+        }
+      ],
+      "confidence": 0.94
+    },
+    "rank": {
+      "item_id": "item-011",
+      "defects": [
+        {
+          "category": "command_injection",
+          "line": 4,
+          "severity": "critical",
+          "rationale": "filename is interpolated into a shell command, so a crafted name like 'a; rm -rf /' executes arbitrary commands."
+        },
+        {
+          "category": "unchecked_status",
+          "line": 4,
+          "severity": "medium",
+          "rationale": "os.system's exit status is returned but never checked, so conversion failures go undetected by callers treating it as success."
+        }
+      ],
+      "confident": true
+    }
+  },
+  "gates": [
+    {
+      "gate": "source_to_candidates",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "candidates_to_rank",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    },
+    {
+      "gate": "rank_to_output",
+      "passed": true,
+      "violations": [],
+      "fallback": "none"
+    }
+  ],
+  "gate_would_fire": false,
+  "confident_wrong": true,
+  "rescued": false,
+  "explicitly_failed": false,
+  "score": 0.6666666666666666,
+  "cost_usd": 0.0
+}
