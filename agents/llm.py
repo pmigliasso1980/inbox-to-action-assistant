@@ -14,6 +14,8 @@ from pydantic import BaseModel
 MODEL = os.getenv("ANTHROPIC_MODEL", "claude-opus-5")
 INPUT_PRICE_PER_M = 5.00
 OUTPUT_PRICE_PER_M = 25.00
+CACHE_READ_PRICE_PER_M = INPUT_PRICE_PER_M * 0.10
+CACHE_WRITE_PRICE_PER_M = INPUT_PRICE_PER_M * 1.25
 T = TypeVar("T", bound=BaseModel)
 
 
@@ -26,8 +28,10 @@ class Usage:
 
     @property
     def cost_usd(self) -> float:
-        # These labs do not enable prompt caching, so all input uses the listed rate.
-        return (self.input_tokens * INPUT_PRICE_PER_M + self.output_tokens * OUTPUT_PRICE_PER_M) / 1_000_000
+        return (self.input_tokens * INPUT_PRICE_PER_M
+                + self.cached_input_tokens * CACHE_READ_PRICE_PER_M
+                + self.cache_write_tokens * CACHE_WRITE_PRICE_PER_M
+                + self.output_tokens * OUTPUT_PRICE_PER_M) / 1_000_000
 
 
 class UsageLedger:
@@ -75,9 +79,11 @@ def count_tokens(prompt: str) -> int:
 
 
 def call(prompt: str, *, max_tokens: int = 1000, effort: str = "high", system: str | None = None) -> tuple[str, Usage]:
+    system_content = ([{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+                      if system else anthropic.NOT_GIVEN)
     message = _client().messages.create(
         model=MODEL, max_tokens=max_tokens, output_config={"effort": effort},
-        system=system or anthropic.NOT_GIVEN, messages=[{"role": "user", "content": prompt}],
+        system=system_content, messages=[{"role": "user", "content": prompt}],
     )
     text = next(block.text for block in message.content if block.type == "text")
     return text, _usage(message)
@@ -85,9 +91,11 @@ def call(prompt: str, *, max_tokens: int = 1000, effort: str = "high", system: s
 
 def call_json(prompt: str, schema: type[T], *, max_tokens: int = 1000,
               effort: str = "high", system: str | None = None) -> tuple[T, Usage]:
+    system_content = ([{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+                      if system else anthropic.NOT_GIVEN)
     message = _client().messages.parse(
         model=MODEL, max_tokens=max_tokens, output_config={"effort": effort}, output_format=schema,
-        system=system or anthropic.NOT_GIVEN, messages=[{"role": "user", "content": prompt}],
+        system=system_content, messages=[{"role": "user", "content": prompt}],
     )
     if message.parsed_output is None:
         raise ValueError("Model returned no parsed structured output")

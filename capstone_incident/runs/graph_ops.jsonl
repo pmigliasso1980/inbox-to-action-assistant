@@ -1,0 +1,40 @@
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_86df29c6e0d81fa2a8b7", "source-incident-001", "checkout:database_pool_exhaustion"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_fcbd5f18241aeba7edd0", "source-incident-002", "catalog:stale_cache"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_a175c0364e5977e1bdf7", "source-incident-003", "notifications:queue_backlog"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_38b13cdaf9690e60db1c", "source-incident-004", "identity:expired_certificate"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_e10ea322dac69ff22f3e", "source-incident-005", "search:dependency_timeout"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_e65bc72a4494f72d9674", "source-incident-006", "gateway:rate_limit_misconfiguration"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_f0152de5b5e5edec502a", "source-incident-007", "billing:duplicate_delivery"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_6cfa389050d32c74219c", "source-incident-008", "profile:schema_mismatch"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_382f09156967af2a6f2d", "source-incident-009", "analytics:partition_skew"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": false, "edge_type": "mentions", "ids": [], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-1"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_cf00c0fa1cf8561f5a7c", "source-incident-010", "inventory:lock_contention"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-1"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_86df29c6e0d81fa2a8b7"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_2db1ea1316b7da25bbab", "source-incident-011", "checkout:database_pool_exhaustion"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_fcbd5f18241aeba7edd0"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_7d2b52d2f8c4d3fc31e6", "source-incident-012", "catalog:stale_cache"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_a175c0364e5977e1bdf7"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_7b90ed2636c2357d435a", "source-incident-013", "notifications:queue_backlog"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_38b13cdaf9690e60db1c"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_2f6e03f424782053bf05", "source-incident-014", "identity:expired_certificate"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_e10ea322dac69ff22f3e"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_498172eb88d342e09c9e", "source-incident-015", "search:dependency_timeout"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_e65bc72a4494f72d9674"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_eaf1fc7b348ba0babd35", "source-incident-016", "gateway:rate_limit_misconfiguration"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_f0152de5b5e5edec502a"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_1b6493993d1e535546a9", "source-incident-017", "billing:duplicate_delivery"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_6cfa389050d32c74219c"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_f5c5457dc52add7652ca", "source-incident-018", "profile:schema_mismatch"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_382f09156967af2a6f2d"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_26ee57411dbff983b59b", "source-incident-019", "analytics:partition_skew"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}
+{"cross_session": true, "edge_type": "mentions", "ids": ["clm_cf00c0fa1cf8561f5a7c"], "node_type": "Claim", "operation": "read", "role": "historian", "session": "session-2"}
+{"cross_session": false, "edge_type": "supports", "ids": ["clm_a0e7a8a81949ca65fb1a", "source-incident-020", "inventory:lock_contention"], "node_type": "Claim", "operation": "write", "role": "extractor", "session": "session-2"}

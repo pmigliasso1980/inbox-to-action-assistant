@@ -1,0 +1,160 @@
+{
+  "by_component": {
+    "baseline": {
+      "calls": 40,
+      "mean_input_tokens": 950.6,
+      "mean_output_tokens": 98.525,
+      "mean_cached_tokens": 0,
+      "cache_effectiveness": 0.0,
+      "mean_latency_ms": 3176.213785422442,
+      "mean_cost_usd": 0.007216125
+    },
+    "tools": {
+      "calls": 40,
+      "mean_input_tokens": 2788.925,
+      "mean_output_tokens": 111.3,
+      "mean_cached_tokens": 0,
+      "cache_effectiveness": 0.0,
+      "mean_latency_ms": 2824.0430968769942,
+      "mean_cost_usd": 0.016727125
+    },
+    "reflection": {
+      "calls": 40,
+      "mean_input_tokens": 1446.2,
+      "mean_output_tokens": 62.15,
+      "mean_cached_tokens": 0,
+      "cache_effectiveness": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_cost_usd": 0.0087945
+    },
+    "planner": {
+      "calls": 84,
+      "mean_input_tokens": 1494.392857142857,
+      "mean_output_tokens": 306.9166666666667,
+      "mean_cached_tokens": 571.5714285714286,
+      "cache_effectiveness": 0.27666084671633795,
+      "mean_latency_ms": 5811.317089322118,
+      "mean_cost_usd": 0.015156726190476191
+    },
+    "critic": {
+      "calls": 27,
+      "mean_input_tokens": 616.8888888888889,
+      "mean_output_tokens": 219.7037037037037,
+      "mean_cached_tokens": 2234.222222222222,
+      "cache_effectiveness": 0.7836321122369446,
+      "mean_latency_ms": 1925.193246850675,
+      "mean_cost_usd": 0.008582592592592591
+    }
+  },
+  "per_component_item": {
+    "baseline": {
+      "mean_cost_usd": 0.007216125,
+      "p95_cost_usd": 0.01105,
+      "mean_latency_ms": 3176.213785422442,
+      "p95_latency_ms": 6248.30308300443
+    },
+    "tools": {
+      "mean_cost_usd": 0.033454250000000005,
+      "p95_cost_usd": 0.03721,
+      "mean_latency_ms": 5648.0861937539885,
+      "p95_latency_ms": 14285.410458978731
+    },
+    "reflection": {
+      "mean_cost_usd": 0.017589,
+      "p95_cost_usd": 0.0219,
+      "mean_latency_ms": 0.0,
+      "p95_latency_ms": 0.0
+    },
+    "planner": {
+      "mean_cost_usd": 0.06365825,
+      "p95_cost_usd": 0.11627499999999999,
+      "mean_latency_ms": 24407.531775152893,
+      "p95_latency_ms": 40763.22158396942
+    },
+    "critic": {
+      "mean_cost_usd": 0.038621666666666665,
+      "p95_cost_usd": 0.06238499999999999,
+      "mean_latency_ms": 8663.369610828036,
+      "p95_latency_ms": 19372.62279103743
+    }
+  },
+  "per_item": {
+    "mean_cost_usd": 0.026550990566037738,
+    "p95_cost_usd": 0.073695,
+    "mean_latency_ms": 7359.821966603807,
+    "p95_latency_ms": 29868.19499998819
+  },
+  "marginal_costs": {
+    "reflection_iteration": 0.0087945,
+    "plan_step": 0.013838749999999999,
+    "critic_role": 0.007907777777777777,
+    "graph_read": 0.0,
+    "orchestrator_worker": 0.0
+  },
+  "cost_per_point": [
+    {
+      "stage": "Reflection (M2)",
+      "delta_score": 0.06666666666666676,
+      "delta_cost_per_item": 0.010385999999999996,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 within noise"
+    },
+    {
+      "stage": "Tool use (M3)",
+      "delta_score": -0.061904761904761796,
+      "delta_cost_per_item": 0.015865250000000008,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 within noise"
+    },
+    {
+      "stage": "Planning (M4)",
+      "delta_score": -0.03976190476190489,
+      "delta_cost_per_item": 0.030203999999999995,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 within noise"
+    },
+    {
+      "stage": "Generator\u2013critic (M5)",
+      "delta_score": 0.15642857142857147,
+      "delta_cost_per_item": -0.010138250000000008,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 non-comparable scope"
+    },
+    {
+      "stage": "Review panel (M5)",
+      "delta_score": 0.0,
+      "delta_cost_per_item": -0.019094999999999987,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 non-comparable scope"
+    },
+    {
+      "stage": "Gated chain (M6)",
+      "delta_score": -0.12142857142857144,
+      "delta_cost_per_item": -0.034425000000000004,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 non-comparable scope"
+    },
+    {
+      "stage": "Routed (M6)",
+      "delta_score": -0.010000000000000009,
+      "delta_cost_per_item": 0.03874425,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 non-comparable scope"
+    },
+    {
+      "stage": "Orchestrator (M6)",
+      "delta_score": 0.13142857142857145,
+      "delta_cost_per_item": -0.004319249999999997,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 non-comparable scope"
+    },
+    {
+      "stage": "Graph (M9)",
+      "delta_score": 0.060714285714285776,
+      "delta_cost_per_item": 0.0,
+      "cost_per_point": null,
+      "verdict": "undefined \u2014 within noise"
+    }
+  ],
+  "noise_floor": 0.06666666666666676
+}

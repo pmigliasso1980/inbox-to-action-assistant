@@ -1,0 +1,538 @@
+{
+  "summary": {
+    "stage": "graph",
+    "variant": 1,
+    "items": 20,
+    "mean_score": 0.95,
+    "p50_latency_ms": 0.2167504862882197,
+    "p95_latency_ms": 1.0195830254815519,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_usd": 0.0,
+    "mean_first_encounter": 1.0,
+    "mean_repeat_pattern": 0.9,
+    "label": "graph"
+  },
+  "records": [
+    {
+      "id": "incident-001",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "database_pool_exhaustion",
+        "severity": "SEV-1",
+        "remediation": "Cap pool usage and add backpressure",
+        "owner": "Payments",
+        "recurrence_key": null,
+        "evidence": [
+          "Connections hit the configured pool ceiling and requests waited until timeout."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 1.0195830254815519
+    },
+    {
+      "id": "incident-002",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "stale_cache",
+        "severity": "SEV-2",
+        "remediation": "Version cache keys and add invalidation checks",
+        "owner": "Catalog",
+        "recurrence_key": null,
+        "evidence": [
+          "A stale cache entry survived deployment and served the previous catalog version."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.31150004360824823
+    },
+    {
+      "id": "incident-003",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "queue_backlog",
+        "severity": "SEV-2",
+        "remediation": "Add queue autoscaling and age alarms",
+        "owner": "Messaging",
+        "recurrence_key": null,
+        "evidence": [
+          "Consumer throughput fell below ingress and queue age climbed for 18 minutes."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.28216600185260177
+    },
+    {
+      "id": "incident-004",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "expired_certificate",
+        "severity": "SEV-1",
+        "remediation": "Automate certificate renewal and expiry alerts",
+        "owner": "Identity",
+        "recurrence_key": null,
+        "evidence": [
+          "The upstream TLS certificate expired and the renewal job had not run."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.20241696620360017
+    },
+    {
+      "id": "incident-005",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "dependency_timeout",
+        "severity": "SEV-2",
+        "remediation": "Add bounded retries and dependency timeouts",
+        "owner": "Discovery",
+        "recurrence_key": null,
+        "evidence": [
+          "The ranking dependency exceeded its timeout while retries amplified traffic."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.189665996003896
+    },
+    {
+      "id": "incident-006",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "rate_limit_misconfiguration",
+        "severity": "SEV-1",
+        "remediation": "Validate rate-limit policy before rollout",
+        "owner": "Platform",
+        "recurrence_key": null,
+        "evidence": [
+          "A rate limit policy misconfiguration rejected healthy gateway traffic."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.1865839585661888
+    },
+    {
+      "id": "incident-007",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "duplicate_delivery",
+        "severity": "SEV-1",
+        "remediation": "Add idempotency keys to invoice delivery",
+        "owner": "Finance Systems",
+        "recurrence_key": null,
+        "evidence": [
+          "At-least-once delivery produced duplicate invoices without idempotency keys."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.18999999156221747
+    },
+    {
+      "id": "incident-008",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "schema_mismatch",
+        "severity": "SEV-2",
+        "remediation": "Add consumer-driven schema compatibility checks",
+        "owner": "Accounts",
+        "recurrence_key": null,
+        "evidence": [
+          "A schema mismatch caused the profile consumer to reject new events."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.20208401838317513
+    },
+    {
+      "id": "incident-009",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "partition_skew",
+        "severity": "SEV-2",
+        "remediation": "Repartition hot keys and alert on skew",
+        "owner": "Data Platform",
+        "recurrence_key": null,
+        "evidence": [
+          "A hot tenant caused partition skew and delayed the analytics pipeline."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.20074995700269938
+    },
+    {
+      "id": "incident-010",
+      "partition": "first-encounter",
+      "output": {
+        "primary_cause": "lock_contention",
+        "severity": "SEV-2",
+        "remediation": "Reduce lock scope and cap transaction duration",
+        "owner": "Fulfillment",
+        "recurrence_key": null,
+        "evidence": [
+          "Long transactions caused lock contention in the inventory reservation table."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.19933399744331837
+    },
+    {
+      "id": "incident-011",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "database_pool_exhaustion",
+        "severity": "SEV-1",
+        "remediation": "Cap pool usage and add backpressure",
+        "owner": "Payments",
+        "recurrence_key": "checkout:database_pool_exhaustion",
+        "evidence": [
+          "Connections hit the configured pool ceiling and requests waited until timeout."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.23929198505356908
+    },
+    {
+      "id": "incident-012",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "stale_cache",
+        "severity": "SEV-2",
+        "remediation": "Version cache keys and add invalidation checks",
+        "owner": "Catalog",
+        "recurrence_key": "catalog:stale_cache",
+        "evidence": [
+          "A stale cache entry survived deployment and served the previous catalog version."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.20258297445252538
+    },
+    {
+      "id": "incident-013",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "queue_backlog",
+        "severity": "SEV-2",
+        "remediation": "Add queue autoscaling and age alarms",
+        "owner": "Messaging",
+        "recurrence_key": "notifications:queue_backlog",
+        "evidence": [
+          "Consumer throughput fell below ingress and queue age climbed for 18 minutes."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.207458040677011
+    },
+    {
+      "id": "incident-014",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "expired_certificate",
+        "severity": "SEV-1",
+        "remediation": "Automate certificate renewal and expiry alerts",
+        "owner": "Identity",
+        "recurrence_key": "identity:expired_certificate",
+        "evidence": [
+          "The upstream TLS certificate expired and the renewal job had not run."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.2102089929394424
+    },
+    {
+      "id": "incident-015",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "dependency_timeout",
+        "severity": "SEV-2",
+        "remediation": "Add bounded retries and dependency timeouts",
+        "owner": "Discovery",
+        "recurrence_key": "search:dependency_timeout",
+        "evidence": [
+          "The ranking dependency exceeded its timeout while retries amplified traffic."
+        ]
+      },
+      "score": {
+        "score": 1.0,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": true,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.23133395006880164
+    },
+    {
+      "id": "incident-016",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "rate_limit_misconfiguration",
+        "severity": "SEV-1",
+        "remediation": "Validate rate-limit policy before rollout",
+        "owner": "Platform",
+        "recurrence_key": "gateway:rate_limit_misconfiguration",
+        "evidence": [
+          "A rate limit policy misconfiguration rejected healthy gateway traffic."
+        ]
+      },
+      "score": {
+        "score": 0.8,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": false,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.2251669648103416
+    },
+    {
+      "id": "incident-017",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "duplicate_delivery",
+        "severity": "SEV-1",
+        "remediation": "Add idempotency keys to invoice delivery",
+        "owner": "Finance Systems",
+        "recurrence_key": "billing:duplicate_delivery",
+        "evidence": [
+          "At-least-once delivery produced duplicate invoices without idempotency keys."
+        ]
+      },
+      "score": {
+        "score": 0.8,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": false,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.22329197963699698
+    },
+    {
+      "id": "incident-018",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "schema_mismatch",
+        "severity": "SEV-2",
+        "remediation": "Add consumer-driven schema compatibility checks",
+        "owner": "Accounts",
+        "recurrence_key": "profile:schema_mismatch",
+        "evidence": [
+          "A schema mismatch caused the profile consumer to reject new events."
+        ]
+      },
+      "score": {
+        "score": 0.8,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": false,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.2287919633090496
+    },
+    {
+      "id": "incident-019",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "partition_skew",
+        "severity": "SEV-2",
+        "remediation": "Repartition hot keys and alert on skew",
+        "owner": "Data Platform",
+        "recurrence_key": "analytics:partition_skew",
+        "evidence": [
+          "A hot tenant caused partition skew and delayed the analytics pipeline."
+        ]
+      },
+      "score": {
+        "score": 0.8,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": false,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.23395800963044167
+    },
+    {
+      "id": "incident-020",
+      "partition": "repeat-pattern",
+      "output": {
+        "primary_cause": "lock_contention",
+        "severity": "SEV-2",
+        "remediation": "Reduce lock scope and cap transaction duration",
+        "owner": "Fulfillment",
+        "recurrence_key": "inventory:lock_contention",
+        "evidence": [
+          "Long transactions caused lock contention in the inventory reservation table."
+        ]
+      },
+      "score": {
+        "score": 0.8,
+        "matches": {
+          "primary_cause": true,
+          "severity": true,
+          "remediation": false,
+          "owner": true,
+          "recurrence_key": true
+        },
+        "missing": []
+      },
+      "latency_ms": 0.24066702462732792
+    }
+  ]
+}

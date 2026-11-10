@@ -5,6 +5,11 @@
 > Rule 5 audit, and persistent-world-model experiment. All Module 9 experiments
 > are reproducible locally with `python3 evals/run_module9.py` and make no API calls.
 
+> Module 10 evidence: [reports/dashboard.md](reports/dashboard.md),
+> [reports/READINESS_AUDIT.md](reports/READINESS_AUDIT.md), and the new-task
+> [incident-analysis capstone](capstone_incident/README.md). Reproduction uses
+> local frozen artifacts and incurs no new API cost.
+
 ## Current graded submission — Module 4: Planning
 
 The current submission is available directly from the repository root:

@@ -1,0 +1,12 @@
+{
+  "checkout": "Payments",
+  "catalog": "Catalog",
+  "notifications": "Messaging",
+  "identity": "Identity",
+  "search": "Discovery",
+  "gateway": "Platform",
+  "billing": "Finance Systems",
+  "profile": "Accounts",
+  "analytics": "Data Platform",
+  "inventory": "Fulfillment"
+}

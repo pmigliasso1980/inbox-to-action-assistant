@@ -1,0 +1,39 @@
+{
+  "monitors": [
+    {
+      "monitor": "claims_without_source",
+      "value": 0,
+      "threshold": "== 0",
+      "ok": true,
+      "response": "Block deployment; restore a supports/derived_from edge with a verbatim span."
+    },
+    {
+      "monitor": "duplicated_step_executions",
+      "value": 0,
+      "threshold": "== 0",
+      "ok": true,
+      "response": "Stop the run; inspect idempotency keys and resume from the last unique artifact."
+    },
+    {
+      "monitor": "orchestrator_token_slope",
+      "value": 0.16184971098265896,
+      "threshold": "<= 1 token/worker and non-increasing",
+      "ok": true,
+      "response": "Reject the change; replace forwarded transcripts with a bounded graph query."
+    },
+    {
+      "monitor": "confirmation_rejection_rate",
+      "value": 0.5200000000000001,
+      "threshold": "> 0 in injected suite",
+      "ok": true,
+      "response": "Disable write tools and restore result-confirmation checks."
+    },
+    {
+      "monitor": "artifacts_written_per_run",
+      "value": 3,
+      "threshold": ">= 3 for Module 9 orchestration",
+      "ok": true,
+      "response": "Treat telemetry as broken; block release until expected artifacts are present."
+    }
+  ]
+}
