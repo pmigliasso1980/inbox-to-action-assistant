@@ -1,6 +1,7 @@
 ADR-001-architecture.md
 ADR-002-graph-backend.md
 ADR-003-remove-default-planning.md
+AGENTS.md
 BASELINE_REPORT.md
 FAILURE_INJECTION_PREDICTIONS.md
 FAILURE_INJECTION_REPORT.md
@@ -112,6 +113,16 @@ evals/summarize_architecture.py
 evals/summarize_module4.py
 evals/summarize_module5.py
 examples/integration_strategy.py
+experiments/harness_ablation/DIAGNOSTIC_LOG.md
+experiments/harness_ablation/TASK.md
+experiments/harness_ablation/contexts/ablated.md
+experiments/harness_ablation/contexts/bare.md
+experiments/harness_ablation/contexts/harnessed.md
+experiments/harness_ablation/outputs/ablated.py
+experiments/harness_ablation/outputs/bare.py
+experiments/harness_ablation/outputs/harnessed.py
+experiments/harness_ablation/results.json
+experiments/harness_ablation/run_experiment.py
 final-project-pablo-migliasso/00-README-submission.md
 final-project-pablo-migliasso/01-Admin/client-brief.md
 final-project-pablo-migliasso/01-Admin/prediction.md
@@ -161,6 +172,7 @@ graph/knowledge.db
 graph/queries.py
 graph/seed.py
 graph/store.py
+graph/test_harness_experiment.py
 graph/test_module10.py
 graph/test_module9.py
 graph/test_store.py

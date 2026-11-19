@@ -1,0 +1,61 @@
+{
+  "task": "TASK.md",
+  "acceptance_checks": 8,
+  "new_api_cost_usd": 0.0,
+  "runs": [
+    {
+      "run": "bare",
+      "passed": 4,
+      "total": 8,
+      "pass_rate": 0.5,
+      "verification_ms": 0.012,
+      "failures": [
+        {
+          "check": "first_sev1_schedules",
+          "detail": "SEV-1 without recurrence must schedule"
+        },
+        {
+          "check": "rejects_bad_severity",
+          "detail": "unknown severity must fail closed"
+        },
+        {
+          "check": "rejects_empty_evidence",
+          "detail": "empty evidence must fail closed"
+        },
+        {
+          "check": "blank_recurrence_is_absent",
+          "detail": "whitespace is not a recurrence key"
+        }
+      ]
+    },
+    {
+      "run": "harnessed",
+      "passed": 8,
+      "total": 8,
+      "pass_rate": 1.0,
+      "verification_ms": 0.018,
+      "failures": []
+    },
+    {
+      "run": "ablated",
+      "passed": 5,
+      "total": 8,
+      "pass_rate": 0.625,
+      "verification_ms": 0.009,
+      "failures": [
+        {
+          "check": "rejects_bad_severity",
+          "detail": "unknown severity must fail closed"
+        },
+        {
+          "check": "rejects_empty_evidence",
+          "detail": "empty evidence must fail closed"
+        },
+        {
+          "check": "blank_recurrence_is_absent",
+          "detail": "whitespace is not a recurrence key"
+        }
+      ]
+    }
+  ]
+}

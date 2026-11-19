@@ -10,6 +10,10 @@
 > [incident-analysis capstone](capstone_incident/README.md). Reproduction uses
 > local frozen artifacts and incurs no new API cost.
 
+> Harness experiment: [experiments/harness_ablation/DIAGNOSTIC_LOG.md](experiments/harness_ablation/DIAGNOSTIC_LOG.md)
+> contains the bare, harnessed, and verification-ablated comparison. The root
+> [AGENTS.md](AGENTS.md) is the concise harness specification used by the full run.
+
 ## Current graded submission — Module 4: Planning
 
 The current submission is available directly from the repository root:
