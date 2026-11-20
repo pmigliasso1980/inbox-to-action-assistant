@@ -1,5 +1,38 @@
 # Inbox-to-Action Assistant
 
+## System-of-record entry point
+
+Start with [`docs/REPOSITORY_GUIDE.md`](docs/REPOSITORY_GUIDE.md). It identifies
+the current verified entry points, documentation authority order, accepted
+architecture decisions, and which sections below are historical course evidence.
+
+### Fresh Session Test improvement
+
+| Snapshot | Confident | Infer | Unknown | Knowledge visibility gap |
+|---|---:|---:|---:|---:|
+| Before (`2c3ce3f`) | 8/12 | 1/12 | 3/12 | 33.3% (10/15 decisions visible) |
+| After refactor | 12/12 | 0/12 | 0/12 | 0.0% (15/15 decisions visible) |
+
+The scorecard and question-level evidence are in
+[`docs/FRESH_SESSION_SCORECARD.md`](docs/FRESH_SESSION_SCORECARD.md). The gap is
+calculated as `1 - visible decisions / total decisions`; the complete decision
+list is in [`docs/KNOWLEDGE_VISIBILITY.md`](docs/KNOWLEDGE_VISIBILITY.md).
+
+The instruction sentence “every graph claim requires a source and nonblank
+verbatim span” is now enforced by
+[`graph/test_repository_contracts.py`](graph/test_repository_contracts.py).
+The test loads the committed graph and fails on a missing provenance edge or
+blank span, preventing a prose-only rule from silently drifting.
+
+Topic documentation now lives beside the relevant code:
+[`agents/README.md`](agents/README.md), [`graph/README.md`](graph/README.md), and
+[`reports/README.md`](reports/README.md). Reproduce the scorecards with:
+
+```bash
+python3 evals/fresh_session_test.py
+python3 -m pytest -q graph/test_repository_contracts.py
+```
+
 > Module 9 evidence: [MODULE_9_REPORT.md](MODULE_9_REPORT.md) documents the
 > graph-grounded evaluator, scoped multi-agent orchestration, context scaling,
 > Rule 5 audit, and persistent-world-model experiment. All Module 9 experiments
@@ -14,7 +47,7 @@
 > contains the bare, harnessed, and verification-ablated comparison. The root
 > [AGENTS.md](AGENTS.md) is the concise harness specification used by the full run.
 
-## Current graded submission — Module 4: Planning
+## Historical graded submission — Module 4: Planning
 
 The current submission is available directly from the repository root:
 

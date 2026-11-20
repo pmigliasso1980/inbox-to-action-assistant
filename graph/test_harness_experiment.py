@@ -16,5 +16,5 @@ def test_three_run_performance_shape():
 def test_agents_file_meets_requested_length_and_sections():
     text = (ROOT / "AGENTS.md").read_text()
     assert 80 <= len(text.splitlines()) <= 100
-    for heading in ("Project overview", "Stack", "Setup", "Focused verification", "Full verification"):
+    for heading in ("Overview", "Stack and setup", "Commands", "Hard constraints", "Topic documentation"):
         assert heading in text

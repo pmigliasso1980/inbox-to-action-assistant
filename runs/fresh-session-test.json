@@ -1,0 +1,22 @@
+{
+  "fresh_session": {
+    "before_commit": "2c3ce3f",
+    "questions": 12,
+    "before": {
+      "Infer": 1,
+      "Confident": 8,
+      "Unknown": 3
+    },
+    "after": {
+      "Confident": 12
+    },
+    "confident_gain": 4
+  },
+  "visibility": {
+    "total_decisions": 15,
+    "before_visible": 10,
+    "after_visible": 15,
+    "before_gap": 0.33333333333333337,
+    "after_gap": 0.0
+  }
+}

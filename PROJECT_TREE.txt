@@ -25,6 +25,7 @@ SETUP_BASELINE_NOTE.md
 TOKEN_BILL_LAB_NOTES.md
 TOOLS_REPORT.md
 WORKFLOW_PATTERNS_REPORT.md
+agents/README.md
 agents/__init__.py
 agents/claim_parser.py
 agents/extractor.py
@@ -79,14 +80,19 @@ capstone_incident/system.py
 client.py
 data/README.md
 docs/90_DAY_PLAN.md
+docs/DECISIONS.md
 docs/EVALUATION_STRATEGY.md
+docs/FRESH_SESSION_SCORECARD.md
+docs/KNOWLEDGE_VISIBILITY.md
 docs/MCP_ARCHITECTURE_AND_WIRE.md
 docs/MCP_CAPABILITY_MAP.md
 docs/MODULE_4_ONTOLOGY.md
+docs/REPOSITORY_GUIDE.md
 docs/WORKFLOW_AND_DEPLOYMENT.md
 evals/daily_cases.json
 evals/dataset.jsonl
 evals/devset.jsonl
+evals/fresh_session_test.py
 evals/graph_ground_truth.jsonl
 evals/panel_distinctness.json
 evals/planning_candidates.json
@@ -165,6 +171,7 @@ final-project-pablo-migliasso/09-Reflection/ai-use-disclosure.md
 final-project-pablo-migliasso/09-Reflection/decision-log.md
 final-project-pablo-migliasso/09-Reflection/prediction-check.md
 final-project-pablo-migliasso/scripts/build_visuals.py
+graph/README.md
 graph/__init__.py
 graph/audit.py
 graph/extraction_pipeline.py
@@ -175,6 +182,7 @@ graph/store.py
 graph/test_harness_experiment.py
 graph/test_module10.py
 graph/test_module9.py
+graph/test_repository_contracts.py
 graph/test_store.py
 mcp-capstone/DESIGN.md
 mcp-capstone/README.md
@@ -201,6 +209,7 @@ mcp-document-server/smoke.sh
 mcp-document-server/try_tools.py
 pyproject.toml
 reports/READINESS_AUDIT.md
+reports/README.md
 reports/cost_model.json
 reports/cost_model.md
 reports/cost_model.py
@@ -609,6 +618,7 @@ runs/fallbacks/implicit-timeout/item-010/result.json
 runs/fallbacks/implicit-timeout/item-010/trace.jsonl
 runs/fallbacks/implicit-timeout/summary.json
 runs/fallbacks/summary.json
+runs/fresh-session-test.json
 runs/gen-critic-neutral/item-001/iter-1.json
 runs/gen-critic-neutral/item-001/iter-2.json
 runs/gen-critic-neutral/item-001/iter-3.json
