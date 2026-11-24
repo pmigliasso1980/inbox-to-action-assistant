@@ -1,5 +1,14 @@
 # Inbox-to-Action Assistant
 
+## Initialization and context-reset lab
+
+The clean snapshot passed all 93 tests in a **3.11-second** scripted reset
+using an isolated environment prepared ahead of timing. See the method, checklist, task order, and
+environment diagnostics in [PROGRESS.md](PROGRESS.md).
+The other initialization outputs are [AGENTS.md](AGENTS.md),
+the [focused tests](graph/test_repository_contracts.py), and
+[project configuration](pyproject.toml).
+
 ## System-of-record entry point
 
 Start with [`docs/REPOSITORY_GUIDE.md`](docs/REPOSITORY_GUIDE.md). It identifies
