@@ -1,5 +1,10 @@
 # Inbox-to-Action Assistant
 
+The [boundary E2E lab](experiments/boundary_e2e/RESULTS.md) shows four passing
+component tests and a black-box evaluator catching an intentional minutes-to-seconds
+defect. See the [sprint contract](experiments/boundary_e2e/SPRINT_CONTRACT.md)
+and [A–D evaluator rubric](experiments/boundary_e2e/EVALUATOR_RUBRIC.md).
+
 The [WIP=1 lab](experiments/wip_vcr/COMPARISON.md) links the final feature list,
 comparison, timed verification evidence, and three-sentence reflection.
 
