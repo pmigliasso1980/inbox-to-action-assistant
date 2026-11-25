@@ -12,10 +12,14 @@ when its `verify` event records exit code 0 and state `passing`.
 Active but unfinished features count in the denominator. Pending features
 without an activation event are excluded.
 
-| Run | Activated features (denominator) | Verified features (numerator) | Exact ratio | VCR |
-|---|---|---|---:|---:|
-| Unconstrained | health, queue, version (3) | health (1) | 1/3 | 33.33% (rounded) |
-| WIP=1 | health, queue (2) | health, queue (2) | 2/2 | 100.00% |
+| Run | Verified count | Activated count | Exact verified-to-activated ratio | VCR calculation |
+|---|---:|---:|---:|---|
+| Unconstrained | 1 | 3 | 1:3 | (1 verified / 3 activated) × 100 = 33.333…% |
+| WIP=1 | 2 | 2 | 2:2 | (2 verified / 2 activated) × 100 = 100% |
+
+The baseline activated health, queue, and version at actions 1, 3, and 5.
+Its only successful verification was health at action 8. The treatment
+activated health and queue and verified each once, as shown below.
 
 | Run | Actions | Peak WIP | Response fixture lines | Elapsed |
 |---|---:|---:|---:|---:|
@@ -26,6 +30,26 @@ Each finish writes a JSON response fixture. A successful HTTP request and
 matching jq assertion are required for `passing`. The unconstrained run left
 queue and version active with placeholder responses. The treatment left
 version pending, with neither activation nor verification counted for it.
+
+## WIP=1 treatment event sequence
+
+These rows transcribe the recorded `wip_1.events` in [evidence.json](evidence.json).
+
+| Action # | Feature | Operation | Feature state after action | Active count after action | Verification evidence |
+|---:|---|---|---|---:|---|
+| 1 | health | activate | active | 1 | |
+| 2 | health | draft | active | 1 | |
+| 3 | health | finish | active | 1 | |
+| 4 | health | verify | passing | 0 | Exit code 0, jq output `true` |
+| 5 | queue | activate | active | 1 | |
+| 6 | queue | draft | active | 1 | |
+| 7 | queue | finish | active | 1 | |
+| 8 | queue | verify | passing | 0 | Exit code 0, jq output `true` |
+
+Health was the only active feature through action 3. Action 4 recorded
+its passing check and released the slot before queue was activated at
+action 5. Queue held the slot through action 7 and released it after the
+passing check at action 8. Version stayed pending throughout.
 
 Recalculate the counts directly from the committed event log:
 
