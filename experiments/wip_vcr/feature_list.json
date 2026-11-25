@@ -1,0 +1,20 @@
+[
+  {
+    "id": "health",
+    "behavior": "GET /health.json reports status ok.",
+    "verification": "set -o pipefail; curl --fail --silent --show-error --max-time 3 \"$BASE_URL/health.json\" | jq -e '.status == \"ok\"'",
+    "state": "passing"
+  },
+  {
+    "id": "queue",
+    "behavior": "GET /queue.json reports one pending item.",
+    "verification": "set -o pipefail; curl --fail --silent --show-error --max-time 3 \"$BASE_URL/queue.json\" | jq -e '.pending == 1'",
+    "state": "passing"
+  },
+  {
+    "id": "version",
+    "behavior": "GET /version.json reports API version v1.",
+    "verification": "set -o pipefail; curl --fail --silent --show-error --max-time 3 \"$BASE_URL/version.json\" | jq -e '.version == \"v1\"'",
+    "state": "pending"
+  }
+]

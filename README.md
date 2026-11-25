@@ -1,5 +1,8 @@
 # Inbox-to-Action Assistant
 
+The [WIP=1 lab](experiments/wip_vcr/COMPARISON.md) links the final feature list,
+comparison, timed verification evidence, and three-sentence reflection.
+
 ## Initialization and context-reset lab
 
 The clean snapshot passed all 93 tests in a **3.11-second** scripted reset

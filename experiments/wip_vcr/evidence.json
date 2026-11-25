@@ -1,0 +1,153 @@
+{
+  "unconstrained": {
+    "activated": 3,
+    "verified": 1,
+    "vcr": 0.3333333333333333,
+    "peak_wip": 3,
+    "artifact_lines": 3,
+    "states": {
+      "health": "passing",
+      "queue": "active",
+      "version": "active"
+    },
+    "events": [
+      {
+        "action": "activate",
+        "feature": "health",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 3582.62
+      },
+      {
+        "action": "draft",
+        "feature": "health",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 3583.32
+      },
+      {
+        "action": "activate",
+        "feature": "queue",
+        "state": "active",
+        "active": 2,
+        "elapsed_ms": 3583.34
+      },
+      {
+        "action": "draft",
+        "feature": "queue",
+        "state": "active",
+        "active": 2,
+        "elapsed_ms": 3583.91
+      },
+      {
+        "action": "activate",
+        "feature": "version",
+        "state": "active",
+        "active": 3,
+        "elapsed_ms": 3583.94
+      },
+      {
+        "action": "draft",
+        "feature": "version",
+        "state": "active",
+        "active": 3,
+        "elapsed_ms": 3584.3
+      },
+      {
+        "action": "finish",
+        "feature": "health",
+        "state": "active",
+        "active": 3,
+        "elapsed_ms": 3584.77
+      },
+      {
+        "action": "verify",
+        "feature": "health",
+        "exit_code": 0,
+        "output": "true",
+        "stderr": "",
+        "state": "passing",
+        "active": 2,
+        "elapsed_ms": 3626.69
+      }
+    ],
+    "elapsed_ms": 3627.13
+  },
+  "wip_1": {
+    "activated": 2,
+    "verified": 2,
+    "vcr": 1,
+    "peak_wip": 1,
+    "artifact_lines": 2,
+    "states": {
+      "health": "passing",
+      "queue": "passing",
+      "version": "pending"
+    },
+    "events": [
+      {
+        "action": "activate",
+        "feature": "health",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 9.02
+      },
+      {
+        "action": "draft",
+        "feature": "health",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 9.4
+      },
+      {
+        "action": "finish",
+        "feature": "health",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 9.57
+      },
+      {
+        "action": "verify",
+        "feature": "health",
+        "exit_code": 0,
+        "output": "true",
+        "stderr": "",
+        "state": "passing",
+        "active": 0,
+        "elapsed_ms": 28.29
+      },
+      {
+        "action": "activate",
+        "feature": "queue",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 28.32
+      },
+      {
+        "action": "draft",
+        "feature": "queue",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 28.57
+      },
+      {
+        "action": "finish",
+        "feature": "queue",
+        "state": "active",
+        "active": 1,
+        "elapsed_ms": 28.72
+      },
+      {
+        "action": "verify",
+        "feature": "queue",
+        "exit_code": 0,
+        "output": "true",
+        "stderr": "",
+        "state": "passing",
+        "active": 0,
+        "elapsed_ms": 46.84
+      }
+    ],
+    "elapsed_ms": 47.12
+  }
+}
