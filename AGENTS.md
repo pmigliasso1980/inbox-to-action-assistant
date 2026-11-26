@@ -82,8 +82,19 @@ The provenance constraint above is executable in
 - Incident capstone: [`capstone_incident/README.md`](capstone_incident/README.md)
 - Harness experiment: [`experiments/harness_ablation/DIAGNOSTIC_LOG.md`](experiments/harness_ablation/DIAGNOSTIC_LOG.md)
 
-## Completion standard
+## Completion standard — clean-state exit checklist
 
-Tests pass; generated evidence is refreshed when inputs change; documentation
-links resolve; claims identify method and scope; the handoff reports changed
-files, verification, cost, and remaining limitations.
+Record evidence for each condition in the session handoff or loop log:
+
+1. **Verification is current.** Record commands, exit codes, and unresolved
+   failures for the exact delivered revision or candidate.
+2. **Worktree is accounted for.** Inspect Git status and diffs, remove owned
+   scratch artifacts, and identify any pre-existing user changes.
+3. **Completed work is checkpointed.** Record the commit or candidate digest
+   and where it can be reviewed. Record push status when publication is in scope.
+4. **Progress is recoverable.** Record the goal, result, decisions, and blockers
+   in the lab evidence or relevant progress file.
+5. **Next action is clear.** Name the next step and owner, or explicitly record
+   that the task is complete. Surface any verification debt or pending review.
+
+Refresh stale evidence, check links, and record method, scope, cost, and limitations.

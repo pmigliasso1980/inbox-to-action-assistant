@@ -1,5 +1,8 @@
 # Inbox-to-Action Assistant
 
+The [clean-state loop lab](experiments/clean_loop/README.md) automates a lab-report
+link check with separate generator and evaluator processes.
+
 The [boundary E2E lab](experiments/boundary_e2e/RESULTS.md) shows four passing
 component tests and a black-box evaluator catching an intentional minutes-to-seconds
 defect. See the [sprint contract](experiments/boundary_e2e/SPRINT_CONTRACT.md)
