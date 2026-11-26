@@ -1,0 +1,47 @@
+{
+  "source_revision": "1f450e20382a6e907e4ce5997ae42832d9803787",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate": "",
+      "candidate_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "generator_exit": 0,
+      "evaluator_exit": 1,
+      "verdict": {
+        "passed": false,
+        "missing": [
+          "experiments/boundary_e2e/RESULTS.md",
+          "experiments/wip_vcr/COMPARISON.md"
+        ],
+        "unexpected": [],
+        "broken": [],
+        "malformed": 0,
+        "duplicates": 0,
+        "checked": 0
+      }
+    },
+    {
+      "attempt": 2,
+      "candidate": "- [boundary_e2e](experiments/boundary_e2e/RESULTS.md)\n- [wip_vcr](experiments/wip_vcr/COMPARISON.md)\n",
+      "candidate_sha256": "843f16c20874baf5ea77a37c93c9c1af16108562a3b9692d600d92c0c77b8355",
+      "generator_exit": 0,
+      "evaluator_exit": 0,
+      "verdict": {
+        "passed": true,
+        "missing": [],
+        "unexpected": [],
+        "broken": [],
+        "malformed": 0,
+        "duplicates": 0,
+        "checked": 2
+      }
+    }
+  ],
+  "accepted": true,
+  "temporary_snapshot_removed": true,
+  "porcelain_before": "",
+  "porcelain_after": "",
+  "workspace_status_unchanged": true,
+  "next_action": "Human reviews candidate before any README change",
+  "paid_model_calls": 0
+}
