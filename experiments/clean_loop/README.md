@@ -1,7 +1,6 @@
 # Clean-state loop lab
 
-Run from the repository root with Git and Python 3.11 with tar extraction
-filters available:
+Run from the repository root with Git and Python 3.11 or later:
 
 ```bash
 python3 experiments/clean_loop/run.py

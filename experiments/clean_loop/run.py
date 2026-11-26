@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 import subprocess
 import sys
-import tarfile
 from tempfile import TemporaryDirectory
+from zipfile import ZipFile
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -33,8 +33,8 @@ def main() -> int:
     with TemporaryDirectory(prefix="lab-index-") as directory:
         snapshot = Path(directory)
         paths = ["experiments/boundary_e2e", "experiments/wip_vcr"]
-        with tarfile.open(fileobj=io.BytesIO(git("archive", revision, *paths))) as archive:
-            archive.extractall(snapshot, filter="data")
+        with ZipFile(io.BytesIO(git("archive", "--format=zip", revision, *paths))) as archive:
+            archive.extractall(snapshot)
         for attempt in range(1, MAX_ATTEMPTS + 1):
             proposal = invoke("generator", snapshot, str(attempt))
             proposal.check_returncode()
